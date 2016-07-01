@@ -1,0 +1,24 @@
+@import '~app/assets/stylus'
+
+
+.list
+  .horizontal &
+    display: flex
+    flex-direction: row
+    justify-content: flex-end
+    height: 100%
+
+.vertical
+  &:not(:last-child)
+    margin-bottom: var(--gutter)
+
+.item
+  .horizontal &
+    display: block
+    margin: auto 0  auto var(--gutter)
+
+  .vertical &
+    display: list-item
+
+    &:not(:last-child)
+      margin-bottom: var(--gutter)

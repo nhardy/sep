@@ -1,0 +1,14 @@
+@import '~app/assets/stylus'
+
+
+.root
+  display: flex
+  min-height: 100vh
+  flex-direction: column
+
+.main
+  composes: column from 'app/assets/stylus/common.styl'
+  background: $backgroundColor
+  flex: 1
+  padding-top: var(--padding)
+  padding-bottom: var(--padding)

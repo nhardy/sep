@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+
+import DefaultLayout from 'app/layouts/Default';
 
 import styles from './styles.styl';
 
@@ -8,10 +9,11 @@ import styles from './styles.styl';
 export default class HomeView extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div className={styles.root}>
+      <DefaultLayout className={styles.root}>
         <Helmet title="Home | Example Application" />
         <h1>Test</h1>
-      </div>
+        <p>This is an example paragraph</p>
+      </DefaultLayout>
     );
   }
 }

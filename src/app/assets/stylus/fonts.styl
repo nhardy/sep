@@ -1,0 +1,16 @@
+font($name, $weight, $italic = false)
+  $fontPath = 'app/assets/fonts/' + $name + '/' + $weight
+  if $italic
+    $fontPath += '-italic'
+
+  @font-face
+    src: url($fontPath + '.woff2') format('woff2'),
+      url($fontPath + '.woff') format('woff')
+    font-family: $name
+    font-weight: $weight
+    if $italic
+      font-style: italic
+
+for $weight in 200 300 400 600 700 900
+  font('SourceSansPro', $weight)
+  font('SourceSansPro', $weight, true)

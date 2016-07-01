@@ -1,0 +1,63 @@
+@import '~app/assets/stylus'
+
+
+.root
+  background: $backgroundColor
+  border-bottom 4px solid $themeColor
+
+.column
+  composes: column from 'app/assets/stylus/common.styl'
+
+.navBar
+  display: flex
+  flex-direction: row
+  padding-top: var(--padding)
+  padding-bottom: var(--padding)
+  font-size: 20px
+
+.nav
+  flex: 1
+
+.aside
+  position: fixed
+  top: 0
+  left: 0
+  width: 250px
+  height: 100%
+  background: $themeColor
+  color: $backgroundColor
+  display: flex
+  flex-direction: column
+
+.scrollable
+  flex: 1
+
+.scrollableInner
+  padding: 8px
+
+.toggle
+  display: block
+  text-align: right
+
+.checkbox
+.checkbox:not(:checked) + .aside
+  display: none
+
+.heading
+.tagline
+  display: block
+
+.sticky
+  background: rbga($backgroundColor, 0.85)
+  color: $textColor
+  transition: background 250ms ease-in-out, color 250ms ease-in-out
+
+.isSticky
+  background: rgba($themeColor, 0.85)
+  color: $backgroundColor
+
+.siteName
+  color: $backgroundColor
+  display: inline-block
+  margin-left: var(--gutter)
+  font-size: 28px

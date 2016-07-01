@@ -24,8 +24,8 @@ const getAssetsByChunk = (webpackData, publicPath) => {
 };
 
 export default class WriteManifestPlugin {
-  constructor(config) {
-    this.config = config;
+  constructor({ client }) {
+    this.config = { client };
   }
 
   apply(compiler) {
@@ -49,7 +49,7 @@ export default class WriteManifestPlugin {
   }
 
   writeWebpackCache(webpackData) {
-    const filepath = path.join(ROOT, `dist/webpack-dump-${this.config.type}.json`);
+    const filepath = path.join(ROOT, `dist/webpack-dump-${this.config.client ? 'client' : 'server'}.json`);
     const folder = filepath.split('/').slice(0, -1).join('/');
 
     mkdirp.sync(folder);
@@ -61,7 +61,7 @@ export default class WriteManifestPlugin {
 
     this.writeWebpackCache(webpackData);
 
-    if (this.config.type === 'client') {
+    if (this.config.client) {
       this.writeFilesManifest(webpackData);
     }
 

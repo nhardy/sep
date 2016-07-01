@@ -1,0 +1,14 @@
+{
+  "$_white": "#ffffff",
+  "$_black": "#000000",
+
+  "$_closeWhite": "#eeeeee",
+  "$_charcoal": "#333333",
+  "$_tardisBlue": "#003a69",
+  "$_badassGreen": "#bada55",
+
+  "$backgroundColor": "$_closeWhite",
+  "$textColor": "$_charcoal",
+  "$themeColor": "$_tardisBlue",
+  "$highlightColor": "$_badassGreen"
+}

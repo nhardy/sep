@@ -9,82 +9,66 @@ import webpackFactory from './factory';
 
 
 gulp.task('webpack-prod', (done) => {
-  webpack(
-    [
-      webpackFactory(
-        require('./config/prod.server').default,
-        require('../../config').default
-      ),
-      webpackFactory(
-        require('./config/prod.client').default,
-        require('../../config').default
-      ),
-    ],
-    (error, stats) => {
-      if (error) throw new gutil.PluginError('webpack-prod', error);
+  webpack([
+    webpackFactory({ production: true, client: false }),
+    webpackFactory({ production: true, client: true }),
+  ], (error, stats) => {
+    if (error) throw new gutil.PluginError('webpack-prod', error);
 
-      gutil.log('[webpack-prod]', stats.toString({
-        colors: true,
-        chunkModules: false,
-      }));
+    gutil.log('[webpack-prod]', stats.toString({
+      colors: true,
+      chunkModules: false,
+    }));
 
-      done();
-    });
+    done();
+  });
 });
 
 gulp.task('webpack-client-dev', (done) => {
-  const webpackConfig = webpackFactory(
-    require('./config/dev.client').default,
-    require('../../config').default
-  );
+  const webpackConfig = webpackFactory({ production: false, client: true });
 
-  let loadedOnce = false;
+  let alreadyRunning = false;
 
   webpackConfig.writeStatsPluginCallback = () => {
-    if (!loadedOnce) {
-      loadedOnce = true;
+    if (!alreadyRunning) {
+      alreadyRunning = true;
       done();
     }
   };
 
-  const server = new WebpackDevServer(
-    webpack(webpackConfig),
-    {
-      contentBase: '/',
-      hot: true,
-      historyApiFallback: true,
-      proxy: {
-        '*': `http://localhost:${config.port + 1}/`,
-      },
-      staticOptions: {},
-      quiet: false,
-      noInfo: false,
-      lazy: false,
-      watchOptions: {
-        aggregateTimeout: 300,
-        poll: true,
-      },
-      publicPath: '/dist/',
-      stats: {
-        colors: true,
-        chunkModules: false,
-      },
-    });
+  const server = new WebpackDevServer(webpack(webpackConfig), {
+    contentBase: '/',
+    hot: true,
+    historyApiFallback: true,
+    proxy: {
+      '*': `http://localhost:${config.port + 1}/`,
+    },
+    staticOptions: {},
+    quiet: false,
+    noInfo: false,
+    lazy: false,
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: true,
+    },
+    publicPath: '/dist/',
+    stats: {
+      colors: true,
+      chunkModules: false,
+    },
+  });
 
-  server.listen(config.port, 'localhost', error => {
+  server.listen(config.port, '0.0.0.0', error => {
     if (error) throw new gutil.PluginError('webpack-dev-server', error);
     gutil.log('[webpack-dev-server]', 'Webpack Dev Server is now up');
   });
 });
 
 gulp.task('webpack-server-dev', (done) => {
-  let loadedOnce = false;
+  let alreadyRunning = false;
 
   const compiler = webpack(
-    webpackFactory(
-      require('./config/dev.server').default,
-      require('../../config').default
-    )
+    webpackFactory({ production: false, client: false })
   );
 
   compiler.watch({
@@ -100,9 +84,9 @@ gulp.task('webpack-server-dev', (done) => {
 
     nodemon.restart();
 
-    if (!loadedOnce) {
+    if (!alreadyRunning) {
+      alreadyRunning = true;
       done();
-      loadedOnce = true;
     }
   });
 });

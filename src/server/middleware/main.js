@@ -12,7 +12,7 @@ import Html from 'app/components/Html';
 
 export default function mainMiddleware(req, res) {
   const history = createMemoryHistory(req.url);
-  const store = createStore(history);
+  const store = createStore();
 
   match({ history, routes: getRoutes(store), location: req.url }, (error, redirectLocation, renderProps) => {
     if (redirectLocation) {

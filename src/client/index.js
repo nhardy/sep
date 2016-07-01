@@ -10,7 +10,7 @@ import getRoutes from 'app/routes';
 
 
 const mountPoint = document.getElementById('root');
-const store = createStore(getRoutes, browserHistory, window.__data);
+const store = createStore(window.__data);
 
 const component = (
   <Router

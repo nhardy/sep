@@ -1,0 +1,24 @@
+@import './mixins/mediaQueries.styl'
+json('./breakpoints.json')
+json('colors.json')
+
+
+:root
+  --margin: 8px
+  --gutter: 8px
+  --padding: 8px
+
+  +from($sml)
+    --margin: 16px
+
+  +from($med)
+    --margin: 24px
+    --gutter: 16px
+
+  +from($lge)
+    --margin: 40px
+    --gutter: 24px
+    --padding: 16px
+
+  +from($xlg)
+    --margin: 48px

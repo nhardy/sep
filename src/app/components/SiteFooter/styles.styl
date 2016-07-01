@@ -1,0 +1,34 @@
+@import '~app/assets/stylus'
+
+
+.root
+  padding: var(--padding) 0
+  background: $themeColor
+  color: $backgroundColor
+
+.column
+  composes: column from 'app/assets/stylus/common.styl'
+
+.wrapper
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+
+.info
+  flex: 0 0 100%
+
+  +from($med)
+    flex-basis: calc((100% - 2 * var(--gutter)) / 3)
+    margin-right: var(--gutter)
+
+    &:nth-child(3n)
+      margin-right: 0
+
+  +from($lge)
+    flex-basis: calc((100% - 3 * var(--gutter)) / 4)
+
+    &:nth-child(n)
+      margin-right: var(--gutter)
+
+    &:nth-child(4n)
+      margin-right: 0

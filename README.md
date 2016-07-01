@@ -1,6 +1,6 @@
 # Scaffold
 
-An example scaffold
+A universal JavaScript scaffold project
 
 ## Development
 
