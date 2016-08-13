@@ -3,6 +3,7 @@ import path from 'path';
 import { identity } from 'lodash';
 import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import combineLoaders from 'webpack-combine-loaders';
 import nodeExternals from 'webpack-node-externals';
 
 // @see https://github.com/benmosher/eslint-plugin-import/issues/488
@@ -25,22 +26,53 @@ const hashType = (production) => {
 };
 
 const stylusLoader = ({ production, client }) => {
-  const cssLoaderQuery = `importLoaders=2&modules&localIdentName=[path][name]--[local]--[${hashType(production)}:base64:5]`;
+  const query = {
+    importLoaders: 2,
+    modules: true,
+    localIdentName: `[path][name]--[local]--[${hashType(production)}:base64:5]`,
+  };
   if (client) {
     return production
-      ? ExtractTextPlugin.extract(
-        `css?${cssLoaderQuery}!postcss!stylus`
-      ) : `style?singleton!css?${cssLoaderQuery}!postcss!stylus`;
+      ? ExtractTextPlugin.extract({
+        loader: [
+          {
+            loader: 'css',
+            query,
+          },
+          {
+            loader: 'postcss',
+          },
+          {
+            loader: 'stylus',
+          },
+        ],
+      }) : combineLoaders([
+        { loader: 'style', query: { singleton: true } },
+        { loader: 'css', query },
+        { loader: 'postcss' },
+        { loader: 'stylus' },
+      ]);
   }
-  return `css/locals?${cssLoaderQuery}!postcss!stylus`;
+  return combineLoaders([
+    {
+      loader: 'css/locals',
+      query,
+    },
+    {
+      loader: 'postcss',
+    },
+    {
+      loader: 'stylus',
+    },
+  ]);
 };
 
 const cssLoader = ({ production, client }) => {
   if (client) {
     return production
-      ? ExtractTextPlugin.extract(
-        'css'
-      ) : 'style?singleton!css';
+      ? ExtractTextPlugin.extract({
+        loader: 'css',
+      }) : combineLoaders([{ loader: 'style', query: { singleton: true } }, { loader: 'css' }]);
   }
   return 'css/locals';
 };
@@ -109,7 +141,11 @@ export default function webpackFactory({ production = false, client = false }) {
         },
         {
           test: /\.(?:jpe?g|png|svg|woff2?|eot|ttf)(?:\?.*$|$)/,
-          loader: 'url?limit=5120&name=[name]-[hash:6].[ext]',
+          loader: 'url',
+          query: {
+            limit: 5120,
+            name: '[name]-[hash:6].[ext]',
+          },
         },
       ],
     },
@@ -128,10 +164,12 @@ export default function webpackFactory({ production = false, client = false }) {
       }),
       new NoErrorsPlugin(),
       !production && new HotModuleReplacementPlugin(),
-      client && production && new ExtractTextPlugin('[name]-[contenthash:6].css', {
+      client && production && new ExtractTextPlugin({
+        filename: '[name]-[contenthash:6].css',
         allChunks: true,
       }),
-      !client && !production && new BannerPlugin('require("source-map-support").install();', {
+      !client && !production && new BannerPlugin({
+        banner: 'require("source-map-support").install();',
         raw: true,
         entryOnly: false,
       }),
@@ -146,11 +184,8 @@ export default function webpackFactory({ production = false, client = false }) {
     ].filter(identity),
 
     resolve: {
-      alias: {
-        root: path.resolve(__dirname, '..', '..', 'src'),
-      },
       extensions: ['', '.json', '.js', '.styl'],
-      modulesDirectories: [
+      modules: [
         'src',
         'node_modules',
       ],
