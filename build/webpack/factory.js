@@ -1,7 +1,12 @@
 import path from 'path';
+
 import { identity } from 'lodash';
 import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import nodeExternals from 'webpack-node-externals';
+
+// @see https://github.com/benmosher/eslint-plugin-import/issues/488
+/* eslint-disable */
 import {
   BannerPlugin,
   DefinePlugin,
@@ -10,7 +15,8 @@ import {
   optimize,
   ProvidePlugin,
 } from 'webpack';
-import nodeExternals from 'webpack-node-externals';
+/* eslint-enable */
+
 import WriteManifestPlugin from './plugins/WriteManifestPlugin';
 
 

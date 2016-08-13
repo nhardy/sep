@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { Sticky } from 'react-sticky';
 import cx from 'classnames';
+
+import * as appPropTypes from 'app/components/propTypes';
+import FontAwesome from 'app/components/FontAwesome';
 import Scrollable from 'app/components/Scrollable';
 
-import FontAwesome from 'app/components/FontAwesome';
 import Nav from './Nav';
-import * as appPropTypes from 'app/components/propTypes';
-
 import styles from './styles.styl';
 
 

@@ -2,6 +2,7 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
 import fetchMiddleware from 'app/middleware/fetch';
+
 import reducer from '../reducers';
 
 
@@ -17,7 +18,7 @@ export default function create(initialState) {
     if (module.hot) { // `module.hot` is injected by Webpack
       // Enable hot module reducer replacement
       module.hot.accept('../reducers', () => {
-        store.replaceReducer(require('../reducers').default);
+        store.replaceReducer(require('../reducers').default); // eslint-disable-line global-require
       });
     }
   }

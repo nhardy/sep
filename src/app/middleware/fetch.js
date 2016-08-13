@@ -15,15 +15,19 @@ export default function fetchMiddleware() {
     return fetch(`${url}`, requestOptions)
       .then(checkStatus)
       .then((raw) => raw.json())
-      .then((response) => next({
-        ...rest,
-        response,
-        type: SUCCESS,
-      }), (error) => next({
-        ...rest,
-        error,
-        type: FAILURE,
-      })).catch((error) => {
+      .then(
+        (response) => next({
+          ...rest,
+          response,
+          type: SUCCESS,
+        }),
+        (error) => next({
+          ...rest,
+          error,
+          type: FAILURE,
+        })
+      )
+      .catch((error) => {
         console.error('ERROR IN MIDDLEWARE:', error.stack || error); // eslint-disable-line no-console
         next({
           ...rest,

@@ -1,8 +1,10 @@
 import gulp from 'gulp';
 import gutil from 'gulp-util';
 import nodemon from 'nodemon';
-import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
+
+// @see https://github.com/benmosher/eslint-plugin-import/issues/488
+import webpack from 'webpack'; // eslint-disable-line
 
 import config from '../../config';
 import webpackFactory from './factory';

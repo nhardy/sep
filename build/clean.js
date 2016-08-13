@@ -1,6 +1,7 @@
+import path from 'path';
+
 import del from 'del';
 import gulp from 'gulp';
-import path from 'path';
 
 
 gulp.task('clean', (done) => {
