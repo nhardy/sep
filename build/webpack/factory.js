@@ -34,7 +34,7 @@ const stylusLoader = ({ production, client }) => {
   if (client) {
     return production
       ? ExtractTextPlugin.extract({
-        loader: [
+        loader: combineLoaders([
           {
             loader: 'css',
             query,
@@ -45,7 +45,7 @@ const stylusLoader = ({ production, client }) => {
           {
             loader: 'stylus',
           },
-        ],
+        ]),
       }) : combineLoaders([
         { loader: 'style', query: { singleton: true } },
         { loader: 'css', query },
@@ -174,8 +174,8 @@ export default function webpackFactory({ production = false, client = false }) {
         entryOnly: false,
       }),
       production && new optimize.DedupePlugin(),
-      production && new optimize.OccurenceOrderPlugin(),
-      production && new optimize.UglifyJsPlugin({
+      production && new optimize.OccurrenceOrderPlugin(),
+      client && production && new optimize.UglifyJsPlugin({
         compressor: {
           warnings: false,
         },
