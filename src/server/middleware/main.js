@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { createMemoryHistory, match } from 'react-router';
-import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect';
+import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
 import { Provider } from 'react-redux';
 
 import assetManifest from 'server/lib/assetManifest';
@@ -24,7 +24,7 @@ export default function mainMiddleware(req, res) {
       res.send('Server Error');
       // TODO: Render using the React app
     } else if (renderProps) {
-      loadOnServer(renderProps, store).then(() => {
+      loadOnServer({ ...renderProps, store }).then(() => {
         const component = (
           <Provider store={store} key="provider">
             <ReduxAsyncConnect {...renderProps} />

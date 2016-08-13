@@ -80,7 +80,7 @@
     "react-router-redux": "^4.0.2",
     "react-sticky": "^5.0.3",
     "redux": "^3.3.1",
-    "redux-async-connect": "^1.0.0-rc4",
+    "redux-connect": "^2.4.0",
     "redux-thunk": "^2.0.1",
     "source-map-support": "^0.4.0"
   }
