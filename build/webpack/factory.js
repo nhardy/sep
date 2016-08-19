@@ -125,7 +125,31 @@ export default function webpackFactory({ production = false, client = false }) {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          loaders: [!production && 'react-hot', 'babel'].filter(identity),
+          loaders: [
+            !production && {
+              loader: 'react-hot-loader',
+            },
+            {
+              loader: 'babel-loader',
+              query: {
+                presets: [
+                  'modern/webpack2',
+                  'stage-0',
+                  'react',
+                ],
+                plugins: [
+                  [
+                    'transform-async-to-module-method',
+                    {
+                      module: 'bluebird',
+                      method: 'coroutine',
+                    },
+                  ],
+                  'transform-decorators-legacy',
+                ],
+              },
+            },
+          ].filter(identity),
         },
         {
           test: /\.json$/,

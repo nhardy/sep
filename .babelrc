@@ -1,14 +1,17 @@
 {
   "presets": [
-    "es2015-native-modules",
+    "es2015-node",
     "react",
     "stage-0"
   ],
   "plugins": [
-    ["transform-async-to-module-method", {
-      "module": "bluebird",
-      "method": "coroutine"
-    }],
+    [
+      "transform-async-to-module-method",
+      {
+        "module": "bluebird",
+        "method": "coroutine"
+      }
+    ],
     "transform-decorators-legacy"
   ]
 }
