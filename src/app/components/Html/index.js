@@ -10,7 +10,7 @@ const Html = ({ assets, component, store }) => {
   return (
     <html>
       <head>
-        <meta httpEquiv="Content-Type" value="text/html; charset='utf-8'" />
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {head.base.toComponent()}
         {head.title.toComponent()}

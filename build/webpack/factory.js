@@ -133,7 +133,8 @@ export default function webpackFactory({ production = false, client = false }) {
               loader: 'babel-loader',
               query: {
                 presets: [
-                  'modern/webpack2',
+                  // UglifyJS cannot currently work with the level of ES6 webpack2 can
+                  production ? ['es2015', { modules: false }] : 'modern/webpack2',
                   'stage-0',
                   'react',
                 ],
