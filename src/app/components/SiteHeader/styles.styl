@@ -24,24 +24,23 @@
   left: 0
   width: 250px
   height: 100%
+  padding: 8px
   background: $themeColor
   color: $backgroundColor
   display: flex
   flex-direction: column
-
-.scrollable
-  flex: 1
-
-.scrollableInner
-  padding: 8px
+  transform: translateX(0%)
+  transition: transform 250ms ease-in-out
 
 .toggle
   display: block
   text-align: right
 
 .checkbox
-.checkbox:not(:checked) + .aside
   display: none
+
+.checkbox:not(:checked) + .aside
+  transform: translateX(-100%)
 
 .heading
 .tagline

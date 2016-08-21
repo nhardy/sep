@@ -38,7 +38,10 @@ const Html = ({ assets, component, store }) => {
 
 Html.propTypes = {
   assets: PropTypes.shape({
-
+    bundle: PropTypes.shape({
+      css: PropTypes.arrayOf(PropTypes.string),
+      js: PropTypes.arrayOf(PropTypes.string),
+    }),
   }),
   component: PropTypes.node,
   store: PropTypes.object,
