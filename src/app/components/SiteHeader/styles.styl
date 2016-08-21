@@ -18,6 +18,9 @@
 .nav
   flex: 1
 
+  +upTo($med)
+    display: none
+
 .aside
   position: fixed
   top: 0
@@ -32,7 +35,7 @@
   transform: translateX(0%)
   transition: transform 250ms ease-in-out
 
-.toggle
+.close
   display: block
   text-align: right
 
@@ -41,6 +44,14 @@
 
 .checkbox:not(:checked) + .aside
   transform: translateX(-100%)
+
+.hamburger
+  margin-right: var(--gutter)
+
++from($med)
+  .aside
+  .hamburger
+    display: none
 
 .heading
 .tagline
@@ -56,7 +67,13 @@
   color: $backgroundColor
 
 .siteName
-  color: $backgroundColor
+  & .isSticky
+    color: $backgroundColor
+
   display: inline-block
-  margin-left: var(--gutter)
   font-size: 28px
+
+  +upTo($med)
+    position: absolute
+    left: 50%
+    transform: translateX(-50%)

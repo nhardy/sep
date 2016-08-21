@@ -1,3 +1,7 @@
 from($breakpoint)
   @media (min-width: $breakpoint)
     {block}
+
+upTo($breakpoint)
+  @media (max-width: ($breakpoint - 1px))
+    {block}
