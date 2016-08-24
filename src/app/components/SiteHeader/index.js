@@ -10,19 +10,19 @@ import Nav from './Nav';
 import styles from './styles.styl';
 
 
+const dismissEvents = ['click', 'touchstart'];
+
 export default class SiteHeader extends Component {
   static contextTypes = {
     location: appPropTypes.location,
   };
 
-  static dismissEvents = ['click', 'touchstart'];
-
   componentDidMount() {
-    this.dismissEvents.forEach((type) => window.addEventListener(type, this.handleDismiss));
+    dismissEvents.forEach((type) => window.addEventListener(type, this.handleDismiss));
   }
 
   componentWillUnmount() {
-    this.dissmissEvents.forEach((type) => window.removeEventListener(type, this.handleDismiss));
+    dismissEvents.forEach((type) => window.removeEventListener(type, this.handleDismiss));
   }
 
   handleDismiss = (e) => {
