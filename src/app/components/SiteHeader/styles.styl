@@ -11,9 +11,26 @@
 .navBar
   display: flex
   flex-direction: row
-  padding-top: var(--padding)
-  padding-bottom: var(--padding)
   font-size: 20px
+
+  padding-top: $minPadding
+  padding-bottom: $minPadding
+
+  +from($sml)
+    padding-top: $smlPadding
+    padding-bottom: $smlPadding
+
+  +from($med)
+    padding-top: $medPadding
+    padding-bottom: $medPadding
+
+  +from($lge)
+    padding-top: $lgePadding
+    padding-bottom: $lgePadding
+
+  +from($xlg)
+    padding-top: $xlgPadding
+    padding-bottom: $xlgPadding
 
 .nav
   flex: 1
@@ -46,7 +63,19 @@
   transform: translateX(-100%)
 
 .hamburger
-  margin-right: var(--gutter)
+  margin-right: $minGutter
+
+  +from($sml)
+    margin-right: $smlGutter
+
+  +from($med)
+    margin-right: $medGutter
+
+  +from($lge)
+    margin-right: $lgeGutter
+
+  +from($xlg)
+    margin-right: $xlgGutter
 
 +from($med)
   .aside

@@ -3,22 +3,42 @@ json('./breakpoints.json')
 json('colors.json')
 
 
-:root
-  --margin: 8px
-  --gutter: 8px
-  --padding: 8px
+$minMargin = 8px
+$minGutter = 8px
+$minPadding = 8px
 
-  +from($sml)
-    --margin: 16px
+$smlMargin = 16px
+$smlGutter = $minGutter
+$smlPadding = $minPadding
 
-  +from($med)
-    --margin: 24px
-    --gutter: 16px
+$medMargin = 24px
+$medGutter = 16px
+$medPadding = $smlPadding
 
-  +from($lge)
-    --margin: 40px
-    --gutter: 24px
-    --padding: 16px
+$lgeMargin = 40px
+$lgeGutter = 24px
+$lgePadding = 16px
 
-  +from($xlg)
-    --margin: 48px
+$xlgMargin = 48px
+$xlgGutter = $lgeGutter
+$xlgPadding = $lgePadding
+
+// :root
+//   --margin: 8px
+//   --gutter: 8px
+//   --padding: 8px
+
+//   +from($sml)
+//     --margin: 16px
+
+//   +from($med)
+//     --margin: 24px
+//     --gutter: 16px
+
+//   +from($lge)
+//     --margin: 40px
+//     --gutter: 24px
+//     --padding: 16px
+
+//   +from($xlg)
+//     --margin: 48px

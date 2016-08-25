@@ -10,5 +10,22 @@
   composes: column from 'app/assets/stylus/common.styl'
   background: $backgroundColor
   flex: 1
-  padding-top: var(--padding)
-  padding-bottom: var(--padding)
+
+  padding-top: $minPadding
+  padding-bottom: $minPadding
+
+  +from($sml)
+    padding-top: $smlPadding
+    padding-bottom: $smlPadding
+
+  +from($med)
+    padding-top: $medPadding
+    padding-bottom: $medPadding
+
+  +from($lge)
+    padding-top: $lgePadding
+    padding-bottom: $lgePadding
+
+  +from($xlg)
+    padding-top: $xlgPadding
+    padding-bottom: $xlgPadding

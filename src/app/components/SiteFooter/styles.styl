@@ -2,9 +2,22 @@
 
 
 .root
-  padding: var(--padding) 0
   background: $themeColor
   color: $backgroundColor
+
+  padding: $minPadding 0
+
+  +from($sml)
+    padding: $smlPadding 0
+
+  +from($med)
+    padding: $medPadding 0
+
+  +from($lge)
+    padding: $lgePadding 0
+
+  +from($xlg)
+    padding: $xlgPadding 0
 
 .column
   composes: column from 'app/assets/stylus/common.styl'
@@ -18,17 +31,25 @@
   flex: 0 0 100%
 
   +from($med)
-    flex-basis: calc((100% - 2 * var(--gutter)) / 3)
-    margin-right: var(--gutter)
+    flex-basis: calc((100% - 2 * $medGutter) / 3)
+    margin-right: $medGutter
 
     &:nth-child(3n)
       margin-right: 0
 
   +from($lge)
-    flex-basis: calc((100% - 3 * var(--gutter)) / 4)
+    flex-basis: calc((100% - 3 * $lgeGutter) / 4)
+    margin-right: $lgeGutter
 
     &:nth-child(n)
-      margin-right: var(--gutter)
+      margin-right: $lgeGutter
 
     &:nth-child(4n)
       margin-right: 0
+
+  +from($xlg)
+    flex-basis: calc((100% - 3 * $xlgGutter) / 4)
+    margin-right: $xlgGutter
+
+    &:nth-child(n)
+      margin-right: $xlgGutter

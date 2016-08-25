@@ -10,15 +10,52 @@
 
 .vertical
   &:not(:last-child)
-    margin-bottom: var(--gutter)
+    margin-bottom: $minGutter
+
+    +from($sml)
+      margin-bottom: $smlGutter
+
+    +from($med)
+      margin-bottom: $medGutter
+
+    +from($lge)
+      margin-bottom: $lgeGutter
+
+    +from($xlg)
+      margin-bottom: $xlgGutter
 
 .item
   .horizontal &
     display: block
-    margin: auto 0  auto var(--gutter)
+
+    margin: auto 0 auto $minGutter
+
+    +from($sml)
+      margin-left: $smlGutter
+
+    +from($med)
+      margin-left: $medGutter
+
+    +from($lge)
+      margin-left: $lgeGutter
+
+    +from($xlg)
+      margin-left: $xlgGutter
 
   .vertical &
     display: list-item
 
     &:not(:last-child)
-      margin-bottom: var(--gutter)
+      margin-bottom: $minGutter
+
+      +from($sml)
+        margin-bottom: $smlGutter
+
+      +from($med)
+        margin-bottom: $medGutter
+
+      +from($lge)
+        margin-bottom: $lgeGutter
+
+      +from($xlg)
+        margin-bottom: $xlgGutter
