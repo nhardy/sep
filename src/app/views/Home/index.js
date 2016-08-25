@@ -6,7 +6,7 @@ import DefaultLayout from 'app/layouts/Default';
 import styles from './styles.styl';
 
 
-export default class ErrorView extends Component { // eslint-disable-line react/prefer-stateless-function
+export default class HomeView extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <DefaultLayout className={styles.root}>

@@ -13,13 +13,14 @@ import Html from 'app/components/Html';
 // Express determines the type of middleware by number of arguments,
 // so we instruct eslint to ignore the unused parameter(s) here
 export default function errorMiddleware(error, req, res, next) { // eslint-disable-line no-unused-vars
-  res.status(error.status || 500);
+  const status = error.status || 500;
+  res.status(status);
 
   const unrecoverable = () => {
     res.send('Unrecoverable Server Error');
   };
 
-  const location = error.status === 404 ? '/__404' : '/__500';
+  const location = status === 404 ? '/__404' : '/__500';
   const store = createStore();
   const history = createMemoryHistory(req.url);
 
