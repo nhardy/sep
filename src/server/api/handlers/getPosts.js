@@ -26,9 +26,6 @@ export default function getPostsHandler(req, res, next) {
         items: posts,
       });
     })
-    .catch((error) => {
-      error.status = 500;
-      next(error);
-    });
+    .catch(next);
 }
 

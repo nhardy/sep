@@ -4,20 +4,17 @@ import r from 'server/api/rethink';
 
 
 export default function newPostHandler(req, res, next) {
-  const { text, lat, lon } = req.body;
+  const { text, latitude, longitude } = req.body;
   r.table('posts')
     .insert({
       id: uuid(),
       text,
-      lat,
-      lon,
+      latitude,
+      longitude,
     })
     .run()
     .then(() => {
       res.send({ success: true });
     })
-    .catch((error) => {
-      error.status = 500;
-      next(error);
-    });
+    .catch(next);
 }
