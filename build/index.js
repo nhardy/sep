@@ -2,6 +2,7 @@ import gulp from 'gulp';
 import runSequence from 'run-sequence';
 
 import './clean';
+import './database';
 import './serve';
 import './webpack';
 
