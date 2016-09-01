@@ -13,6 +13,7 @@ import Html from 'app/components/Html';
 // Express determines the type of middleware by number of arguments,
 // so we instruct eslint to ignore the unused parameter(s) here
 export default function errorMiddleware(error, req, res, next) { // eslint-disable-line no-unused-vars
+  console.log("errorMiddleware", error);
   const status = error.status || 500;
   res.status(status);
 
