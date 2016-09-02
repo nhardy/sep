@@ -65,6 +65,7 @@
     "webpack-node-externals": "^1.0.0"
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
     "classnames": "^2.2.5",
     "express": "^4.14.0",
     "font-awesome": "^4.6.3",
