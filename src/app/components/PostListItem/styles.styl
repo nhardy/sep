@@ -1,0 +1,30 @@
+@import '~app/assets/stylus'
+
+.container:hover
+  background-color: $hoverColor
+
+.container
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  border-color: $containerBackground
+  border: 1px solid $containerBackground
+  padding: 10px
+  align-items: center
+
+  &:not(:last-child)
+    margin-bottom: 10px
+
+
+.text
+  display: block
+  flex-grow: 1
+  margin-left: 5px
+
+.upvote
+  display: block
+  flex: 0
+
+.thumbnail
+  height:50px
+  width:50px
