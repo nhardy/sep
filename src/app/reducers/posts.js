@@ -12,6 +12,7 @@ import {
 const initialState = {
   items: [],
   id: null,
+  posts: {},
 };
 
 export default function placesReducer(state = initialState, action) {
@@ -38,19 +39,14 @@ export default function placesReducer(state = initialState, action) {
       };
 
     case GET_POST_SUCCESS: // eslint-disable-line no-case-declarations
-      const newState = {
+      return {
         ...state,
+        posts: {
+          ...state.posts,
+          [action.response.item.id]: action.response.item,
+        },
+        id: action.response.item.id,
       };
-      const item = newState.items.filter((i) => i.id === action.response.item.id);
-      if (item.length) {
-        newState.items = newState.items.map((i) => {
-          if (i.id === action.response.item.id) return action.response.item;
-          return i;
-        });
-      } else {
-        newState.items = [...newState.items, action.response.item];
-      }
-      return newState;
 
     case GET_POST_FAILURE:
       return {

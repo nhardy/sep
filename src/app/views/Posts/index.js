@@ -13,9 +13,9 @@ import styles from './styles.styl';
 @connect((state) => ({
   //posts: state.posts.items,
   posts:[
-    {id:'', text:'Some stuff', location:{latitude: 138.00001, longitude: 64.000001}, upvote:35, image:''},
-    {id:'', text:'Some other stuff with an image', location:{latitude: 138.00001, longitude: 64.000001}, upvote:35, image:'http://theisens.cachefly.net/getDynamicImage.aspx?path=M1922.jpg&h=460&w=430'},
-    {id:'', text:'Some more stuffff', location:{latitude: 138.00001, longitude: 64.000001}, upvote:25, image:''}
+    {id:1, text:'Some stuff', location:{latitude: 138.00001, longitude: 64.000001}, upvote:35, image:''},
+    {id:2, text:'Some other stuff with an image', location:{latitude: 138.00001, longitude: 64.000001}, upvote:35, image:'http://theisens.cachefly.net/getDynamicImage.aspx?path=M1922.jpg&h=460&w=430'},
+    {id:3, text:'Some more stuffff', location:{latitude: 138.00001, longitude: 64.000001}, upvote:25, image:''}
   ]
 }), { getposts })
 export default class PostsView extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -45,10 +45,10 @@ export default class PostsView extends Component { // eslint-disable-line react/
   render() {
     const { posts } = this.props;
     return (
-      <DefaultLayout className={styles.root}>
+      <DefaultLayout>
           <Helmet title={config.appname} />
           {posts.map((post)=>(
-            <PostListItemView text={post.text} thumbnail={post.image} upvotes={post.upvote}/>
+            <PostListItemView key={post.id} text={post.text} thumbnail={post.image} upvotes={post.upvote}/>
           ))}
       </DefaultLayout>
     );
