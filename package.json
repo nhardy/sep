@@ -5,10 +5,11 @@
   "main": "server.js",
   "scripts": {
     "cover": "babel-node ./node_modules/.bin/isparta cover _mocha -- --reporter dot",
+    "dev": "gulp dev",
     "lint": "eslint ./src ./test",
     "lint:fix": "eslint --fix ./src ./test",
-    "dev": "gulp dev",
     "prod": "gulp prod",
+    "schema": "gulp schema",
     "start": "gulp",
     "test": "mocha"
   },

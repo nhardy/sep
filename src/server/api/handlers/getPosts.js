@@ -1,4 +1,5 @@
 import r from 'server/api/rethink';
+import postTransformer from 'server/api/transformers/post';
 
 
 export default function getPostsHandler(req, res, next) {
@@ -8,10 +9,7 @@ export default function getPostsHandler(req, res, next) {
   r.table('posts')
     .filter(
       r.distance(
-        r.point(
-          r.row('lat'),
-          r.row('lon')
-        ),
+        r.row('location'),
         r.point(
           longitude,
           latitude
@@ -23,7 +21,7 @@ export default function getPostsHandler(req, res, next) {
     .run()
     .then((posts) => {
       res.send({
-        items: posts,
+        items: posts.map(postTransformer),
       });
     })
     .catch(next);

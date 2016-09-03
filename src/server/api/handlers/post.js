@@ -1,6 +1,7 @@
 import { first } from 'lodash';
 
 import r from 'server/api/rethink';
+import postTransformer from 'server/api/transformers/post';
 
 
 export default function postHandler(req, res, next) {
@@ -18,7 +19,7 @@ export default function postHandler(req, res, next) {
       }
 
       res.send({
-        item: post,
+        item: postTransformer(post),
       });
     })
     .catch(next);
