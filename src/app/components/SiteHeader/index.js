@@ -5,6 +5,7 @@ import cx from 'classnames';
 
 import * as appPropTypes from 'app/components/propTypes';
 import FontAwesome from 'app/components/FontAwesome';
+import config from 'app/config'
 
 import Nav from './Nav';
 import styles from './styles.styl';
@@ -36,16 +37,12 @@ export default class SiteHeader extends Component {
   render() {
     return (
       <header className={styles.root}>
-        <div className={styles.column}>
-          <span className={styles.header}>Breadcrumbs</span>
-          <span className={styles.tagline}>2016</span>
-        </div>
         <Sticky className={styles.sticky} stickyClassName={styles.isSticky}>
           <div className={cx(styles.column, styles.navBar)}>
             <label htmlFor="sidebarToggle" className={styles.hamburger} ref="label">
               <FontAwesome className="fa-bars" />
             </label>
-            <Link to="/" className={styles.siteName}>nhardy.id.au</Link>
+            <Link to="/" className={styles.siteName}>{config.appname}</Link>
             <Nav className={styles.nav} />
           </div>
         </Sticky>
