@@ -31,14 +31,14 @@
   flex: 0 0 100%
 
   +from($med)
-    flex-basis: calc((100% - 2 * $medGutter) / 3)
+    flex-basis: "calc((100% - %s) / 3)" % (2 * $medGutter)
     margin-right: $medGutter
 
     &:nth-child(3n)
       margin-right: 0
 
   +from($lge)
-    flex-basis: calc((100% - 3 * $lgeGutter) / 4)
+    flex-basis: "calc((100% - %s) / 4)" % (3 * $lgeGutter)
     margin-right: $lgeGutter
 
     &:nth-child(n)
@@ -48,7 +48,7 @@
       margin-right: 0
 
   +from($xlg)
-    flex-basis: calc((100% - 3 * $xlgGutter) / 4)
+    flex-basis: "calc((100% - %s) / 4)" % (3 * $xlgGutter)
     margin-right: $xlgGutter
 
     &:nth-child(n)
