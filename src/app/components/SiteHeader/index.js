@@ -37,8 +37,8 @@ export default class SiteHeader extends Component {
     return (
       <header className={styles.root}>
         <div className={styles.column}>
-          <span className={styles.header}>Nathan Hardy</span>
-          <span className={styles.tagline}>Developer</span>
+          <span className={styles.header}>Breadcrumbs</span>
+          <span className={styles.tagline}>2016</span>
         </div>
         <Sticky className={styles.sticky} stickyClassName={styles.isSticky}>
           <div className={cx(styles.column, styles.navBar)}>
