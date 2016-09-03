@@ -6,9 +6,12 @@
   "$_charcoal": "#333333",
   "$_tardisBlue": "#003a69",
   "$_badassGreen": "#bada55",
+  "$_hoverGrey": "#e6e6e6",
 
   "$backgroundColor": "$_closeWhite",
   "$textColor": "$_charcoal",
   "$themeColor": "$_tardisBlue",
-  "$highlightColor": "$_badassGreen"
+  "$highlightColor": "$_badassGreen",
+  "$containerBackground": "$_charcoal",
+  "$hoverColor": "$_hoverGrey"
 }

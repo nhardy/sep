@@ -11,7 +11,12 @@ import PostListItemView from 'app/components/PostListItem';
 import styles from './styles.styl';
 
 @connect((state) => ({
-  posts: state.posts.items,
+  //posts: state.posts.items,
+  posts:[
+    {id:'', text:'Some stuff', location:{latitude: 138.00001, longitude: 64.000001}, upvote:35, image:''},
+    {id:'', text:'Some other stuff with an image', location:{latitude: 138.00001, longitude: 64.000001}, upvote:35, image:'http://theisens.cachefly.net/getDynamicImage.aspx?path=M1922.jpg&h=460&w=430'},
+    {id:'', text:'Some more stuffff', location:{latitude: 138.00001, longitude: 64.000001}, upvote:25, image:''}
+  ]
 }), { getposts })
 export default class PostsView extends Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -42,7 +47,9 @@ export default class PostsView extends Component { // eslint-disable-line react/
     return (
       <DefaultLayout className={styles.root}>
           <Helmet title={config.appname} />
-          <PostListItemView text= "TES TITLE" upvotes={35}/>
+          {posts.map((post)=>(
+            <PostListItemView text={post.text} thumbnail={post.image} upvotes={post.upvote}/>
+          ))}
       </DefaultLayout>
     );
   }

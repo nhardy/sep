@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
-import style from './styles.styl';
+import styles from './styles.styl';
 
 const PostListItem = ({ text, upvotes, thumbnail }) => (
-  <div>
-    {thumbnail && <img src={ thumbnail }/>}
-    <span>{ text }</span><br />
-    <span>Up : { upvotes }</span>
+  <div className={styles.container}>
+    {thumbnail && <img className={styles.thumbnail} src={thumbnail} />}
+    <span className={styles.text}>{text}</span>
+    <span className={styles.upvote}>+{upvotes}</span>
   </div>
 );
 
