@@ -12,13 +12,27 @@ export default function fetchMiddleware() {
     const [REQUEST, SUCCESS, FAILURE] = types;
     next({ ...rest, type: REQUEST });
 
+    let rawResponse;
     return fetch(`${url}`, requestOptions)
+      .then((raw) => {
+        rawResponse = raw;
+        return raw;
+      })
       .then(checkStatus)
-      .then((raw) => raw.json())
+      .then((raw) => {
+        switch (raw.contentType) {
+          case 'application/json':
+            return raw.json();
+          default:
+            return raw.text();
+        }
+      })
       .then(
         (response) => next({
           ...rest,
           response,
+          headers: Array.from(rawResponse.headers.entries())
+            .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {}),
           type: SUCCESS,
         }),
         (error) => next({

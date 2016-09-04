@@ -34,6 +34,7 @@ export default class SiteHeader extends Component {
   };
 
   render() {
+    const { pathname } = this.context.location;
     return (
       <header className={styles.root}>
         <div className={styles.column}>
@@ -46,6 +47,13 @@ export default class SiteHeader extends Component {
               <FontAwesome className="fa-bars" />
             </label>
             <Link to="/" className={styles.siteName}>nhardy.id.au</Link>
+            <div className={styles.addPost}>
+              {pathname === '/add' ? (
+                <Link to="/"><FontAwesome className="fa-close" /></Link>
+              ) : (
+                <Link to="/add"><FontAwesome className="fa-plus" /></Link>
+              )}
+            </div>
             <Nav className={styles.nav} />
           </div>
         </Sticky>
