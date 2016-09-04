@@ -9,7 +9,6 @@ import posts from './posts';
 export default combineReducers({
   reduxAsyncConnect,
   routing: routerReducer,
-
   location,
   posts,
 });

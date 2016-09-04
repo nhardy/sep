@@ -10,6 +10,7 @@ import styles from './styles.styl';
 
 
 export default class App extends Component {
+
   static propTypes = {
     children: PropTypes.node,
     location: appPropTypes.location,

@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { Sticky } from 'react-sticky';
 import cx from 'classnames';
 
+import config from 'app/config';
 import * as appPropTypes from 'app/components/propTypes';
 import FontAwesome from 'app/components/FontAwesome';
 
@@ -37,16 +38,12 @@ export default class SiteHeader extends Component {
     const { pathname } = this.context.location;
     return (
       <header className={styles.root}>
-        <div className={styles.column}>
-          <span className={styles.header}>Nathan Hardy</span>
-          <span className={styles.tagline}>Developer</span>
-        </div>
         <Sticky className={styles.sticky} stickyClassName={styles.isSticky}>
           <div className={cx(styles.column, styles.navBar)}>
             <label htmlFor="sidebarToggle" className={styles.hamburger} ref="label">
               <FontAwesome className="fa-bars" />
             </label>
-            <Link to="/" className={styles.siteName}>nhardy.id.au</Link>
+            <Link to="/" className={styles.siteName}>{config.appName}</Link>
             <div className={styles.addPost}>
               {pathname === '/add' ? (
                 <Link to="/"><FontAwesome className="fa-close" /></Link>

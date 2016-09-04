@@ -32,7 +32,10 @@ SiteHeaderNav.contextTypes = {
 };
 
 SiteHeaderNav.defaultProps = {
-  items: [{ to: '/add', children: 'New Post' }],
+  items:
+  [
+    { to: '/add', children: 'Add Post' },
+  ],
 };
 
 export default SiteHeaderNav;

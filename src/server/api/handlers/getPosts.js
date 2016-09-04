@@ -6,6 +6,13 @@ export default function getPostsHandler(req, res, next) {
   const latitude = parseFloat(req.query.lat);
   const longitude = parseFloat(req.query.lon);
 
+  if (!(latitude && longitude)) {
+    const error = new Error('You must supply a valid value for `lat` and `lon`');
+    error.status = 400;
+    next(error);
+    return;
+  }
+
   r.table('posts')
     .filter(
       r.distance(

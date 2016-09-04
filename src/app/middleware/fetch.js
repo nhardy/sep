@@ -20,12 +20,11 @@ export default function fetchMiddleware() {
       })
       .then(checkStatus)
       .then((raw) => {
-        switch (raw.contentType) {
-          case 'application/json':
-            return raw.json();
-          default:
-            return raw.text();
+        const contentType = raw.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          return raw.json();
         }
+        return raw.text();
       })
       .then(
         (response) => next({
