@@ -1,22 +1,31 @@
-# Scaffold
+# Stickies
 
-A universal JavaScript scaffold project
+The new location based social network taking the world by storm!
 
-## Development
+#Prerequisites
+This App can only be deployed on Linux machines due to the combination of technologies being used.
 
-Make sure you're using Mac/Linux. Many of the npm dependencies for this project don't play nicely with Windows.
+#Installation
+1. Install RethinkDB according to your flavour of linux using [this guide](https://www.rethinkdb.com/docs/install/)
+2. Ensure RethinkDB is running (check [localhost:8080](http://localhost:8080) for the web interface)
+4. Install nvm, see [here](https://github.com/creationix/nvm)
+5. Run `$nvm install 6` followed by `$nvm alias default 6`
+6. Navigate to the project directory
+7. Run `$npm install` and wait for the packages to be installed
+8. Run `$npm run schema` to set up the database as required
 
-Make sure you have [Node Version Manager](https://github.com/creationix/nvm) (nvm) installed.
-Run `nvm install 6` to install the latest version of Nodejs.
-
-Make sure you `npm install`.
-
-### Running
-
-To start the server in development mode, use `npm run dev`. The server will start on port 8080. You shouldn't need to restart the server in this mode even if you make changes, as the server will update as you save. Some functionality things will even update without you having to refresh. If you run into any issues though, it might be a good idea to refresh the page or restart the server.
-
-## "Production" mode
+#Running
+##Development Mode
+From the project directory run `npm run dev` to start the development server. The server will start on port 8000. You shouldn't need to restart the server in this mode even if you make changes, as the server will update as you save. 
 
 You may notice that styles appear to _jump_ when you load the page in development mode. This is because styles are injected into the page by the JavaScript bundle to make hot reloading of styles possible. Production mode, on the other hand, does not do this.
 
-`npm run prod` will start the server in production mode. This slower and won't automatically reload, but makes some optimisations, such as separating out the CSS into a separate file, and minifying the JavaScript bundle.
+##Production Mode
+1. From the project directory run `npm run prod` to start the production server
+
+ This is slower and won't automatically reload, but makes some optimisations, such as separating out the CSS into a separate file, and minifying the JavaScript bundle.
+
+You should now be able to access the App from [localhost:8000](http://localhost:8000/)!
+
+##Troubleshooting
+Server crashing on start? Make sure the rethinkdb service is running: `sudo service rethinkdb start`
