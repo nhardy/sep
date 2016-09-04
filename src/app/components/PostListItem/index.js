@@ -1,9 +1,16 @@
 import React, { PropTypes } from 'react';
+
+import thumbailImg from 'app/assets/images/thumbnail.svg';
+
 import styles from './styles.styl';
 
-const PostListItem = ({ text, upvotes, thumbnail }) => (
+const PostListItem = ({ text, upvotes, image }) => (
   <div className={styles.container}>
-    {thumbnail ? <img className={styles.thumbnail} src={thumbnail} /> : <img className={styles.thumbnail} src='http://www.anchoredmarketing.co.za/wp-content/plugins/social-feeds1/img/no-img.png' />}
+    {image ? (
+      <img className={styles.thumbnail} src={image} alt="Post" />
+    ) : (
+      <img className={styles.thumbnail} src={thumbailImg} alt="No Thumbnail" />
+    )}
     <span className={styles.text}>{text}</span>
     <span className={styles.upvote}>+{upvotes}</span>
   </div>
@@ -12,7 +19,7 @@ const PostListItem = ({ text, upvotes, thumbnail }) => (
 PostListItem.propTypes = {
   text: PropTypes.string,
   upvotes: PropTypes.number,
-  thumbnail: PropTypes.string,
-}
+  image: PropTypes.string,
+};
 
 export default PostListItem;

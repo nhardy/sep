@@ -4,9 +4,8 @@ import r from 'server/api/rethink';
 
 
 export default function newPostHandler(req, res, next) {
-  console.log(req.body);
-  const { text, lat, lon } = req.body;
-  if (!(text && lat && lon)) {
+  const { text, location: { latitude, longitude } } = req.body;
+  if (!(text && latitude && longitude)) {
     const error = new Error('Bad request');
     error.status = 400;
     next(error);
@@ -18,7 +17,7 @@ export default function newPostHandler(req, res, next) {
     .insert({
       id,
       text,
-      location: r.point(lat, lon),
+      location: r.point(longitude, latitude),
     })
     .run()
     .then(() => {

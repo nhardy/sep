@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import * as appPropTypes from 'app/components/propTypes';
+import Geolocation from 'app/components/Geolocation';
 
 import 'app/assets/stylus/reset.styl';
 import 'app/assets/stylus/fonts.styl';
@@ -28,7 +29,8 @@ export default class App extends Component {
   render() {
     return (
       <div className={styles.root}>
-          {this.props.children}
+        <Geolocation />
+        {this.props.children}
       </div>
     );
   }

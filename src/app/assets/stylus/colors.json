@@ -8,6 +8,8 @@
   "$_badassGreen": "#bada55",
   "$_hoverGrey": "#e6e6e6",
 
+  "$whiteColor": "$_white",
+  "$blackColor": "$_black",
   "$backgroundColor": "$_closeWhite",
   "$textColor": "$_charcoal",
   "$themeColor": "$_tardisBlue",

@@ -3,9 +3,9 @@ import { Link } from 'react-router';
 import { Sticky } from 'react-sticky';
 import cx from 'classnames';
 
+import config from 'app/config';
 import * as appPropTypes from 'app/components/propTypes';
 import FontAwesome from 'app/components/FontAwesome';
-import config from 'app/config'
 
 import Nav from './Nav';
 import styles from './styles.styl';
@@ -35,6 +35,7 @@ export default class SiteHeader extends Component {
   };
 
   render() {
+    const { pathname } = this.context.location;
     return (
       <header className={styles.root}>
         <Sticky className={styles.sticky} stickyClassName={styles.isSticky}>
@@ -42,7 +43,14 @@ export default class SiteHeader extends Component {
             <label htmlFor="sidebarToggle" className={styles.hamburger} ref="label">
               <FontAwesome className="fa-bars" />
             </label>
-            <Link to="/" className={styles.siteName}>{config.appname}</Link>
+            <Link to="/" className={styles.siteName}>{config.appName}</Link>
+            <div className={styles.addPost}>
+              {pathname === '/add' ? (
+                <Link to="/"><FontAwesome className="fa-close" /></Link>
+              ) : (
+                <Link to="/add"><FontAwesome className="fa-plus" /></Link>
+              )}
+            </div>
             <Nav className={styles.nav} />
           </div>
         </Sticky>

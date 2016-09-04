@@ -1,4 +1,10 @@
+import last from 'lodash/last';
+
 import {
+  CLEAR_POST,
+  ADD_POST_REQUEST,
+  ADD_POST_SUCCESS,
+  ADD_POST_FAILURE,
   GET_POSTS_REQUEST,
   GET_POSTS_SUCCESS,
   GET_POSTS_FAILURE,
@@ -6,17 +12,39 @@ import {
   GET_POST_SUCCESS,
   GET_POST_FAILURE,
   SET_POST,
-} from 'app/actions/postsActions';
+} from 'app/actions/posts';
 
 
 const initialState = {
   items: [],
-  id: null,
   posts: {},
+  post: null,
 };
 
-export default function placesReducer(state = initialState, action) {
+export default function postsReducer(state = initialState, action = {}) {
   switch (action.type) {
+    case CLEAR_POST:
+      return {
+        ...state,
+        post: null,
+      };
+
+    case ADD_POST_REQUEST:
+      return {
+        ...state,
+      };
+
+    case ADD_POST_SUCCESS:
+      return {
+        ...state,
+        post: last(action.headers.location.split('/')),
+      };
+
+    case ADD_POST_FAILURE:
+      return {
+        ...state,
+      };
+
     case GET_POSTS_REQUEST:
       return {
         ...state,
@@ -38,14 +66,14 @@ export default function placesReducer(state = initialState, action) {
         ...state,
       };
 
-    case GET_POST_SUCCESS: // eslint-disable-line no-case-declarations
+    case GET_POST_SUCCESS:
       return {
         ...state,
         posts: {
           ...state.posts,
           [action.response.item.id]: action.response.item,
         },
-        id: action.response.item.id,
+        post: action.response.item.id,
       };
 
     case GET_POST_FAILURE:
@@ -56,7 +84,7 @@ export default function placesReducer(state = initialState, action) {
     case SET_POST:
       return {
         ...state,
-        id: action.id,
+        post: action.id,
       };
 
     default:
