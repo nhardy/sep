@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import { withRouter } from 'react-router';
+import { routerShape } from 'react-router/lib/PropTypes';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
 import Helmet from 'react-helmet';
@@ -6,7 +8,6 @@ import Helmet from 'react-helmet';
 import config from 'app/config';
 import DefaultLayout from 'app/layouts/Default';
 import { clearPost, addPost } from 'app/actions/posts';
-import { getLocation } from 'app/actions/location';
 
 import styles from './styles.styl';
 
@@ -20,7 +21,8 @@ import styles from './styles.styl';
     longitude: state.location.longitude,
   },
   post: state.posts.post,
-}), { getLocation, addPost })
+}), { addPost })
+@withRouter
 export default class AddPostView extends Component {
   static propTypes = {
     getLocation: PropTypes.func,
@@ -29,26 +31,28 @@ export default class AddPostView extends Component {
       latitude: PropTypes.number,
       longitude: PropTypes.number,
     }),
+    router: routerShape,
   };
-
-  componentDidMount() {
-    this.props.getLocation();
-  }
 
   submit = () => {
     const text = this.refs.text.value;
     const { latitude, longitude } = this.props.location;
-    this.props.addPost({ text, location: { latitude, longitude } });
+    if (!(text && latitude && longitude)) return; // TODO: Notify user
+
+    this.props.addPost({ text, location: { latitude, longitude } }).then(() => {
+      // FIXME: Ideally this would redirect to the new Post
+      this.props.router.push('/');
+    });
   };
 
   render() {
     return (
       <DefaultLayout className={styles.root}>
         <Helmet title={`Add Post | ${config.appName}`} />
-        <h1>Add Post</h1>
-        <form>
-          <textarea ref="text" />
-          <input type="button" onClick={this.submit} />
+        <form className={styles.form}>
+          <h1 className={styles.heading}>Add Post</h1>
+          <textarea ref="text" className={styles.textarea} />
+          <input className={styles.button} type="button" onClick={this.submit} value="Add" />
         </form>
       </DefaultLayout>
     );

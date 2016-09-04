@@ -135,9 +135,11 @@ export default function webpackFactory({ production = false, client = false }) {
                 presets: [
                   // UglifyJS cannot currently work with the level of ES6 webpack2 can
                   production ? ['es2015', { modules: false }] : 'modern/webpack2',
+                  // Safari9 support in dev mode
+                  !production && 'modern/safari9',
                   'stage-0',
                   'react',
-                ],
+                ].filter(identity),
                 plugins: [
                   [
                     'transform-async-to-module-method',

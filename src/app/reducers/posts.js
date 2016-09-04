@@ -28,7 +28,6 @@ export default function postsReducer(state = initialState, action = {}) {
       };
 
     case ADD_POST_SUCCESS:
-      console.log(action);
       return {
         ...state,
         post: last(action.headers.location.split('/')),

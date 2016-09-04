@@ -7,6 +7,8 @@
   "$_tardisBlue": "#003a69",
   "$_badassGreen": "#bada55",
 
+  "$whiteColor": "$_white",
+  "$blackColor": "$_black",
   "$backgroundColor": "$_closeWhite",
   "$textColor": "$_charcoal",
   "$themeColor": "$_tardisBlue",

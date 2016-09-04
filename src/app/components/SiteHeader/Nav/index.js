@@ -32,7 +32,7 @@ SiteHeaderNav.contextTypes = {
 };
 
 SiteHeaderNav.defaultProps = {
-  items: [{ to: '/projects', children: 'Projects' }, { to: '/cv', children: 'Curriculum Vitæ' }],
+  items: [{ to: '/add', children: 'New Post' }],
 };
 
 export default SiteHeaderNav;

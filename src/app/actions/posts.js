@@ -11,7 +11,7 @@ export function clearPost() {
   };
 }
 
-export function addPost(post) { // eslint-disable-line import/prefer-default-export
+export function addPost(post) {
   return {
     types: [ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE],
     endpoint: {
