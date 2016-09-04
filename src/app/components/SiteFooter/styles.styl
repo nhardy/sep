@@ -21,24 +21,25 @@
 .column
   composes: column from 'app/assets/stylus/common.styl'
 
-.heading
+.wrapper
+  position:relative
   display: flex
   flex-direction: row
   justify-content: space-between
   align-items: center
 
-.contribute
-  display: block
-  flex: 0
-
 .copyright
   display: block
   flex-grow: 1
   margin-left: 5px
-  text-align: center
 
-  +from($med)
-    text-align: left
+  +upTo($med)
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    margin-left: 0px
+
 
 
 
