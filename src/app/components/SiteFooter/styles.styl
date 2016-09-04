@@ -1,6 +1,5 @@
 @import '~app/assets/stylus'
 
-
 .root
   background: $themeColor
   color: $backgroundColor
@@ -22,34 +21,24 @@
 .column
   composes: column from 'app/assets/stylus/common.styl'
 
-.wrapper
+.heading
   display: flex
   flex-direction: row
-  flex-wrap: wrap
+  justify-content: space-between
+  align-items: center
 
-.info
-  flex: 0 0 100%
+.contribute
+  display: block
+  flex: 0
+
+.copyright
+  display: block
+  flex-grow: 1
+  margin-left: 5px
+  text-align: center
 
   +from($med)
-    flex-basis: "calc((100% - %s) / 3)" % (2 * $medGutter)
-    margin-right: $medGutter
+    text-align: left
 
-    &:nth-child(3n)
-      margin-right: 0
 
-  +from($lge)
-    flex-basis: "calc((100% - %s) / 4)" % (3 * $lgeGutter)
-    margin-right: $lgeGutter
 
-    &:nth-child(n)
-      margin-right: $lgeGutter
-
-    &:nth-child(4n)
-      margin-right: 0
-
-  +from($xlg)
-    flex-basis: "calc((100% - %s) / 4)" % (3 * $xlgGutter)
-    margin-right: $xlgGutter
-
-    &:nth-child(n)
-      margin-right: $xlgGutter

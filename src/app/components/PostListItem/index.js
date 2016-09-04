@@ -12,7 +12,7 @@ const PostListItem = ({ text, upvotes, image }) => (
       <img className={styles.thumbnail} src={thumbailImg} alt="No Thumbnail" />
     )}
     <span className={styles.text}>{text}</span>
-    <span className={styles.upvote}>+{upvotes}</span>
+    <span className={styles.upvote}>+{upvotes || 0}</span>
   </div>
 );
 
