@@ -25,13 +25,13 @@ const getAssetsByChunk = (webpackData, publicPath) => {
 };
 
 export default class WriteManifestPlugin {
-  constructor({ client }) {
+  constructor({ client, callback = noop }) {
     this.config = { client };
+    this.callback = callback;
   }
 
   apply(compiler) {
     this.compiler = compiler;
-    this.callback = compiler.options.writeStatsPluginCallback || noop;
     compiler.plugin('done', this.onDone.bind(this));
   }
 

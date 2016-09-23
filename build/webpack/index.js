@@ -27,16 +27,18 @@ gulp.task('webpack-prod', (done) => {
 });
 
 gulp.task('webpack-client-dev', (done) => {
-  const webpackConfig = webpackFactory({ production: false, client: true });
-
   let alreadyRunning = false;
 
-  webpackConfig.writeStatsPluginCallback = () => {
-    if (!alreadyRunning) {
-      alreadyRunning = true;
-      done();
-    }
-  };
+  const webpackConfig = webpackFactory({
+    production: false,
+    client: true,
+    writeManifestCallback: () => {
+      if (!alreadyRunning) {
+        alreadyRunning = true;
+        done();
+      }
+    },
+  });
 
   const server = new WebpackDevServer(webpack(webpackConfig), {
     contentBase: '/',

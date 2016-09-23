@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { identity } from 'lodash';
+import { identity, noop } from 'lodash';
 import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import combineLoaders from 'webpack-combine-loaders';
@@ -12,6 +12,7 @@ import {
   BannerPlugin,
   DefinePlugin,
   HotModuleReplacementPlugin,
+  LoaderOptionsPlugin,
   NoErrorsPlugin,
   optimize,
   ProvidePlugin,
@@ -77,7 +78,7 @@ const cssLoader = ({ production, client }) => {
   return 'css/locals';
 };
 
-export default function webpackFactory({ production = false, client = false }) {
+export default function webpackFactory({ production = false, client = false, writeManifestCallback = noop }) {
   return {
     stats: {
       children: false,
@@ -118,8 +119,6 @@ export default function webpackFactory({ production = false, client = false }) {
       ? 'cheap-module-inline-source-map'
       : 'hidden-source-map',
 
-    debug: true,
-
     module: {
       loaders: [
         {
@@ -134,10 +133,12 @@ export default function webpackFactory({ production = false, client = false }) {
               query: {
                 presets: [
                   // UglifyJS cannot currently work with the level of ES6 webpack2 can
-                  production ? ['es2015', { modules: false }] : 'modern/webpack2',
+                  production && ['es2015', { modules: false }],
+                  !production && 'modern/webpack2',
+                  !production && 'modern/safari9',
                   'stage-0',
                   'react',
-                ],
+                ].filter(identity),
                 plugins: [
                   [
                     'transform-async-to-module-method',
@@ -175,8 +176,6 @@ export default function webpackFactory({ production = false, client = false }) {
       ],
     },
 
-    postcss: [autoprefixer({ browsers: ['last 2 versions'] })],
-
     plugins: [
       new DefinePlugin({
         __CLIENT__: client,
@@ -189,6 +188,12 @@ export default function webpackFactory({ production = false, client = false }) {
       }),
       new NoErrorsPlugin(),
       !production && new HotModuleReplacementPlugin(),
+      new LoaderOptionsPlugin({
+        test: /\.(?:styl|css)$/,
+        options: {
+          postcss: [autoprefixer({ browsers: ['last 2 versions'] })],
+        },
+      }),
       client && production && new ExtractTextPlugin({
         filename: '[name]-[contenthash:6].css',
         allChunks: true,
@@ -205,11 +210,11 @@ export default function webpackFactory({ production = false, client = false }) {
           warnings: false,
         },
       }),
-      client && new WriteManifestPlugin({ client }),
+      client && new WriteManifestPlugin({ client, callback: writeManifestCallback }),
     ].filter(identity),
 
     resolve: {
-      extensions: ['', '.json', '.js', '.styl'],
+      extensions: ['.json', '.js', '.styl'],
       modules: [
         'src',
         'node_modules',
