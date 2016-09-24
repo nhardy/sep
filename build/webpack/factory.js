@@ -103,10 +103,7 @@ export default function webpackFactory({ production = false, client = false, wri
     target: client ? 'web' : 'node',
 
     externals: [!client && nodeExternals({
-      whitelist: [
-        'font-awesome/css/font-awesome.min.css',
-        'gemini-scrollbar/gemini-scrollbar.css',
-      ],
+      whitelist: [/\.css$/, /lodash-es/],
     })].filter(identity),
 
     devtool: !production || !client
@@ -146,6 +143,16 @@ export default function webpackFactory({ production = false, client = false, wri
               },
             },
           ].filter(identity),
+        },
+        {
+          test: /\.js$/,
+          include: [
+            path.join(__dirname, '..', '..', 'node_modules', 'lodash-es'),
+          ],
+          loader: 'babel-loader',
+          query: {
+            presets: [['es2015', {}]],
+          },
         },
         {
           test: /\.json$/,

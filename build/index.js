@@ -1,19 +1,15 @@
-import gulp from 'gulp';
-import runSequence from 'run-sequence';
+// Using `require` here because `babel-node` (used by `gulp`)
+// ignores some settings in the `.babelrc` and we need to ensure
+// the order of execution here.
+// @see https://github.com/babel/babel/issues/4082
 
-import './clean';
-import './serve';
-import './webpack';
+/* eslint-disable import/no-commonjs */
+require('babel-register')({
+  ignore: (filename) => {
+    if (filename.includes('lodash-es')) return false;
+    if (filename.includes('node_modules')) return true;
+    return false;
+  },
 
-
-gulp.task('dev', () => {
-  runSequence('clean', 'webpack-client-dev', 'webpack-server-dev', 'serve');
 });
-
-gulp.task('prod', () => {
-  runSequence('clean', 'webpack-prod', 'serve');
-});
-
-gulp.task('default', () => {
-  console.log('Run `npm run dev` for the dev task'); // eslint-disable-line no-console
-});
+require('./tasks');
