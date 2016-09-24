@@ -42,7 +42,7 @@
     "del": "^2.2.2",
     "eslint": "^3.6.0",
     "eslint-config-nhardy": "^0.2.0",
-    "eslint-plugin-import": "^1.13.0",
+    "eslint-plugin-import": "^1.14.0",
     "eslint-plugin-jsx-a11y": "^2.2.2",
     "eslint-plugin-mocha": "^4.5.1",
     "eslint-plugin-react": "^6.3.0",
@@ -60,7 +60,7 @@
     "stylus": "^0.54.2",
     "stylus-loader": "^2.0.0",
     "url-loader": "^0.5.7",
-    "webpack": "2.1.0-beta.22",
+    "webpack": "^2.1.0-beta",
     "webpack-combine-loaders": "^2.0.0",
     "webpack-dev-server": "^2.1.0-beta",
     "webpack-node-externals": "^1.0.0"
