@@ -4,16 +4,14 @@ import fs from 'fs';
 import path from 'path';
 
 import mkdirp from 'mkdirp';
-import noop from 'lodash/noop';
-import groupBy from 'lodash/groupBy';
-import reduce from 'lodash/reduce';
+import { groupBy, noop, reduce } from 'lodash-es';
 
 
 const ROOT = path.resolve(__dirname, '../../../');
 
 const getAssetsByChunk = (webpackData, publicPath) => {
-  const chunkRenamer = (chunkName) => `${publicPath}${chunkName}`;
-  const assetGrouper = (asset) => path.extname(asset).slice(1);
+  const chunkRenamer = chunkName => `${publicPath}${chunkName}`;
+  const assetGrouper = asset => path.extname(asset).slice(1);
 
   return reduce(webpackData.assetsByChunkName, (acc, chunk, chunkName) => {
     const assets = (Array.isArray(chunk) ? chunk : [chunk]).map(chunkRenamer);
@@ -25,13 +23,13 @@ const getAssetsByChunk = (webpackData, publicPath) => {
 };
 
 export default class WriteManifestPlugin {
-  constructor({ client }) {
+  constructor({ client, callback = noop }) {
     this.config = { client };
+    this.callback = callback;
   }
 
   apply(compiler) {
     this.compiler = compiler;
-    this.callback = compiler.options.writeStatsPluginCallback || noop;
     compiler.plugin('done', this.onDone.bind(this));
   }
 

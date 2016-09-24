@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { last } from 'lodash';
+import { last } from 'lodash-es';
 import { createMemoryHistory, match } from 'react-router';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
 import { Provider } from 'react-redux';

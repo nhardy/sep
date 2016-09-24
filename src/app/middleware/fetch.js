@@ -2,7 +2,7 @@ import { checkStatus } from 'app/lib/fetch';
 
 
 export default function fetchMiddleware() {
-  return next => action => {
+  return next => (action) => {
     const { types, endpoint, ...rest } = action;
     if (!endpoint) {
       return next(action);
@@ -27,14 +27,14 @@ export default function fetchMiddleware() {
         return raw.text();
       })
       .then(
-        (response) => next({
+        response => next({
           ...rest,
           response,
           headers: Array.from(rawResponse.headers.entries())
             .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {}),
           type: SUCCESS,
         }),
-        (error) => next({
+        error => next({
           ...rest,
           error,
           type: FAILURE,

@@ -7,8 +7,9 @@ const Html = ({ assets, component, store }) => {
   const content = component ? ReactDOMServer.renderToString(component) : '';
   const head = Helmet.rewind(); // magic.gif
 
+  /* eslint-disable react/no-danger */
   return (
-    <html>
+    <html lang="en">
       <head>
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -16,7 +17,7 @@ const Html = ({ assets, component, store }) => {
         {head.title.toComponent()}
         {head.meta.toComponent()}
         {head.link.toComponent()}
-        {__DEVELOPMENT__ ? <script src="/webpack-dev-server.js"></script> : null}
+        {__DEVELOPMENT__ ? <script src="/webpack-dev-server.js" /> : null}
         {head.script.toComponent()}
         {assets.bundle.css && assets.bundle.css.map((path, index) => (
           <link key={`css-${index}`} rel="stylesheet" type="text/css" href={path} />
@@ -44,7 +45,7 @@ Html.propTypes = {
     }),
   }),
   component: PropTypes.node,
-  store: PropTypes.object,
+  store: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 export default Html;

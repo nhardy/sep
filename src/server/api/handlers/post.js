@@ -1,4 +1,4 @@
-import { first } from 'lodash';
+import { first } from 'lodash-es';
 
 import r from 'server/api/rethink';
 import postTransformer from 'server/api/transformers/post';

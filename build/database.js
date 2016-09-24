@@ -1,6 +1,6 @@
 import gulp from 'gulp';
 import rethink from 'rethinkdbdash';
-import { difference } from 'lodash';
+import { difference } from 'lodash-es';
 
 
 gulp.task('schema', async () => {

@@ -1,35 +1,29 @@
 import path from 'path';
 
-import { identity } from 'lodash';
+import { identity, noop } from 'lodash-es';
 import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import combineLoaders from 'webpack-combine-loaders';
 import nodeExternals from 'webpack-node-externals';
-
-// @see https://github.com/benmosher/eslint-plugin-import/issues/488
-/* eslint-disable */
 import {
   BannerPlugin,
   DefinePlugin,
   HotModuleReplacementPlugin,
+  LoaderOptionsPlugin,
+  NamedModulesPlugin,
   NoErrorsPlugin,
   optimize,
   ProvidePlugin,
 } from 'webpack';
-/* eslint-enable */
 
 import WriteManifestPlugin from './plugins/WriteManifestPlugin';
 
-
-const hashType = (production) => {
-  return production ? 'chunkhash' : 'hash';
-};
 
 const stylusLoader = ({ production, client }) => {
   const query = {
     importLoaders: 2,
     modules: true,
-    localIdentName: `[path][name]--[local]--[${hashType(production)}:base64:5]`,
+    localIdentName: '[path][name]--[local]--[hash:base64:5]',
   };
   if (client) {
     return production
@@ -77,7 +71,7 @@ const cssLoader = ({ production, client }) => {
   return 'css/locals';
 };
 
-export default function webpackFactory({ production = false, client = false }) {
+export default function webpackFactory({ production = false, client = false, writeManifestCallback = noop }) {
   return {
     stats: {
       children: false,
@@ -87,6 +81,7 @@ export default function webpackFactory({ production = false, client = false }) {
       bundle: [
         !production && 'webpack-dev-server/client?/',
         !production && 'webpack/hot/only-dev-server',
+        'react-hot-loader/patch',
         'babel-polyfill',
         path.resolve(__dirname, '..', '..', 'src', 'client', 'index.js'),
       ].filter(identity),
@@ -108,17 +103,12 @@ export default function webpackFactory({ production = false, client = false }) {
     target: client ? 'web' : 'node',
 
     externals: [!client && nodeExternals({
-      whitelist: [
-        'font-awesome/css/font-awesome.min.css',
-        'gemini-scrollbar/gemini-scrollbar.css',
-      ],
+      whitelist: [/\.css$/, /lodash-es/],
     })].filter(identity),
 
     devtool: !production || !client
       ? 'cheap-module-inline-source-map'
       : 'hidden-source-map',
-
-    debug: true,
 
     module: {
       loaders: [
@@ -127,15 +117,15 @@ export default function webpackFactory({ production = false, client = false }) {
           exclude: /node_modules/,
           loaders: [
             !production && {
-              loader: 'react-hot-loader',
+              loader: 'react-hot-loader/webpack',
             },
             {
               loader: 'babel-loader',
               query: {
                 presets: [
                   // UglifyJS cannot currently work with the level of ES6 webpack2 can
-                  production ? ['es2015', { modules: false }] : 'modern/webpack2',
-                  // Safari9 support in dev mode
+                  production && ['es2015', { modules: false }],
+                  !production && 'modern/webpack2',
                   !production && 'modern/safari9',
                   'stage-0',
                   'react',
@@ -153,6 +143,16 @@ export default function webpackFactory({ production = false, client = false }) {
               },
             },
           ].filter(identity),
+        },
+        {
+          test: /\.js$/,
+          include: [
+            path.join(__dirname, '..', '..', 'node_modules', 'lodash-es'),
+          ],
+          loader: 'babel-loader',
+          query: {
+            presets: [['es2015', {}]],
+          },
         },
         {
           test: /\.json$/,
@@ -177,20 +177,26 @@ export default function webpackFactory({ production = false, client = false }) {
       ],
     },
 
-    postcss: [autoprefixer({ browsers: ['last 2 versions'] })],
-
     plugins: [
       new DefinePlugin({
         __CLIENT__: client,
         __DEVELOPMENT__: !production,
         __SERVER__: !client,
-        // 'process.env.NODE_ENV': JSON.stringify('production'),
+        'process.env.NODE_ENV': production ? JSON.stringify('production') : JSON.stringify('development'),
       }),
       new ProvidePlugin({
         fetch: 'isomorphic-fetch',
       }),
       new NoErrorsPlugin(),
       !production && new HotModuleReplacementPlugin(),
+      new LoaderOptionsPlugin({
+        test: /\.(?:styl|css)$/,
+        options: {
+          context: __dirname,
+          postcss: [autoprefixer({ browsers: ['last 2 versions'] })],
+        },
+      }),
+      !production && new NamedModulesPlugin(),
       client && production && new ExtractTextPlugin({
         filename: '[name]-[contenthash:6].css',
         allChunks: true,
@@ -201,17 +207,16 @@ export default function webpackFactory({ production = false, client = false }) {
         entryOnly: false,
       }),
       production && new optimize.DedupePlugin(),
-      production && new optimize.OccurrenceOrderPlugin(),
       client && production && new optimize.UglifyJsPlugin({
         compressor: {
           warnings: false,
         },
       }),
-      client && new WriteManifestPlugin({ client }),
+      client && new WriteManifestPlugin({ client, callback: writeManifestCallback }),
     ].filter(identity),
 
     resolve: {
-      extensions: ['', '.json', '.js', '.styl'],
+      extensions: ['.json', '.js', '.styl'],
       modules: [
         'src',
         'node_modules',

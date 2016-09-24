@@ -11,9 +11,9 @@ const SiteHeaderNav = ({ className, items, mode = 'horizontal' }, { location }) 
   return (
     <nav className={cx(mode === 'horizontal' ? styles.horizontal : styles.vertical, className)}>
       <ul className={styles.list}>
-        {items.filter(({ to }) => to !== location.pathname).map((item) => (
-          <li key={item.to} className={cx(styles.item, { [styles.active]: item.to.startsWith(location.pathname) })}>
-            <Link {...item} />
+        {items.filter(({ to }) => to !== location.pathname).map(({ to, target, children }) => (
+          <li key={to} className={cx(styles.item, { [styles.active]: to.startsWith(location.pathname) })}>
+            <Link to={to} target={target}>{children}</Link>
           </li>
         ))}
       </ul>
