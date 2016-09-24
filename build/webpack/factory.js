@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { identity, noop } from 'lodash';
+import { identity, noop } from 'lodash-es';
 import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import combineLoaders from 'webpack-combine-loaders';
