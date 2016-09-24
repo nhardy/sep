@@ -18,19 +18,19 @@ export default class SiteHeader extends Component {
   };
 
   componentDidMount() {
-    dismissEvents.forEach((type) => window.addEventListener(type, this.handleDismiss));
+    dismissEvents.forEach(type => window.addEventListener(type, this.handleDismiss));
   }
 
   componentWillUnmount() {
-    dismissEvents.forEach((type) => window.removeEventListener(type, this.handleDismiss));
+    dismissEvents.forEach(type => window.removeEventListener(type, this.handleDismiss));
   }
 
   handleDismiss = (e) => {
-    if (!this.refs.toggle.checked) return;
-    if (this.refs.sidebar.contains(e.target)) return;
-    if (this.refs.label.contains(e.target)) return;
-    if (this.refs.toggle.contains(e.target)) return;
-    this.refs.toggle.checked = false;
+    if (!this._toggle.checked) return;
+    if (this._sidebar.contains(e.target)) return;
+    if (this._label.contains(e.target)) return;
+    if (this._toggle.contains(e.target)) return;
+    this._toggle.checked = false;
   };
 
   render() {
@@ -42,7 +42,7 @@ export default class SiteHeader extends Component {
         </div>
         <Sticky className={styles.sticky} stickyClassName={styles.isSticky}>
           <div className={cx(styles.column, styles.navBar)}>
-            <label htmlFor="sidebarToggle" className={styles.hamburger} ref="label">
+            <label htmlFor="sidebarToggle" className={styles.hamburger} ref={ref => (this._label = ref)}>
               <FontAwesome className="fa-bars" />
             </label>
             <Link to="/" className={styles.siteName}>nhardy.id.au</Link>
@@ -53,8 +53,8 @@ export default class SiteHeader extends Component {
           id="sidebarToggle"
           type="checkbox"
           className={styles.checkbox}
-          ref="toggle" />
-        <aside className={styles.aside} ref="sidebar">
+          ref={ref => (this._toggle = ref)} />
+        <aside className={styles.aside} ref={ref => (this._sidebar = ref)}>
           <label className={styles.close} htmlFor="sidebarToggle">
             <FontAwesome className="fa-close" />
           </label>

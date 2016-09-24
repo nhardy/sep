@@ -5,32 +5,25 @@ import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import combineLoaders from 'webpack-combine-loaders';
 import nodeExternals from 'webpack-node-externals';
-
-// @see https://github.com/benmosher/eslint-plugin-import/issues/488
-/* eslint-disable */
 import {
   BannerPlugin,
   DefinePlugin,
   HotModuleReplacementPlugin,
   LoaderOptionsPlugin,
+  NamedModulesPlugin,
   NoErrorsPlugin,
   optimize,
   ProvidePlugin,
 } from 'webpack';
-/* eslint-enable */
 
 import WriteManifestPlugin from './plugins/WriteManifestPlugin';
 
-
-const hashType = (production) => {
-  return production ? 'chunkhash' : 'hash';
-};
 
 const stylusLoader = ({ production, client }) => {
   const query = {
     importLoaders: 2,
     modules: true,
-    localIdentName: `[path][name]--[local]--[${hashType(production)}:base64:5]`,
+    localIdentName: '[path][name]--[local]--[hash:base64:5]',
   };
   if (client) {
     return production
@@ -88,6 +81,7 @@ export default function webpackFactory({ production = false, client = false, wri
       bundle: [
         !production && 'webpack-dev-server/client?/',
         !production && 'webpack/hot/only-dev-server',
+        'react-hot-loader/patch',
         'babel-polyfill',
         path.resolve(__dirname, '..', '..', 'src', 'client', 'index.js'),
       ].filter(identity),
@@ -126,7 +120,7 @@ export default function webpackFactory({ production = false, client = false, wri
           exclude: /node_modules/,
           loaders: [
             !production && {
-              loader: 'react-hot-loader',
+              loader: 'react-hot-loader/webpack',
             },
             {
               loader: 'babel-loader',
@@ -181,7 +175,7 @@ export default function webpackFactory({ production = false, client = false, wri
         __CLIENT__: client,
         __DEVELOPMENT__: !production,
         __SERVER__: !client,
-        // 'process.env.NODE_ENV': JSON.stringify('production'),
+        'process.env.NODE_ENV': production ? JSON.stringify('production') : JSON.stringify('development'),
       }),
       new ProvidePlugin({
         fetch: 'isomorphic-fetch',
@@ -191,9 +185,11 @@ export default function webpackFactory({ production = false, client = false, wri
       new LoaderOptionsPlugin({
         test: /\.(?:styl|css)$/,
         options: {
+          context: __dirname,
           postcss: [autoprefixer({ browsers: ['last 2 versions'] })],
         },
       }),
+      !production && new NamedModulesPlugin(),
       client && production && new ExtractTextPlugin({
         filename: '[name]-[contenthash:6].css',
         allChunks: true,
@@ -204,7 +200,6 @@ export default function webpackFactory({ production = false, client = false, wri
         entryOnly: false,
       }),
       production && new optimize.DedupePlugin(),
-      production && new optimize.OccurrenceOrderPlugin(),
       client && production && new optimize.UglifyJsPlugin({
         compressor: {
           warnings: false,

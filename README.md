@@ -20,3 +20,11 @@ To start the server in development mode, use `npm run dev`. The server will star
 You may notice that styles appear to _jump_ when you load the page in development mode. This is because styles are injected into the page by the JavaScript bundle to make hot reloading of styles possible. Production mode, on the other hand, does not do this.
 
 `npm run prod` will start the server in production mode. This slower and won't automatically reload, but makes some optimisations, such as separating out the CSS into a separate file, and minifying the JavaScript bundle.
+
+## Problems?
+
+If you're experiencing an unexplained Node crash when running `npm run dev` or `npm run prod` on Linux, try
+
+`echo fs.inotify.max_user_watches=582222 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`
+
+See [Nodemon#214](https://github.com/remy/nodemon/issues/214) for more information.
