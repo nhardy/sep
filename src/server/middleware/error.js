@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 
 import assetManifest from 'server/lib/assetManifest';
 import createStore from 'app/redux/store';
+import { setRouteError } from 'app/actions/routeError';
 import getRoutes from 'app/routes';
 import Html from 'app/components/Html';
 
@@ -22,6 +23,7 @@ export default function errorMiddleware(error, req, res, next) { // eslint-disab
 
   const location = status === 404 ? '/__404' : '/__500';
   const store = createStore();
+  store.dispatch(setRouteError({ status }));
   const history = createMemoryHistory(req.url);
 
   match({ history, routes: getRoutes(store), location }, (err, redirectLocation, renderProps) => {
