@@ -8,6 +8,7 @@ import { setRouteError } from 'app/actions/routeError';
 import { getPost } from 'app/actions/posts';
 import * as appPropTypes from 'app/components/propTypes';
 import DefaultLayout from 'app/layouts/Default';
+import PostDetailView from 'app/components/PostDetailView';
 
 // import styles from './styles.styl';
 
@@ -29,16 +30,18 @@ import DefaultLayout from 'app/layouts/Default';
   },
 ])
 @connect((state, { params: { id } }) => ({
-  ...state.posts.posts[id],
+  post: state.posts.posts[id],
 }))
 export default class PostView extends Component {
   static propTypes = {
+    post: appPropTypes.post,
   };
 
   render() {
     return (
       <DefaultLayout>
         <Helmet title={config.appName} />
+        <PostDetailView {...this.props.post} />
       </DefaultLayout>
     );
   }
