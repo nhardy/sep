@@ -7,6 +7,11 @@
   "$_tardisBlue": "#003a69",
   "$_badassGreen": "#bada55",
   "$_hoverGrey": "#e6e6e6",
+  "$_lightGrey": "#888",
+  "$_contrastGrey": "#d8d8d8",
+  "$_darkGreen": "#166304",
+  "$_darkRed": "#990c00",
+  "$_anotherGrey": "#eaeaea",
 
   "$whiteColor": "$_white",
   "$blackColor": "$_black",
@@ -15,5 +20,11 @@
   "$themeColor": "$_tardisBlue",
   "$highlightColor": "$_badassGreen",
   "$containerBackground": "$_charcoal",
-  "$hoverColor": "$_hoverGrey"
+  "$hoverColor": "$_hoverGrey",
+  "$shadowColor": "$_lightGrey",
+  "$bottomBarColor": "$_contrastGrey",
+  "$positiveColor": "$_darkGreen",
+  "$negativeColor": "$_darkRed",
+  "$subtleTextColor": "$_lightGrey",
+  "$imageContainerColor": "$_anotherGrey"
 }
