@@ -12,6 +12,18 @@
   font-size: 32px
   margin-bottom: 16px
 
+.upload
+  display: none
+
+.image
+  width: 100%
+
+.label
+  display: block
+  margin-bottom: 8px
+  font-weight: 600
+  font-size: 24px
+
 .textarea
 .button
   outline: none
@@ -32,9 +44,13 @@
 
 .button
   display: block
-  margin: 0 auto
+  width: 100%
   padding: 16px
   font-size: 16px
   letter-spacing: 1px
   font-weight: bold
   border: 2px solid $themeColor
+  cursor: pointer
+
+  &:not(:last-child)
+    margin-bottom: 8px
