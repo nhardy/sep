@@ -15,7 +15,7 @@ import styles from './styles.styl';
 @asyncConnect([{
   promise: ({ store: { dispatch } }) => Promise.resolve(dispatch(clearPost())),
 }])
-@connect((state) => ({
+@connect(state => ({
   location: {
     latitude: state.location.latitude,
     longitude: state.location.longitude,
@@ -35,7 +35,7 @@ export default class AddPostView extends Component {
   };
 
   submit = () => {
-    const text = this.refs.text.value;
+    const text = this._text.value;
     const { latitude, longitude } = this.props.location;
     if (!(text && latitude && longitude)) return; // TODO: Notify user
 
@@ -51,7 +51,7 @@ export default class AddPostView extends Component {
         <Helmet title={`Add Post | ${config.appName}`} />
         <form className={styles.form}>
           <h1 className={styles.heading}>Add Post</h1>
-          <textarea ref="text" className={styles.textarea} />
+          <textarea ref={ref => (this._text = ref)} className={styles.textarea} />
           <input className={styles.button} type="button" onClick={this.submit} value="Add" />
         </form>
       </DefaultLayout>

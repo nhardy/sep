@@ -43,6 +43,14 @@ export default function mainMiddleware(req, res, next) {
     }
 
     loadOnServer({ ...renderProps, store }).then(() => {
+      const { routeError } = store.getState();
+      if (routeError) {
+        const err = new Error('Route Error defined in store');
+        err.status = routeError.route.status;
+        next(err);
+        return;
+      }
+
       const inner = (
         <Provider store={store} key="provider">
           <ReduxAsyncConnect {...renderProps} />

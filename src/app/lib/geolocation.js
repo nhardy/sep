@@ -4,7 +4,7 @@ export default function geolocate() {
       ({ coords: { latitude, longitude } }) => {
         resolve({ latitude, longitude });
       },
-      (error) => reject(error),
+      error => reject(error),
       { timeout: 5000 }
     );
   });

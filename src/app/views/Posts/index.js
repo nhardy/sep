@@ -4,12 +4,13 @@ import Helmet from 'react-helmet';
 
 import config from 'app/config';
 import { getPosts } from 'app/actions/posts';
+import * as appPropTypes from 'app/components/propTypes';
 import DefaultLayout from 'app/layouts/Default';
 import PostListItemView from 'app/components/PostListItem';
 
 // import styles from './styles.styl';
 
-@connect((state) => ({
+@connect(state => ({
   posts: state.posts.items,
   location: {
     latitude: state.location.latitude,
@@ -18,7 +19,7 @@ import PostListItemView from 'app/components/PostListItem';
 }), { getPosts })
 export default class PostsView extends Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
-    posts: PropTypes.array,
+    posts: appPropTypes.posts,
     getPosts: PropTypes.func,
     location: PropTypes.shape({
       latitude: PropTypes.number,
@@ -49,7 +50,7 @@ export default class PostsView extends Component { // eslint-disable-line react/
     return (
       <DefaultLayout>
         <Helmet title={config.appName} />
-        {posts.map((post) => (
+        {posts.map(post => (
           <PostListItemView key={post.id} {...post} />
         ))}
       </DefaultLayout>

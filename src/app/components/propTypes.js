@@ -14,3 +14,16 @@ export const location = PropTypes.shape({
   hash: PropTypes.string,
   query: PropTypes.object,
 });
+
+export const coordinates = PropTypes.shape({
+  latitude: PropTypes.number.isRequired,
+  longitude: PropTypes.number.isRequired,
+});
+
+export const post = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  location: coordinates.isRequired,
+});
+
+export const posts = PropTypes.arrayOf(post);

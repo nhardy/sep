@@ -1,4 +1,4 @@
-import last from 'lodash/last';
+import { last } from 'lodash-es';
 
 import {
   CLEAR_POST,

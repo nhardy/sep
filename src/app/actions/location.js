@@ -22,6 +22,6 @@ export function getLocation() {
     });
     geolocate()
       .then(({ latitude, longitude }) => dispatch(setLocation({ latitude, longitude })))
-      .catch((error) => dispatch(setLocation(undefined, error)));
+      .catch(error => dispatch(setLocation(undefined, error)));
   };
 }

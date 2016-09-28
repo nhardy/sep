@@ -5,6 +5,7 @@ import { getLocation } from 'app/actions/location';
 
 
 const GEOLOCATION_INTERVAL = 30 * 1000; // 30 seconds
+
 @connect(null, { getLocation })
 export default class AddPostView extends Component {
   static propTypes = {
@@ -20,7 +21,7 @@ export default class AddPostView extends Component {
     window.clearInterval(this.interval);
   }
 
-  render() {
+  render() { // eslint-disable-line class-methods-use-this
     // This is a component with no UI
     return null;
   }

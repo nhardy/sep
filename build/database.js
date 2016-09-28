@@ -21,7 +21,7 @@ gulp.task('schema', async () => {
 
   await Promise.all(
     difference(tables, existingTables).map(
-      (table) => r.db(db)
+      table => r.db(db)
         .tableCreate(table)
         .run()
     )
