@@ -7,7 +7,10 @@ import styles from './styles.styl';
 
 const PostDetailView = ({ id, text, upvotes, image }) => (
   <div className={styles.container}>
-
+  { /* Needs to be replaced with user, location, now - time */}
+  <div className={styles.postinfo}>
+  <span>{'Test User'} @ {'UTS'} {'(1h)'}</span>
+  </div>
     {image && (
       <div className={styles.imagecontainer}>
         <img className={styles.image} src={image} alt="Post" />
@@ -20,7 +23,9 @@ const PostDetailView = ({ id, text, upvotes, image }) => (
     )}
     <span className={styles.postbody}>{text}</span>
     <div className={styles.bottombar}>
-      <span className={cx(styles.votecount, (upvotes < 0 ? styles.negative:styles.positive))}> {(upvotes > 0) && '+'} {upvotes || 0}</span>
+      <span className={cx(styles.votecount, (upvotes < 0 ? styles.negative:styles.positive))}>
+        {(upvotes > 0) && '+'} {upvotes || 0}
+      </span>
       <div className={cx(styles.button, styles.positive)}>
         <FontAwesome className="fa-plus-circle" />
       </div>
