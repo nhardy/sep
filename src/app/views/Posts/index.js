@@ -6,7 +6,7 @@ import config from 'app/config';
 import { getPosts } from 'app/actions/posts';
 import * as appPropTypes from 'app/components/propTypes';
 import DefaultLayout from 'app/layouts/Default';
-import PostListItemView from 'app/components/PostListItem';
+import PostListItem from 'app/components/PostListItem';
 
 // import styles from './styles.styl';
 
@@ -17,7 +17,7 @@ import PostListItemView from 'app/components/PostListItem';
     longitude: state.location.longitude,
   },
 }), { getPosts })
-export default class PostsView extends Component { // eslint-disable-line react/prefer-stateless-function
+export default class PostsView extends Component {
   static propTypes = {
     posts: appPropTypes.posts,
     getPosts: PropTypes.func,
@@ -51,7 +51,7 @@ export default class PostsView extends Component { // eslint-disable-line react/
       <DefaultLayout>
         <Helmet title={config.appName} />
         {posts.map(post => (
-          <PostListItemView key={post.id} {...post} />
+          <PostListItem key={post.id} {...post} />
         ))}
       </DefaultLayout>
     );

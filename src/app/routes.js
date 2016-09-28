@@ -6,6 +6,7 @@ import App from 'app/components/App';
 import ErrorView from 'app/views/Error';
 import PostsView from 'app/views/Posts';
 import AddPostView from 'app/views/AddPost';
+import PostView from 'app/views/Post';
 
 
 export default function getRoutes(store) {
@@ -18,6 +19,7 @@ export default function getRoutes(store) {
       <Route path="/__500" component={ErrorView} status={500} />
       <IndexRoute component={PostsView} />
       <Route path="/add" component={AddPostView} />
+      <Route path="/posts/:id" component={PostView} />
       <Route path="*" component={ErrorView} status={404} />
     </Route>
   );

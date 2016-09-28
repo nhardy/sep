@@ -5,7 +5,7 @@
  * @param {Response} response Response from `fetch()`
  * @returns {Response|Promise} Raw Response or rejected `Promise`
  */
-export function checkStatus(response) { // eslint-disable-line import/prefer-default-export
+export function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
@@ -15,4 +15,21 @@ export function checkStatus(response) { // eslint-disable-line import/prefer-def
   error.response = response;
 
   return Promise.reject(error);
+}
+
+/**
+ * Parses the `fetch` `response.headers` object. As there are
+ *   there are subtle differences between `whatwg-fetch` and
+ *   `node-fetch`, we need a way to do this in a way that
+ *   handles both the server and browser.
+ * @param {Response} response Response from `fetch()`
+ * @returns {Response|Promise} Raw Response or rejected `Promise`
+ */
+export function parseHeaders(headers) {
+  if (__SERVER__) {
+    return Object.keys(headers.raw())
+      .reduce((acc, key) => ({ ...acc, [key]: headers.get(key) }), {});
+  }
+  return Array.from(headers.entries())
+    .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
 }
