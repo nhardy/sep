@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { first } from 'lodash-es';
 import { withRouter } from 'react-router';
 import { routerShape } from 'react-router/lib/PropTypes';
 import { connect } from 'react-redux';
@@ -6,8 +7,9 @@ import { asyncConnect } from 'redux-connect';
 import Helmet from 'react-helmet';
 
 import config from 'app/config';
-import DefaultLayout from 'app/layouts/Default';
 import { clearPost, addPost } from 'app/actions/posts';
+import DefaultLayout from 'app/layouts/Default';
+import FontAwesome from 'app/components/FontAwesome';
 
 import styles from './styles.styl';
 
@@ -34,24 +36,59 @@ export default class AddPostView extends Component {
     router: routerShape,
   };
 
-  submit = () => {
-    const text = this._text.value;
+  state = {};
+
+  pick = (e) => {
+    e.preventDefault();
+    this._image.click();
+  };
+
+  readImage = () => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.setState({ image: reader.result });
+    });
+
+    const image = first(this._image.files);
+    if (!image) {
+      this.setState({ image: null });
+      return;
+    }
+    reader.readAsDataURL(image);
+  };
+
+  submit = async () => {
     const { latitude, longitude } = this.props.location;
+    const text = this._text.value;
+    const { image } = this.state;
+
     if (!(text && latitude && longitude)) return; // TODO: Notify user
 
-    this.props.addPost({ text, location: { latitude, longitude } }).then(() => {
-      // FIXME: Ideally this would redirect to the new Post
-      this.props.router.push('/');
+    await this.props.addPost({
+      location: { latitude, longitude },
+      text,
+      image,
     });
+
+    // FIXME: Ideally this would redirect to the new Post
+    this.props.router.push('/');
   };
 
   render() {
+    const { image } = this.state;
     return (
       <DefaultLayout className={styles.root}>
         <Helmet title={`Add Post | ${config.appName}`} />
         <form className={styles.form}>
           <h1 className={styles.heading}>Add Post</h1>
-          <textarea ref={ref => (this._text = ref)} className={styles.textarea} />
+          <input className={styles.upload} type="file" id="image" accept="image/*" ref={ref => (this._image = ref)} onChange={this.readImage} />
+          <button className={styles.button} onClick={this.pick}>
+            <FontAwesome className="fa-upload" size={16} />
+            <span>{image ? 'Change image' : 'Upload image'}</span>
+          </button>
+          {image && <img className={styles.image} src={image} alt="Your upload" />}
+          <label className={styles.label} htmlFor="text">Your post</label>
+          <textarea id="text" ref={ref => (this._text = ref)} className={styles.textarea} />
           <input className={styles.button} type="button" onClick={this.submit} value="Add" />
         </form>
       </DefaultLayout>

@@ -9,7 +9,7 @@ import postHandler from 'server/api/handlers/post';
 const api = new Express();
 
 api.get('/posts', getPostsHandler);
-api.post('/posts', bodyParser.json(), newPostHandler);
+api.post('/posts', bodyParser.json({ limit: '12mb' }), newPostHandler);
 api.get('/posts/:id', postHandler);
 
 api.use((req, res, next) => {
