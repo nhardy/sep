@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
 import Image from 'app/components/Image';
 import FontAwesome from 'app/components/FontAwesome';
@@ -6,7 +7,7 @@ import thumbailImg from 'app/assets/images/thumbnail.svg';
 
 import styles from './styles.styl';
 
-const PostListItem = ({ text, upvotes, image }) => {
+const PostListItem = ({ id, text, upvotes, image }) => {
   const img = { src: image } || { src: thumbailImg, alt: 'placeholder' };
   return (
     <div className={styles.root}>
@@ -15,7 +16,7 @@ const PostListItem = ({ text, upvotes, image }) => {
           <Image {...img} aspectRatio={1} />
         </div>
         <div className={styles.text}>
-          <p>{text}</p>
+          <p><Link className={styles.text} to={`/posts/${id}`}>{text}</Link></p>
         </div>
       </div>
       <div className={styles.controls}>
@@ -32,6 +33,7 @@ const PostListItem = ({ text, upvotes, image }) => {
 };
 
 PostListItem.propTypes = {
+  id: PropTypes.string.isRequired,
   image: PropTypes.string,
   text: PropTypes.string.isRequired,
   upvotes: PropTypes.number,

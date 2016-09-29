@@ -17,6 +17,8 @@ import {
 
 const initialState = {
   items: [],
+  loaded: false,
+  loading: false,
   posts: {},
   post: null,
 };
@@ -48,22 +50,34 @@ export default function postsReducer(state = initialState, action = {}) {
     case GET_POSTS_REQUEST:
       return {
         ...state,
+        loading: true,
       };
 
     case GET_POSTS_SUCCESS:
       return {
         ...state,
         items: action.response.items,
+        loading: false,
+        loaded: true,
       };
 
     case GET_POSTS_FAILURE:
       return {
         ...state,
+        loading: false,
+        error: action.error,
       };
 
     case GET_POST_REQUEST:
       return {
         ...state,
+        posts: {
+          ...state.posts,
+          [action.id]: {
+            ...state.posts[action.id],
+            loading: true,
+          },
+        },
       };
 
     case GET_POST_SUCCESS:
@@ -71,14 +85,27 @@ export default function postsReducer(state = initialState, action = {}) {
         ...state,
         posts: {
           ...state.posts,
-          [action.response.item.id]: action.response.item,
+          [action.id]: {
+            ...state.posts[action.id],
+            ...action.response.item,
+            loading: false,
+            loaded: true,
+          },
         },
-        post: action.response.item.id,
       };
 
     case GET_POST_FAILURE:
+      console.log(action);
       return {
         ...state,
+        posts: {
+          ...state.posts,
+          [action.id]: {
+            ...state.posts[action.id],
+            error: action.error,
+            loading: false,
+          },
+        },
       };
 
     case SET_POST:

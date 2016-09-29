@@ -1,4 +1,4 @@
-import { checkStatus } from 'app/lib/fetch';
+import { checkStatus, parseHeaders } from 'app/lib/fetch';
 
 
 export default function fetchMiddleware() {
@@ -30,8 +30,7 @@ export default function fetchMiddleware() {
         response => next({
           ...rest,
           response,
-          headers: Array.from(rawResponse.headers.entries())
-            .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {}),
+          headers: parseHeaders(rawResponse.headers),
           type: SUCCESS,
         }),
         error => next({

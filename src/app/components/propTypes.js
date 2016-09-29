@@ -24,6 +24,7 @@ export const post = PropTypes.shape({
   id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   location: coordinates.isRequired,
+  image: PropTypes.string,
 });
 
 export const posts = PropTypes.arrayOf(post);
