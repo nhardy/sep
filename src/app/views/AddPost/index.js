@@ -61,9 +61,12 @@ export default class AddPostView extends Component {
     const { latitude, longitude } = this.props.location;
     const text = this._text.value;
     const { image } = this.state;
+    const { blankPost } = this.state;
 
-    if (!(text && latitude && longitude)) return; // TODO: Notify user
-
+    if (!(text && latitude && longitude)) {
+      this.setState({ blankPost: true });
+      return;
+    }
     await this.props.addPost({
       location: { latitude, longitude },
       text,
@@ -90,6 +93,7 @@ export default class AddPostView extends Component {
           <label className={styles.label} htmlFor="text">Your post</label>
           <textarea id="text" ref={ref => (this._text = ref)} className={styles.textarea} />
           <input className={styles.button} type="button" onClick={this.submit} value="Add" />
+          {this.state.blankPost && (<span className={styles.error}>Enter text to be posted!</span>)}
         </form>
       </DefaultLayout>
     );
