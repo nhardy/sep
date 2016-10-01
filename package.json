@@ -41,7 +41,7 @@
     "del": "^2.2.2",
     "eslint": "^3.6.0",
     "eslint-config-nhardy": "^0.2.0",
-    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-import": "^1.16.0",
     "eslint-plugin-jsx-a11y": "^2.2.2",
     "eslint-plugin-mocha": "^4.5.1",
     "eslint-plugin-react": "^6.3.0",
@@ -85,5 +85,9 @@
     "redux-connect": "^3.0.0",
     "redux-thunk": "^2.0.1",
     "source-map-support": "^0.4.0"
+  },
+  "engines": {
+    "node": "^6.0.0",
+    "npm": "^3.0.0"
   }
 }
