@@ -1,0 +1,21 @@
+@import '~app/assets/stylus'
+
+
+.root
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: flex-end
+
+.hot
+  display: inline-block
+  margin-right: 16px
+
+.button
+  color: $themeColor
+
+  &:hover
+    color: $highlightColor
+
+  &:not(:last-child)
+    margin-right: 8px
