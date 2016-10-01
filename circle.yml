@@ -4,3 +4,5 @@ machine:
 test:
   pre:
     - npm run lint
+  override:
+    - npm test

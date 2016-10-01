@@ -8,7 +8,6 @@ import styles from './styles.styl';
 
 
 export default function HomeView() {
-  throw new Error('woops');
   return (
     <DefaultLayout className={styles.root}>
       <Helmet title="Home | Example Application" />
