@@ -42,7 +42,7 @@
     "del": "^2.2.2",
     "eslint": "^3.6.0",
     "eslint-config-nhardy": "^0.2.0",
-    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-import": "^1.16.0",
     "eslint-plugin-jsx-a11y": "^2.2.2",
     "eslint-plugin-mocha": "^4.5.1",
     "eslint-plugin-react": "^6.3.0",
@@ -53,6 +53,7 @@
     "isparta": "^4.0.0",
     "json-loader": "^0.5.4",
     "mkdirp": "^0.5.1",
+    "mocha": "^3.1.0",
     "node-hook": "^0.4.0",
     "postcss-loader": "^0.13.0",
     "run-sequence": "^1.1.5",
@@ -89,5 +90,9 @@
     "rethinkdbdash": "^2.3.21",
     "source-map-support": "^0.4.0",
     "uuid": "^2.0.2"
+  },
+  "engines": {
+    "node": "^6.0.0",
+    "npm": "^3.0.0"
   }
 }
