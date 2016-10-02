@@ -58,17 +58,20 @@ export default class AddPostView extends Component {
   };
 
   textChange = () => {
-    this.state.blankPost = (this._text.value === '');
+    this.setState({ postError: this._text.value === '', postErrorDetail: 'Enter text to be posted!' });
   };
 
   submit = async () => {
     const { latitude, longitude } = this.props.location;
     const text = this._text.value;
     const { image } = this.state;
-    const { blankPost } = this.state;
 
-    if (!(text && latitude && longitude)) {
-      this.setState({ blankPost: true });
+    if (!(latitude && longitude)) {
+      this.setState({ postError: true, postErrorDetail: 'Unable to retrieve location!' });
+      return;
+    }
+    if (!(text)){
+      this.setState({ postError: true, postErrorDetail: 'Enter text to be posted!' });
       return;
     }
     await this.props.addPost({
@@ -97,9 +100,12 @@ export default class AddPostView extends Component {
           <label className={styles.label} htmlFor="text">Your post</label>
           <textarea id="text" ref={ref => (this._text = ref)} className={styles.textarea} onChange={this.textChange} />
           <input className={styles.button} type="button" onClick={this.submit} value="Add" />
-          {this.state.blankPost && (<div className={styles.msgContainer}>
-            <span className={styles.error}>Enter text to be posted!</span>
-            </div>)}
+          {this.state.postError && (
+              <div className={styles.msgContainer}>
+                <span className={styles.error}>{this.state.postErrorDetail}</span>
+              </div>
+            )
+          }
         </form>
       </DefaultLayout>
     );
