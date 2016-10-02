@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { asyncConnect } from 'redux-connect';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
@@ -8,9 +8,8 @@ import { setRouteError } from 'app/actions/routeError';
 import { getPost } from 'app/actions/posts';
 import * as appPropTypes from 'app/components/propTypes';
 import DefaultLayout from 'app/layouts/Default';
-import PostDetailView from 'app/components/PostDetailView';
+import PostDetail from 'app/components/PostDetail';
 
-// import styles from './styles.styl';
 
 @asyncConnect([
   {
@@ -32,7 +31,7 @@ import PostDetailView from 'app/components/PostDetailView';
 @connect((state, { params: { id } }) => ({
   post: state.posts.posts[id],
 }))
-export default class PostView extends Component {
+export default class PostView extends Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     post: appPropTypes.post,
   };
@@ -41,7 +40,7 @@ export default class PostView extends Component {
     return (
       <DefaultLayout>
         <Helmet title={config.appName} />
-        <PostDetailView {...this.props.post} />
+        <PostDetail {...this.props.post} />
       </DefaultLayout>
     );
   }
