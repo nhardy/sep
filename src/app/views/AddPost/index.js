@@ -70,7 +70,7 @@ export default class AddPostView extends Component {
       this.setState({ postError: true, postErrorDetail: 'Unable to retrieve location!' });
       return;
     }
-    if (!(text)){
+    if (!(text)) {
       this.setState({ postError: true, postErrorDetail: 'Enter text to be posted!' });
       return;
     }
@@ -101,11 +101,10 @@ export default class AddPostView extends Component {
           <textarea id="text" ref={ref => (this._text = ref)} className={styles.textarea} onChange={this.textChange} />
           <input className={styles.button} type="button" onClick={this.submit} value="Add" />
           {this.state.postError && (
-              <div className={styles.msgContainer}>
-                <span className={styles.error}>{this.state.postErrorDetail}</span>
-              </div>
-            )
-          }
+            <div className={styles.msgContainer}>
+              <span className={styles.error}>{this.state.postErrorDetail}</span>
+            </div>
+          )}
         </form>
       </DefaultLayout>
     );
