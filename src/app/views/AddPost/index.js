@@ -57,6 +57,10 @@ export default class AddPostView extends Component {
     reader.readAsDataURL(image);
   };
 
+  textChange = () => {
+    this.state.blankPost = (this._text.value === '');
+  };
+
   submit = async () => {
     const { latitude, longitude } = this.props.location;
     const text = this._text.value;
@@ -91,9 +95,11 @@ export default class AddPostView extends Component {
           </button>
           {image && <img className={styles.image} src={image} alt="Your upload" />}
           <label className={styles.label} htmlFor="text">Your post</label>
-          <textarea id="text" ref={ref => (this._text = ref)} className={styles.textarea} />
+          <textarea id="text" ref={ref => (this._text = ref)} className={styles.textarea} onChange={this.textChange} />
           <input className={styles.button} type="button" onClick={this.submit} value="Add" />
-          {this.state.blankPost && (<span className={styles.error}>Enter text to be posted!</span>)}
+          {this.state.blankPost && (<div className={styles.msgContainer}>
+            <span className={styles.error}>Enter text to be posted!</span>
+            </div>)}
         </form>
       </DefaultLayout>
     );
