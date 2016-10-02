@@ -22,15 +22,17 @@
   composes: column from 'app/assets/stylus/common.styl'
 
 .wrapper
-  position:relative
+  position: relative
   display: flex
   flex-direction: row
   justify-content: space-between
   align-items: center
 
+  +upTo($med)
+    justify-content: flex-end
+
 .copyright
   display: block
-  flex-grow: 1
 
   +upTo($med)
     position: absolute

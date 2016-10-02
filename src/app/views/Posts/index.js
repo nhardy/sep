@@ -8,8 +8,6 @@ import * as appPropTypes from 'app/components/propTypes';
 import DefaultLayout from 'app/layouts/Default';
 import PostListItem from 'app/components/PostListItem';
 
-// import styles from './styles.styl';
-
 @connect(state => ({
   posts: state.posts.items,
   location: {
