@@ -16,11 +16,25 @@
   margin-top: 8px
   margin-bottom: 8px
 
+.expanded
+  position: fixed
+  top: 0
+  left: 0
+  z-index: $zIndexImagePop
+  width: 100%
+  height: 100%
+  display: flex
+  flex-direction: column
+  justify-content: center
+  margin: 0
+  padding: 8px
+
 .expand
   position: absolute
   right: 8px
   bottom: 6px
-  color: $whiteColor
+  color: $backgroundColor
+  text-shadow: 1px 1px 16px $textColor
 
 .body
   content: ''
