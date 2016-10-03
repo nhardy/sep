@@ -62,7 +62,8 @@ export default class AddPostView extends Component {
   };
 
   inputError = () => {
-    return (!(this.props.location.latitude && this.props.location.longitude) || (this._text.value === ''));
+    const { latitude, longitude } = this.props.location;
+    return (!(latitude && longitude) || (this._text.value === ''));
   };
 
   submit = async () => {
@@ -85,6 +86,7 @@ export default class AddPostView extends Component {
   };
 
   render() {
+    const { latitude, longitude } = this.props.location;
     const { image } = this.state;
     return (
       <DefaultLayout className={styles.root}>
@@ -102,7 +104,9 @@ export default class AddPostView extends Component {
           <input className={styles.button} type="button" onClick={this.submit} value="Add" />
           {this.state.postError && (
             <div className={styles.msgContainer}>
-              <span className={styles.error}>{!(this.props.location.latitude && this.props.location.longitude) ? 'Unable to retrieve location!' : 'Enter text to be posted!'}</span>
+              <span className={styles.error}>
+                {!(latitude && longitude) ? 'Unable to retrieve location!' : 'Enter text to be posted!'}
+              </span>
             </div>
           )}
         </form>
