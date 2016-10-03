@@ -3,7 +3,6 @@
 
 .root
   background: $backgroundColor
-  border-bottom 4px solid $themeColor
 
 .column
   composes: column from 'app/assets/stylus/common.styl'
@@ -90,13 +89,13 @@
   display: block
 
 .sticky
-  background: rbga($backgroundColor, 0.85)
-  color: $textColor
+  background: linear-gradient($_headerBlue2, $_headerBlue)
+  color: $_white
   transition: background 250ms ease-in-out, color 250ms ease-in-out
   z-index: $zIndexSiteHeader
 
 .isSticky
-  background: rgba($themeColor, 0.85)
+  background: linear-gradient($_headerBlue2, $_headerBlue)
   color: $backgroundColor
 
 .siteName

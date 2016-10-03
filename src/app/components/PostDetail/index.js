@@ -28,7 +28,7 @@ export default class PostDetail extends Component {
     const { expanded } = this.state;
     return (
       <div className={styles.root}>
-        { /* TODO: Needs to be replaced with user, location, now - time */}
+        { /* TODO: Needs to be replaced with user, location, now - time */ }
         <div className={styles.info}>
           <span>{'Test User'} @ {'UTS'} {'(1h)'}</span>
         </div>
@@ -42,7 +42,7 @@ export default class PostDetail extends Component {
         )}
         <div className={styles.body}>{text}</div>
         <div className={styles.controlbar}>
-          <PostControls id={id} hot={upvotes} />
+          <PostControls id={id} hot={upvotes} comments={true} />
         </div>
       </div>
     );

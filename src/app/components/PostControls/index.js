@@ -16,6 +16,7 @@ export default class PostControls extends Component {
     hot: PropTypes.number.isRequired,
     upVote: PropTypes.func.isRequired,
     downVote: PropTypes.func.isRequired,
+    //comments: PropTypes.boolean,
   };
 
   upVote = () => this.props.upVote(this.props.id);
@@ -23,9 +24,14 @@ export default class PostControls extends Component {
   downVote = () => this.props.downVote(this.props.id);
 
   render() {
-    const { className, hot } = this.props;
+    const { className, hot, comments } = this.props;
     return (
       <div className={cx(styles.root, className)}>
+        {comments &&
+          <div className={styles.commentbutton}>
+            <FontAwesome className="fa-comment-o" />
+          </div>
+        }
         <span className={styles.hot}>{hot || 0}</span>
         <Button className={cx(styles.button, styles.positive)} role="button" onClick={this.upVote}>
           <FontAwesome className="fa-arrow-circle-up" />

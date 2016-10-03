@@ -12,6 +12,8 @@
   "$_darkGreen": "#166304",
   "$_darkRed": "#990c00",
   "$_anotherGrey": "#eaeaea",
+  "$_headerBlue": "#003a69",
+  "$_headerBlue2": "#005078",
 
   "$whiteColor": "$_white",
   "$blackColor": "$_black",
