@@ -40,8 +40,10 @@ export default class PostDetail extends Component {
             </Button>
           </div>
         )}
-        <PostControls id={id} hot={upvotes} />
         <div className={styles.body}>{text}</div>
+        <div className={styles.controlbar}>
+          <PostControls id={id} hot={upvotes} />
+        </div>
       </div>
     );
   }

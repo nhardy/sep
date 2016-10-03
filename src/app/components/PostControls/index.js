@@ -27,10 +27,10 @@ export default class PostControls extends Component {
     return (
       <div className={cx(styles.root, className)}>
         <span className={styles.hot}>{hot || 0}</span>
-        <Button className={styles.button} role="button" onClick={this.upVote}>
+        <Button className={cx(styles.button, styles.positive)} role="button" onClick={this.upVote}>
           <FontAwesome className="fa-arrow-circle-up" />
         </Button>
-        <Button className={styles.button} role="button" onClick={this.downVote}>
+        <Button className={cx(styles.button, styles.negative)} role="button" onClick={this.downVote}>
           <FontAwesome className="fa-arrow-circle-down" />
         </Button>
       </div>
