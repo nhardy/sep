@@ -1,5 +1,7 @@
 @import '~app/assets/stylus'
 
+$borderRadius = 5px
+
 .root
   content: ''
 
@@ -29,7 +31,7 @@
   outline: none
   background: $whiteColor
   color: $textColor
-  border-radius: 5px
+  border-radius: $borderRadius
 
   &:hover
   &:focus
@@ -54,3 +56,14 @@
 
   &:not(:last-child)
     margin-bottom: 8px
+
+.error
+  color: $negativeColor
+
+.msgContainer
+  text-align: center
+  padding: 8px
+  background: $whiteColor
+  border: 2px solid $negativeColor
+  border-radius: $borderRadius
+

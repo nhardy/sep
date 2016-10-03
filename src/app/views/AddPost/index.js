@@ -57,12 +57,23 @@ export default class AddPostView extends Component {
     reader.readAsDataURL(image);
   };
 
+  textChange = () => {
+    this.updateErrorState();
+  };
+
+  updateErrorState = () => {
+    const { latitude, longitude } = this.props.location;
+    const error = (!(latitude && longitude) || (this._text.value === ''));
+    this.setState({ postError: error });
+    return error;
+  };
+
   submit = async () => {
     const { latitude, longitude } = this.props.location;
     const text = this._text.value;
     const { image } = this.state;
 
-    if (!(text && latitude && longitude)) return; // TODO: Notify user
+    if (this.updateErrorState()) return;
 
     await this.props.addPost({
       location: { latitude, longitude },
@@ -75,6 +86,7 @@ export default class AddPostView extends Component {
   };
 
   render() {
+    const { latitude, longitude } = this.props.location;
     const { image } = this.state;
     return (
       <DefaultLayout className={styles.root}>
@@ -88,8 +100,15 @@ export default class AddPostView extends Component {
           </button>
           {image && <img className={styles.image} src={image} alt="Your upload" />}
           <label className={styles.label} htmlFor="text">Your post</label>
-          <textarea id="text" ref={ref => (this._text = ref)} className={styles.textarea} />
+          <textarea id="text" ref={ref => (this._text = ref)} className={styles.textarea} onChange={this.textChange} />
           <input className={styles.button} type="button" onClick={this.submit} value="Add" />
+          {this.state.postError && (
+            <div className={styles.msgContainer}>
+              <span className={styles.error}>
+                {!(latitude && longitude) ? 'Unable to retrieve location!' : 'Enter text to be posted!'}
+              </span>
+            </div>
+          )}
         </form>
       </DefaultLayout>
     );
