@@ -58,12 +58,14 @@ export default class AddPostView extends Component {
   };
 
   textChange = () => {
-    this.setState({ postError: this.inputError });
+    this.updateErrorState();
   };
 
-  inputError = () => {
+  updateErrorState = () => {
     const { latitude, longitude } = this.props.location;
-    return (!(latitude && longitude) || (this._text.value === ''));
+    const error = (!(latitude && longitude) || (this._text.value === ''));
+    this.setState({ postError: error });
+    return error;
   };
 
   submit = async () => {
@@ -71,10 +73,8 @@ export default class AddPostView extends Component {
     const text = this._text.value;
     const { image } = this.state;
 
-    if (this.inputError()) {
-      this.setState({ postError: true });
-      return;
-    }
+    if (this.updateErrorState()) return;
+
     await this.props.addPost({
       location: { latitude, longitude },
       text,
