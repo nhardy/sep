@@ -29,6 +29,7 @@ export default class AddPostView extends Component {
   static propTypes = {
     getLocation: PropTypes.func,
     addPost: PropTypes.func,
+    post: PropTypes.string,
     location: PropTypes.shape({
       latitude: PropTypes.number,
       longitude: PropTypes.number,
@@ -81,8 +82,9 @@ export default class AddPostView extends Component {
       image,
     });
 
-    // FIXME: Ideally this would redirect to the new Post
-    this.props.router.push('/');
+    const { post } = this.props;
+
+    post && this.props.router.push(`/posts/${post}`);
   };
 
   render() {
