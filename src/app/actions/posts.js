@@ -1,4 +1,4 @@
-import config from 'app/config';
+import { baseUrl } from 'app/lib/api';
 
 
 export const CLEAR_POST = 'CLEAR_POST';
@@ -28,7 +28,7 @@ export function addPost(post) {
   return {
     types: [ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE],
     endpoint: {
-      url: `${config.api.baseUrl}/posts`,
+      url: `${baseUrl()}/posts`,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ export function getPosts({ latitude, longitude }) {
   return {
     types: [GET_POSTS_REQUEST, GET_POSTS_SUCCESS, GET_POSTS_FAILURE],
     endpoint: {
-      url: `${config.api.baseUrl}/posts?lat=${latitude}&lon=${longitude}`,
+      url: `${baseUrl()}/posts?lat=${latitude}&lon=${longitude}`,
     },
   };
 }
@@ -53,7 +53,7 @@ export function getPost(id) {
     types: [GET_POST_REQUEST, GET_POST_SUCCESS, GET_POST_FAILURE],
     id,
     endpoint: {
-      url: `${config.api.baseUrl}/posts/${id}`,
+      url: `${baseUrl()}/posts/${id}`,
     },
   };
 }
