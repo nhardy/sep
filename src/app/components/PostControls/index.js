@@ -29,7 +29,7 @@ export default class PostControls extends Component {
       <div className={cx(styles.root, className)}>
         {comments &&
           <div className={styles.commentbutton}>
-            <FontAwesome className="fa-comment-o" />
+            <FontAwesome className={cx("fa-comment-o", styles.commentbutton2)} />
           </div>
         }
         <span className={styles.hot}>{hot || 0}</span>
