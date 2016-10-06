@@ -127,6 +127,8 @@ export default function webpackFactory({ production = false, client = false, wri
                   production && ['es2015', { modules: false }],
                   !production && 'modern/webpack2',
                   !production && 'modern/safari9',
+                  'es2016',
+                  'es2017',
                   'stage-0',
                   'react',
                 ].filter(identity),
