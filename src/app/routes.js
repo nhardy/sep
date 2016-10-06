@@ -7,6 +7,7 @@ import ErrorView from 'app/views/Error';
 import PostsView from 'app/views/Posts';
 import AddPostView from 'app/views/AddPost';
 import PostView from 'app/views/Post';
+import RegistrationView from 'app/views/Registration';
 
 
 export default function getRoutes(store) {
@@ -20,6 +21,7 @@ export default function getRoutes(store) {
       <IndexRoute component={PostsView} />
       <Route path="/add" component={AddPostView} />
       <Route path="/posts/:id" component={PostView} />
+      <Route path="/user/add" component={RegistrationView} />
       <Route path="*" component={ErrorView} status={404} />
     </Route>
   );
