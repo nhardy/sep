@@ -42,7 +42,7 @@ export default class PostDetail extends Component {
         )}
         <div className={styles.body}>{text}</div>
         <div className={styles.controlbar}>
-          <PostControls id={id} hot={upvotes} comments={true} />
+          <PostControls id={id} hot={upvotes} showCommentsBtn />
         </div>
       </div>
     );
