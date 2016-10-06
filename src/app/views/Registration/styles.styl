@@ -1,0 +1,69 @@
+@import '~app/assets/stylus'
+
+$borderRadius = 5px
+
+.root
+  content: ''
+
+.form
+  margin: 0 auto
+  padding: 0 16px
+  max-width: 500px
+
+.heading
+  font-size: 32px
+  margin-bottom: 16px
+
+.upload
+  display: none
+
+.image
+  width: 100%
+
+.label
+  display: block
+  margin-bottom: 8px
+  font-weight: 600
+  font-size: 24px
+
+.textarea
+.button
+  outline: none
+  background: $whiteColor
+  color: $textColor
+  border-radius: $borderRadius
+
+  &:hover
+  &:focus
+    border-color: $highlightColor
+
+.textarea
+  width: 100%
+  height: 250px
+  border: 1px solid $themeColor
+  border-bottom: 5px solid $themeColor
+  margin-bottom: 8px
+
+.button
+  display: block
+  width: 100%
+  padding: 16px
+  font-size: 16px
+  letter-spacing: 1px
+  font-weight: bold
+  border: 2px solid $themeColor
+  cursor: pointer
+
+  &:not(:last-child)
+    margin-bottom: 8px
+
+.error
+  color: $negativeColor
+
+.msgContainer
+  text-align: center
+  padding: 8px
+  background: $whiteColor
+  border: 2px solid $negativeColor
+  border-radius: $borderRadius
+
