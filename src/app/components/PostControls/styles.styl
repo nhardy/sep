@@ -1,19 +1,16 @@
 @import '~app/assets/stylus'
 
-
 .root
   display: flex
   flex-direction: row
   align-items: center
-  justify-content: flex-start
+  justify-content: flex-end
 
 .hot
-  display: inline-block
   margin-right: 16px
 
 .button
   color: $themeColor
-
   &:not(:last-child)
     margin-right: 8px
 
@@ -27,8 +24,12 @@
   display: flex
   flex: 1 100%
   margin-left: 8px
-  align-self: flex-start
 
 .commentbutton2:hover
   background: $_white
   border-radius: 4px
+
+.commentbarend
+  display: flex
+  align-items: center
+  flex-direction: row

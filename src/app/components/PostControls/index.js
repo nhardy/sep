@@ -32,13 +32,15 @@ export default class PostControls extends Component {
             <FontAwesome className={cx("fa-comment-o", styles.commentbutton2)} />
           </div>
         }
-        <span className={styles.hot}>{hot || 0}</span>
-        <Button className={cx(styles.button, styles.positive)} role="button" onClick={this.upVote}>
-          <FontAwesome className="fa-arrow-circle-up" />
-        </Button>
-        <Button className={cx(styles.button, styles.negative)} role="button" onClick={this.downVote}>
-          <FontAwesome className="fa-arrow-circle-down" />
-        </Button>
+        <div className={styles.commentbarend}>
+          <span className={styles.hot}>{hot || 0}</span>
+          <Button className={cx(styles.button, styles.positive)} role="button" onClick={this.upVote}>
+            <FontAwesome className="fa-arrow-circle-up" />
+          </Button>
+          <Button className={cx(styles.button, styles.negative)} role="button" onClick={this.downVote}>
+            <FontAwesome className="fa-arrow-circle-down" />
+          </Button>
+        </div>
       </div>
     );
   }
