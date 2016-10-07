@@ -19,7 +19,7 @@ export default class PostControls extends Component {
     showCommentsBtn: PropTypes.bool,
   };
   defaultProps = {
-      showCommentsBtn: false,
+    showCommentsBtn: false,
   };
 
   upVote = () => this.props.upVote(this.props.id);
