@@ -4,6 +4,7 @@
   "description": "An example web scaffold",
   "main": "server.js",
   "scripts": {
+    "shrink": "make shrinkwrap",
     "cover": "babel-node ./node_modules/.bin/isparta cover _mocha -- --reporter dot",
     "lint": "eslint ./src ./test ./build",
     "lint:fix": "eslint --fix ./src ./test ./build",
