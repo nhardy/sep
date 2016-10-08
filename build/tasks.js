@@ -4,14 +4,15 @@ import runSequence from 'run-sequence';
 import './clean';
 import './serve';
 import './webpack';
+import './deploy';
 
 
-gulp.task('dev', () => {
-  runSequence('clean', 'webpack-client-dev', 'webpack-server-dev', 'serve');
+gulp.task('dev', (done) => {
+  runSequence('clean', 'webpack-client-dev', 'webpack-server-dev', 'serve', done);
 });
 
-gulp.task('prod', () => {
-  runSequence('clean', 'webpack-prod', 'serve');
+gulp.task('prod', (done) => {
+  runSequence('clean', 'webpack-prod', 'serve', done);
 });
 
 gulp.task('default', () => {
