@@ -1,7 +1,6 @@
 import { last } from 'lodash-es';
 
 import {
-  CLEAR_USER,
   ADD_USER_REQUEST,
   ADD_USER_SUCCESS,
   ADD_USER_FAILURE,
@@ -20,12 +19,6 @@ const initialState = {
 
 export default function usersReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case CLEAR_USER:
-      return {
-        ...state,
-        user: null,
-      };
-
     case ADD_USER_REQUEST:
       return {
         ...state,
