@@ -1,69 +1,58 @@
 @import '~app/assets/stylus'
 
-$borderRadius = 5px
-
 .root
-  content: ''
+  background: url('app/assets/images/bgregister.png')
+  background-size: 100% 100%
+  padding: 0
+
+.container
+  display: flex
+  flex-direction: row
+  padding: 8px 0px 8px
+  border-bottom: 1px solid $underlineColor
+  &:focus
+    border-bottom: 2px solid $underlineColor
 
 .form
-  margin: 0 auto
-  padding: 0 16px
-  max-width: 500px
+  margin-top: 48px
 
 .heading
   font-size: 32px
   margin-bottom: 16px
+  padding: 24px 0px 8px 16px
+  color: $whiteColor
 
-.upload
-  display: none
-
-.image
+.textinput
+  margin-left: 5px
   width: 100%
-
-.label
-  display: block
-  margin-bottom: 8px
-  font-weight: 600
-  font-size: 24px
-
-.textarea
-.button
-  outline: none
-  background: $whiteColor
-  color: $textColor
-  border-radius: $borderRadius
-
-  &:hover
-  &:focus
-    border-color: $highlightColor
-
-.textarea
-  width: 100%
-  height: 250px
-  border: 1px solid $themeColor
-  border-bottom: 5px solid $themeColor
-  margin-bottom: 8px
-
-.button
-  display: block
-  width: 100%
-  padding: 16px
+  color: $whiteColor
+  background: rgba(0,0,0,0)
   font-size: 16px
-  letter-spacing: 1px
-  font-weight: bold
-  border: 2px solid $themeColor
+  border: none
+
+.button
+  width: 100%
+  margin-top: 48px
+  background: $buttonColor
+  color: $whiteColor
+  font-size: 16px
+  border: none
+  padding: 24px
   cursor: pointer
 
-  &:not(:last-child)
-    margin-bottom: 8px
+.inputIcon
+  padding: 4px
+  margin-left: 4px
+  color: $whiteColor
+
+.back
+  padding: 8px
+  margin: 16px 0px 0px 8px
+  height: 40px
+  &:hover
+    background: $underlineColor
 
 .error
-  color: $negativeColor
-
-.msgContainer
   text-align: center
-  padding: 8px
-  background: $whiteColor
-  border: 2px solid $negativeColor
-  border-radius: $borderRadius
-
+  margin: 16px 0px 0px 16px
+  color: $negativeColor

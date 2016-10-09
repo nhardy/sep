@@ -14,6 +14,8 @@
   "$_anotherGrey": "#eaeaea",
   "$_headerBlue": "#003a69",
   "$_headerBlue2": "#005078",
+  "$_reqModellingGrey": "#dfdce3",
+  "$_orangeTheme":"#FC4A1A",
 
   "$whiteColor": "$_white",
   "$blackColor": "$_black",
@@ -28,5 +30,7 @@
   "$positiveColor": "$_darkGreen",
   "$negativeColor": "$_darkRed",
   "$subtleTextColor": "$_lightGrey",
-  "$imageContainerColor": "$_anotherGrey"
+  "$imageContainerColor": "$_anotherGrey",
+  "$underlineColor": "$_reqModellingGrey",
+  "$buttonColor":"$_orangeTheme"
 }

@@ -21,7 +21,7 @@ export default function getRoutes(store) {
       <IndexRoute component={PostsView} />
       <Route path="/add" component={AddPostView} />
       <Route path="/posts/:id" component={PostView} />
-      <Route path="/user/add" component={RegistrationView} />
+      <Route path="/register" component={RegistrationView} />
       <Route path="*" component={ErrorView} status={404} />
     </Route>
   );

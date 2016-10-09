@@ -1,0 +1,31 @@
+@import '~app/assets/stylus'
+
+
+.root
+  display: flex
+  min-height: 100vh
+  flex-direction: column
+
+.main
+  composes: column from 'app/assets/stylus/common.styl'
+  background: $backgroundColor
+  flex: 1
+
+  padding-top: $minPadding
+  padding-bottom: $minPadding
+
+  +from($sml)
+    padding-top: $smlPadding
+    padding-bottom: $smlPadding
+
+  +from($med)
+    padding-top: $medPadding
+    padding-bottom: $medPadding
+
+  +from($lge)
+    padding-top: $lgePadding
+    padding-bottom: $lgePadding
+
+  +from($xlg)
+    padding-top: $xlgPadding
+    padding-bottom: $xlgPadding
