@@ -1,10 +1,7 @@
-import path from 'path';
-
-import del from 'del';
 import gulp from 'gulp';
+import del from 'del';
 
 
-gulp.task('clean', (done) => {
-  del.sync(path.resolve(__dirname, '..', 'dist', '*'));
-  done();
+gulp.task('clean', () => {
+  return del(['dist/**/*', '.tmp']);
 });
