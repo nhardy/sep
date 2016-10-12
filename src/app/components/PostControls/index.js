@@ -16,6 +16,10 @@ export default class PostControls extends Component {
     hot: PropTypes.number.isRequired,
     upVote: PropTypes.func.isRequired,
     downVote: PropTypes.func.isRequired,
+    showCommentsBtn: PropTypes.bool,
+  };
+  defaultProps = {
+    showCommentsBtn: false,
   };
 
   upVote = () => this.props.upVote(this.props.id);
@@ -23,16 +27,23 @@ export default class PostControls extends Component {
   downVote = () => this.props.downVote(this.props.id);
 
   render() {
-    const { className, hot } = this.props;
+    const { className, hot, showCommentsBtn } = this.props;
     return (
-      <div className={cx(styles.root, className)}>
-        <span className={styles.hot}>{hot || 0}</span>
-        <Button className={styles.button} role="button" onClick={this.upVote}>
-          <FontAwesome className="fa-arrow-circle-up" />
-        </Button>
-        <Button className={styles.button} role="button" onClick={this.downVote}>
-          <FontAwesome className="fa-arrow-circle-down" />
-        </Button>
+      <div className={cx(styles.root, showCommentsBtn ? styles.withComment : styles.noComment, className)}>
+        {showCommentsBtn && (
+          <div className={styles.commentContainer}>
+            <FontAwesome className="fa-comment-o" />
+          </div>
+        )}
+        <div className={styles.end}>
+          <span className={styles.hot}>{hot || 0}</span>
+          <Button className={cx(styles.button, styles.positive)} role="button" onClick={this.upVote}>
+            <FontAwesome className="fa-arrow-circle-up" />
+          </Button>
+          <Button className={cx(styles.button, styles.negative)} role="button" onClick={this.downVote}>
+            <FontAwesome className="fa-arrow-circle-down" />
+          </Button>
+        </div>
       </div>
     );
   }

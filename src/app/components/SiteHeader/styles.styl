@@ -1,9 +1,7 @@
 @import '~app/assets/stylus'
 
-
 .root
   background: $backgroundColor
-  border-bottom 4px solid $themeColor
 
 .column
   composes: column from 'app/assets/stylus/common.styl'
@@ -90,13 +88,12 @@
   display: block
 
 .sticky
-  background: rbga($backgroundColor, 0.85)
-  color: $textColor
+  composes: gradient from 'app/assets/stylus/common.styl'
+  color: $whiteColor
   transition: background 250ms ease-in-out, color 250ms ease-in-out
   z-index: $zIndexSiteHeader
 
 .isSticky
-  background: rgba($themeColor, 0.85)
   color: $backgroundColor
 
 .siteName
