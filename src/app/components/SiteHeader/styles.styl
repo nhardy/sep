@@ -1,6 +1,5 @@
 @import '~app/assets/stylus'
 
-
 .root
   background: $backgroundColor
 
@@ -89,13 +88,12 @@
   display: block
 
 .sticky
-  background: linear-gradient($_headerBlue2, $_headerBlue)
-  color: $_white
+  composes: gradient from 'app/assets/stylus/common.styl'
+  color: $whiteColor
   transition: background 250ms ease-in-out, color 250ms ease-in-out
   z-index: $zIndexSiteHeader
 
 .isSticky
-  background: linear-gradient($_headerBlue2, $_headerBlue)
   color: $backgroundColor
 
 .siteName

@@ -4,7 +4,12 @@
   display: flex
   flex-direction: row
   align-items: center
+
+.noComment
   justify-content: flex-end
+
+.withComment
+  justify-content: space-between
 
 .hot
   margin-right: 16px
@@ -15,21 +20,21 @@
     margin-right: 8px
 
 .positive:hover
-    color: $positiveColor
+  color: $positiveColor
 
 .negative:hover
-    color: $negativeColor
+  color: $negativeColor
 
-.commentcontainer
-  display: flex
-  flex: 1 100%
+.commentContainer
   margin-left: 8px
+  border-radius: 4px
+  &:hover
+    background: $whiteColor
 
-.commentbutton:hover
-  background: $_white
+.commentButton:hover
   border-radius: 4px
 
-.commentbarend
+.end
   display: flex
   align-items: center
   flex-direction: row
