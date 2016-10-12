@@ -20,6 +20,9 @@ export const coordinates = PropTypes.shape({
   longitude: PropTypes.number.isRequired,
 });
 
+// TODO: Use a custom validator
+export const timestamp = PropTypes.string;
+
 export const post = PropTypes.shape({
   id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,

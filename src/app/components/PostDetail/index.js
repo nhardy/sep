@@ -1,6 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import cx from 'classnames';
 
+import { formatTimestamp } from 'app/lib/moment';
+import * as appPropTypes from 'app/components/propTypes';
 import Image from 'app/components/Image';
 import Button from 'app/components/Button';
 import FontAwesome from 'app/components/FontAwesome';
@@ -9,12 +12,13 @@ import PostControls from 'app/components/PostControls';
 import styles from './styles.styl';
 
 
+@connect(state => ({
+  now: state.time.timestamp,
+}))
 export default class PostDetail extends Component {
   static propTypes = {
-    id: PropTypes.string,
-    text: PropTypes.string,
-    upvotes: PropTypes.number,
-    image: PropTypes.string,
+    now: appPropTypes.timestamp,
+    post: appPropTypes.post,
   };
 
   state = {
@@ -24,13 +28,13 @@ export default class PostDetail extends Component {
   toggle = () => this.setState({ expanded: !this.state.expanded });
 
   render() {
-    const { id, text, upvotes, image } = this.props;
+    const { now, post: { id, timestamp, text, upvotes, image } } = this.props;
     const { expanded } = this.state;
     return (
       <div className={styles.root}>
         { /* TODO: Needs to be replaced with user, location, now - time */}
         <div className={styles.info}>
-          <span>{'Test User'} @ {'UTS'} {'(1h)'}</span>
+          <span>{'Test User'} @ {'UTS'} {`(${formatTimestamp(timestamp, now)})`}</span>
         </div>
         {image && (
           <div className={cx(styles.imageWrapper, { [styles.expanded]: expanded })}>
