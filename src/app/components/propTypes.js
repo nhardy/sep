@@ -25,6 +25,8 @@ export const timestamp = PropTypes.string;
 
 export const post = PropTypes.shape({
   id: PropTypes.string.isRequired,
+  username: PropTypes.string,
+  timestamp,
   text: PropTypes.string.isRequired,
   location: coordinates.isRequired,
   image: PropTypes.string,

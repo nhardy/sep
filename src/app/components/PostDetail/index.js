@@ -28,13 +28,12 @@ export default class PostDetail extends Component {
   toggle = () => this.setState({ expanded: !this.state.expanded });
 
   render() {
-    const { now, post: { id, timestamp, text, upvotes, image } } = this.props;
+    const { now, post: { id, username, timestamp, text, upvotes, image } } = this.props;
     const { expanded } = this.state;
     return (
       <div className={styles.root}>
-        { /* TODO: Needs to be replaced with user, location, now - time */}
         <div className={styles.info}>
-          <span>{'Test User'} @ {'UTS'} {`(${formatTimestamp(timestamp, now)})`}</span>
+          <span>{username} {`(${formatTimestamp(timestamp, now)})`}</span>
         </div>
         {image && (
           <div className={cx(styles.imageWrapper, { [styles.expanded]: expanded })}>
