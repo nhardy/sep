@@ -29,12 +29,12 @@ export default class PostControls extends Component {
   render() {
     const { className, hot, showCommentsBtn } = this.props;
     return (
-      <div className={cx(styles.root, showCommentsBtn ? styles.rootwcomment : styles.rootnocomment, className)}>
-        {showCommentsBtn &&
+      <div className={cx(styles.root, showCommentsBtn ? styles.rootwcomment : styles.rootNoComment, className)}>
+        {showCommentsBtn && (
           <div className={styles.commentcontainer}>
             <FontAwesome className="fa-comment-o" />
           </div>
-        }
+        )}
         <div className={styles.end}>
           <span className={styles.hot}>{hot || 0}</span>
           <Button className={cx(styles.button, styles.positive)} role="button" onClick={this.upVote}>
