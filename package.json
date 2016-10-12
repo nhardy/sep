@@ -9,6 +9,7 @@
     "lint:fix": "eslint --fix ./src ./test ./build",
     "dev": "gulp dev",
     "prod": "gulp prod",
+    "refresh": "gulp refresh",
     "schema": "gulp schema",
     "start": "gulp",
     "test": "mocha"
@@ -70,6 +71,7 @@
     "webpack-node-externals": "^1.0.0"
   },
   "dependencies": {
+    "atob": "^2.0.3",
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "classnames": "^2.2.5",
@@ -79,6 +81,7 @@
     "isomorphic-fetch": "^2.2.1",
     "lodash-es": "^4.16.1",
     "nodemon": "^1.9.1",
+    "password-hash-and-salt": "^0.1.4",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-helmet": "^3.0.1",
