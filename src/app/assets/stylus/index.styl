@@ -1,2 +1,33 @@
 @require './mixins/*'
 @require './variables.styl'
+@require './zIndex.styl'
+
+
+propertyMap($propertyName, min, sml, med, lge, xlg)
+  sml = sml or min
+  med = med or sml
+  lge = lge or med
+  xlg = xlg or lge
+
+  {$propertyName}: min
+
+  +from($sml)
+    {$propertyName}: sml
+
+  +from($med)
+    {$propertyName}: med
+
+  +from($lge)
+    {$propertyName}: lge
+
+  +from($xlg)
+    {$propertyName}: xlg
+
+propertyMargin($propertyName)
+  propertyMap($propertyName, $minMargin, $smlMargin, $medMargin, $lgeMargin, $xlgMargin)
+
+propertyGutter($propertyName)
+  propertyMap($propertyName, $minGutter, $smlGutter, $medGutter, $lgeGutter, $xlgGutter)
+
+propertyPadding($propertyName)
+  propertyMap($propertyName, $minPadding, $smlPadding, $medPadding, $lgePadding, $xlgPadding)

@@ -1,31 +1,21 @@
-@require '~app/assets/stylus/mixins/mediaQueries.styl'
-@require '~app/assets/stylus/variables.styl'
+@require './index.styl'
 
 
 .column
   margin: 0 auto
   width: 100%
-
-  padding-left: $minMargin
-  padding-right: $minMargin
+  propertyMargin('padding-left')
+  propertyMargin('padding-right')
   max-width: (900px + (2 * $minMargin))
 
   +from($sml)
-    padding-left: $smlMargin
-    padding-right: $smlMargin
     max-width: (900px + (2 * $smlMargin))
 
   +from($med)
-    padding-left: $medMargin
-    padding-right: $medMargin
     max-width: (900px + (2 * $medMargin))
 
   +from($lge)
-    padding-left: $lgeMargin
-    padding-right: $lgeMargin
     max-width: (900px + (2 * $lgeMargin))
 
   +from($xlg)
-    padding-left: $xlgMargin
-    padding-right: $xlgMargin
     max-width: (900px + (2 * $xlgMargin))
