@@ -29,9 +29,9 @@ export default class PostControls extends Component {
   render() {
     const { className, hot, showCommentsBtn } = this.props;
     return (
-      <div className={cx(styles.root, showCommentsBtn ? styles.rootwcomment : styles.rootNoComment, className)}>
+      <div className={cx(styles.root, showCommentsBtn ? styles.withComment : styles.noComment, className)}>
         {showCommentsBtn && (
-          <div className={styles.commentcontainer}>
+          <div className={styles.commentContainer}>
             <FontAwesome className="fa-comment-o" />
           </div>
         )}
