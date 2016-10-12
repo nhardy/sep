@@ -13,8 +13,8 @@ test:
     - npm run lint
   override:
     - npm test
-deployment:
-  production:
-    branch: master
-    commands:
-      - npm run deploy
+# deployment:
+#   production:
+#     branch: master
+#     commands:
+#       - npm run deploy
