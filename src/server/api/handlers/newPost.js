@@ -20,6 +20,8 @@ export default function newPostHandler(req, res, next) {
   r.table('posts')
     .insert({
       id,
+      username: res.locals.username,
+      timestamp: r.now(),
       location: r.point(longitude, latitude),
       text,
       image,
