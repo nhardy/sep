@@ -9,23 +9,7 @@
 .main
   composes: column from 'app/assets/stylus/common.styl'
   background: $backgroundColor
-  flex: 1
+  flex: 1 1 auto
 
-  padding-top: $minPadding
-  padding-bottom: $minPadding
-
-  +from($sml)
-    padding-top: $smlPadding
-    padding-bottom: $smlPadding
-
-  +from($med)
-    padding-top: $medPadding
-    padding-bottom: $medPadding
-
-  +from($lge)
-    padding-top: $lgePadding
-    padding-bottom: $lgePadding
-
-  +from($xlg)
-    padding-top: $xlgPadding
-    padding-bottom: $xlgPadding
+  propertyPadding('padding-top')
+  propertyPadding('padding-bottom')

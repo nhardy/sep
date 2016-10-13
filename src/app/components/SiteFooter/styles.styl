@@ -3,20 +3,8 @@
 .root
   composes: gradient from 'app/assets/stylus/common.styl'
   color: $backgroundColor
-
-  padding: $minPadding 0
-
-  +from($sml)
-    padding: $smlPadding 0
-
-  +from($med)
-    padding: $medPadding 0
-
-  +from($lge)
-    padding: $lgePadding 0
-
-  +from($xlg)
-    padding: $xlgPadding 0
+  propertyPadding('padding-top')
+  propertyPadding('padding-bottom')
 
 .column
   composes: column from 'app/assets/stylus/common.styl'
