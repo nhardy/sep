@@ -10,29 +10,13 @@
   display: flex
   flex-direction: row
   justify-content: space-between
+  align-items: center
   font-size: 20px
-
-  padding-top: $minPadding
-  padding-bottom: $minPadding
-
-  +from($sml)
-    padding-top: $smlPadding
-    padding-bottom: $smlPadding
-
-  +from($med)
-    padding-top: $medPadding
-    padding-bottom: $medPadding
-
-  +from($lge)
-    padding-top: $lgePadding
-    padding-bottom: $lgePadding
-
-  +from($xlg)
-    padding-top: $xlgPadding
-    padding-bottom: $xlgPadding
+  propertyPadding('padding-top')
+  propertyPadding('padding-bottom')
 
 .nav
-  flex: 1
+  flex: 1 1 auto
 
   +upTo($med)
     display: none
@@ -63,19 +47,7 @@
   transform: translateX(-100%)
 
 .hamburger
-  margin-right: $minGutter
-
-  +from($sml)
-    margin-right: $smlGutter
-
-  +from($med)
-    margin-right: $medGutter
-
-  +from($lge)
-    margin-right: $lgeGutter
-
-  +from($xlg)
-    margin-right: $xlgGutter
+  propertyGutter('margin-right')
 
 +from($med)
   .aside
@@ -89,17 +61,14 @@
 
 .sticky
   composes: gradient from 'app/assets/stylus/common.styl'
-  color: $whiteColor
-  transition: background 250ms ease-in-out, color 250ms ease-in-out
   z-index: $zIndexSiteHeader
+  color: $textColor
+  transition: background 250ms ease-in-out, color 250ms ease-in-out
 
 .isSticky
   color: $backgroundColor
 
 .siteName
-  & .isSticky
-    color: $backgroundColor
-
   display: inline-block
   font-size: 28px
 

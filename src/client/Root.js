@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router';
+import { Router, applyRouterMiddleware } from 'react-router';
+import { useScroll } from 'react-router-scroll';
 import { ReduxAsyncConnect } from 'redux-connect';
 
 
@@ -11,7 +12,7 @@ function Root({ store, history }) {
   return (
     <Provider store={store} key="provider">
       <Router
-        render={props => (<ReduxAsyncConnect {...props} />)}
+        render={props => (<ReduxAsyncConnect {...props} render={applyRouterMiddleware(useScroll())} />)}
         history={history}>
         {getRoutes(store)}
       </Router>
