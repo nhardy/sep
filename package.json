@@ -84,6 +84,7 @@
     "gemini-scrollbar": "^1.4.1",
     "isomorphic-fetch": "^2.2.1",
     "lodash-es": "^4.16.1",
+    "moment": "^2.15.1",
     "nodemon": "^1.9.1",
     "password-hash-and-salt": "^0.1.4",
     "react": "^15.0.1",

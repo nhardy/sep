@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import { asyncConnect } from 'redux-connect';
 import { connect } from 'react-redux';
 
 import * as appPropTypes from 'app/components/propTypes';
+import { setTime } from 'app/actions/time';
 import Geolocation from 'app/components/Geolocation';
 import ErrorView from 'app/views/Error';
 
@@ -11,17 +13,25 @@ import 'font-awesome/css/font-awesome.min.css';
 import styles from './styles.styl';
 
 
+@asyncConnect([
+  {
+    promise: ({ store: { dispatch } }) => {
+      dispatch(setTime());
+      return Promise.resolve();
+    },
+  },
+])
 @connect((state) => {
   return {
     routeError: state.routeError,
   };
-})
+}, { setTime })
 export default class App extends Component {
-
   static propTypes = {
     routeError: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     children: PropTypes.node,
     location: appPropTypes.location,
+    setTime: PropTypes.func,
   };
 
   static childContextTypes = {
@@ -32,6 +42,14 @@ export default class App extends Component {
     return {
       location: this.props.location,
     };
+  }
+
+  componentDidMount() {
+    this._interval = window.setInterval(() => this.props.setTime(), 5 * 1000);
+  }
+
+  componentWillUnmount() {
+    this._interval && window.clearInterval(this._interval);
   }
 
   render() {
