@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { get } from 'lodash-es';
 import cx from 'classnames';
 
 import { upvote, downvote } from 'app/actions/votes';
@@ -9,7 +10,9 @@ import FontAwesome from 'app/components/FontAwesome';
 import styles from './styles.styl';
 
 
-@connect(null, { upvote, downvote })
+@connect((state, { id, hot }) => ({
+  hot: get(state.votes.posts[id], 'hot') || hot,
+}), { upvote, downvote })
 export default class PostControls extends Component {
   static propTypes = {
     className: PropTypes.string,
