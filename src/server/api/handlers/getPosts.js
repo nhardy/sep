@@ -29,8 +29,10 @@ export default function getPostsHandler(req, res, next) {
       hot: r.table('votes')
         .getAll(post('id'), { index: 'post' })
         .map(vote => vote('value'))
-        .reduce((acc, current) => acc.add(current)),
+        .reduce((acc, current) => acc.add(current))
+        .default(0),
     }))
+    .orderBy(r.desc('hot'))
     .run()
     .then((posts) => {
       res.send({
