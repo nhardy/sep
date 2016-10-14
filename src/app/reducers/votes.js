@@ -9,7 +9,7 @@ import {
 
 
 const initialState = {
-  votes: {},
+  posts: {},
 };
 
 export default function votesReducer(state = initialState, action = {}) {
@@ -18,10 +18,10 @@ export default function votesReducer(state = initialState, action = {}) {
     case VOTE_REQUEST:
       return {
         ...state,
-        votes: {
-          ...state.votes,
+        posts: {
+          ...state.posts,
           [action.id]: {
-            ...state.votes[action.id],
+            ...state.posts[action.id],
             error: null,
             loading: true,
           },
@@ -32,10 +32,10 @@ export default function votesReducer(state = initialState, action = {}) {
     case VOTE_SUCCESS:
       return {
         ...state,
-        votes: {
-          ...state.votes,
+        posts: {
+          ...state.posts,
           [action.id]: {
-            ...state.votes[action.id],
+            ...state.posts[action.id],
             error: null,
             loading: false,
             loaded: true,
@@ -48,10 +48,10 @@ export default function votesReducer(state = initialState, action = {}) {
     case VOTE_FAILURE:
       return {
         ...state,
-        votes: {
-          ...state.votes,
+        posts: {
+          ...state.posts,
           [action.id]: {
-            ...state.votes[action.id],
+            ...state.posts[action.id],
             error: action.error,
             loading: false,
           },

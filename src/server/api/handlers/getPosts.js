@@ -25,6 +25,12 @@ export default function getPostsHandler(req, res, next) {
       )
       .lt(10000)
     )
+    .merge(post => ({
+      hot: r.table('votes')
+        .getAll(post('id'), { index: 'post' })
+        .map(vote => vote('value'))
+        .reduce((acc, current) => acc.add(current)),
+    }))
     .run()
     .then((posts) => {
       res.send({

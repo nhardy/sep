@@ -30,7 +30,7 @@ export default async function getVotesHandler(req, res, next) {
       const upvotes = find(groups, { group: 1 }) || { group: 1, reduction: 0 };
       const downvotes = find(groups, { group: -1 }) || { group: -1, reduction: 0 };
       res.send({
-        net: upvotes.reduction - downvotes.reduction,
+        hot: upvotes.reduction - downvotes.reduction,
       });
     })
     .catch(next);

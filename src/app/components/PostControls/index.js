@@ -19,6 +19,7 @@ export default class PostControls extends Component {
     downvote: PropTypes.func.isRequired,
     showCommentsBtn: PropTypes.bool,
   };
+
   defaultProps = {
     showCommentsBtn: false,
   };
@@ -37,11 +38,11 @@ export default class PostControls extends Component {
           </div>
         )}
         <div className={styles.end}>
-          <span className={styles.hot}>{hot || 0}</span>
-          <Button className={cx(styles.button, styles.positive)} role="button" onClick={this.upvote}>
+          <span className={styles.hot}>{hot}</span>
+          <Button className={cx(styles.button, styles.positive)} onClick={this.upvote}>
             <FontAwesome className="fa-arrow-circle-up" />
           </Button>
-          <Button className={cx(styles.button, styles.negative)} role="button" onClick={this.downvote}>
+          <Button className={cx(styles.button, styles.negative)} onClick={this.downvote}>
             <FontAwesome className="fa-arrow-circle-down" />
           </Button>
         </div>

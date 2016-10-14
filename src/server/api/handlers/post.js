@@ -1,5 +1,3 @@
-import { first } from 'lodash-es';
-
 import r from 'server/api/rethink';
 import postTransformer from 'server/api/transformers/post';
 
@@ -9,9 +7,14 @@ export default function postHandler(req, res, next) {
 
   r.table('posts')
     .filter({ id })
+    .merge(post => ({
+      hot: r.table('votes')
+        .getAll(post('id'), { index: 'post' })
+        .map(vote => vote('value'))
+        .reduce((acc, current) => acc.add(current)),
+    }))
     .run()
-    .then((posts) => {
-      const post = first(posts);
+    .then(([post]) => {
       if (!post) {
         const error = new Error(`The post with id:'${id}' was not found`);
         error.status = 404;
