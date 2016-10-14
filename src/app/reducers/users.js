@@ -1,78 +1,57 @@
 import { last } from 'lodash-es';
 
 import {
-  ADD_USER_REQUEST,
-  ADD_USER_SUCCESS,
-  ADD_USER_FAILURE,
-  GET_USER_REQUEST,
-  GET_USER_SUCCESS,
-  GET_USER_FAILURE,
+  REGISTER_USER_REQUEST,
+  REGISTER_USER_SUCCESS,
+  REGISTER_USER_FAILURE,
+  LOGIN_USER_REQUEST,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAILURE,
 } from 'app/actions/users';
 
-
 const initialState = {
-  items: [],
-  loaded: false,
+  username: '',
+  token: '',
   loading: false,
-  user: null,
+  loaded: false,
 };
 
 export default function usersReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case ADD_USER_REQUEST:
+    case REGISTER_USER_REQUEST:
       return {
         ...state,
+        loading: true,
       };
 
-    case ADD_USER_SUCCESS:
+    case REGISTER_USER_SUCCESS:
       return {
         ...state,
-        user: last(action.headers.location.split('/')),
+        username: last(action.headers.location.split('/')),
       };
 
-    case ADD_USER_FAILURE:
+    case REGISTER_USER_FAILURE:
       return {
         ...state,
+        error: action.error,
       };
 
-    case GET_USER_REQUEST:
+    case LOGIN_USER_REQUEST:
       return {
         ...state,
-        users: {
-          ...state.users,
-          [action.id]: {
-            ...state.users[action.id],
-            loading: true,
-          },
-        },
+        loading: true,
       };
 
-    case GET_USER_SUCCESS:
+    case LOGIN_USER_SUCCESS:
       return {
         ...state,
-        users: {
-          ...state.users,
-          [action.id]: {
-            ...state.users[action.id],
-            ...action.response.item,
-            loading: false,
-            loaded: true,
-          },
-        },
+        token: action.response.token,
       };
 
-    case GET_USER_FAILURE:
-      console.log(action);
+    case LOGIN_USER_FAILURE:
       return {
         ...state,
-        users: {
-          ...state.users,
-          [action.id]: {
-            ...state.users[action.id],
-            error: action.error,
-            loading: false,
-          },
-        },
+        error: action.error,
       };
 
     default:

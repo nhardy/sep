@@ -9,7 +9,7 @@ import config from 'app/config';
 import NoHeaderFooter from 'app/layouts/NoHeaderFooter';
 import FontAwesome from 'app/components/FontAwesome';
 import Button from 'app/components/Button';
-import { addUser } from 'app/actions/users';
+import { registerAndLogin } from 'app/actions/users';
 
 import styles from './styles.styl';
 
@@ -18,12 +18,12 @@ import styles from './styles.styl';
   username: state.username,
   password: state.password,
   mobile: state.mobile,
-}), { addUser })
+}), { registerAndLogin })
 @withRouter
 export default class RegistrationView extends Component {
   static propTypes = {
     router: routerShape,
-    addUser: PropTypes.func,
+    registerAndLogin: PropTypes.func,
   };
 
   state = {};
@@ -44,7 +44,7 @@ export default class RegistrationView extends Component {
     const mobile = this._number.value;
     if (this.state.userError || (username === '' || password === '' || mobile === '')) return;
 
-    await this.props.addUser({
+    await this.props.registerAndLogin({
       username,
       password,
       mobile,
