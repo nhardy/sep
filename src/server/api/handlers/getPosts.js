@@ -32,7 +32,10 @@ export default function getPostsHandler(req, res, next) {
         .reduce((acc, current) => acc.add(current))
         .default(0),
     }))
-    .orderBy(r.desc('hot'))
+    .merge(post => ({
+      rank: post('hot').add(post('timestamp').toEpochTime().div(45000)),
+    }))
+    .orderBy(r.desc('rank'))
     .run()
     .then((posts) => {
       res.send({
