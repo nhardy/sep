@@ -10,14 +10,14 @@ import FontAwesome from 'app/components/FontAwesome';
 import styles from './styles.styl';
 
 
-@connect((state, { id, hot }) => ({
-  hot: get(state.votes.posts[id], 'hot') || hot,
+@connect((state, { id, score }) => ({
+  score: get(state.votes.posts[id], 'score') || score,
 }), { upvote, downvote })
 export default class PostControls extends Component {
   static propTypes = {
     className: PropTypes.string,
     id: PropTypes.string.isRequired,
-    hot: PropTypes.number.isRequired,
+    score: PropTypes.number.isRequired,
     upvote: PropTypes.func.isRequired,
     downvote: PropTypes.func.isRequired,
     showCommentsBtn: PropTypes.bool,
@@ -32,7 +32,7 @@ export default class PostControls extends Component {
   downvote = () => this.props.downvote(this.props.id);
 
   render() {
-    const { className, hot, showCommentsBtn } = this.props;
+    const { className, score, showCommentsBtn } = this.props;
     return (
       <div className={cx(styles.root, showCommentsBtn ? styles.withComment : styles.noComment, className)}>
         {showCommentsBtn && (
@@ -41,7 +41,7 @@ export default class PostControls extends Component {
           </div>
         )}
         <div className={styles.end}>
-          <span className={styles.hot}>{hot}</span>
+          <span className={styles.score}>{score}</span>
           <Button className={cx(styles.button, styles.positive)} onClick={this.upvote}>
             <FontAwesome className="fa-arrow-circle-up" />
           </Button>

@@ -28,7 +28,7 @@ export default class PostDetail extends Component {
   toggle = () => this.setState({ expanded: !this.state.expanded });
 
   render() {
-    const { now, post: { id, username, timestamp, text, hot, image } } = this.props;
+    const { now, post: { id, username, timestamp, text, score, image } } = this.props;
     const { expanded } = this.state;
     return (
       <div className={styles.root}>
@@ -45,7 +45,7 @@ export default class PostDetail extends Component {
         )}
         <div className={styles.body}>{text}</div>
         <div className={styles.controls}>
-          <PostControls id={id} hot={hot} showCommentsBtn />
+          <PostControls id={id} score={score} showCommentsBtn />
         </div>
       </div>
     );

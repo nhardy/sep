@@ -26,16 +26,16 @@ export default function getPostsHandler(req, res, next) {
       .lt(10000)
     )
     .merge(post => ({
-      hot: r.table('votes')
+      score: r.table('votes')
         .getAll(post('id'), { index: 'post' })
         .map(vote => vote('value'))
         .reduce((acc, current) => acc.add(current))
         .default(0),
     }))
     .merge(post => ({
-      rank: post('hot').add(post('timestamp').toEpochTime().div(45000)),
+      hot: post('score').add(post('timestamp').toEpochTime().div(45000)),
     }))
-    .orderBy(r.desc('rank'))
+    .orderBy(r.desc('hot'))
     .run()
     .then((posts) => {
       res.send({

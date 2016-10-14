@@ -8,7 +8,7 @@ export default function postHandler(req, res, next) {
   r.table('posts')
     .filter({ id })
     .merge(post => ({
-      hot: r.table('votes')
+      score: r.table('votes')
         .getAll(post('id'), { index: 'post' })
         .map(vote => vote('value'))
         .reduce((acc, current) => acc.add(current))

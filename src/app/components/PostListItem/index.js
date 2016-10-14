@@ -7,7 +7,7 @@ import thumbailImg from 'app/assets/images/thumbnail.svg';
 
 import styles from './styles.styl';
 
-const PostListItem = ({ id, text, hot, image }) => {
+const PostListItem = ({ id, text, score, image }) => {
   const img = image ? { src: image } : { src: thumbailImg, alt: 'placeholder' };
   return (
     <div className={styles.root}>
@@ -21,7 +21,7 @@ const PostListItem = ({ id, text, hot, image }) => {
           </div>
         </div>
       </Link>
-      <PostControls id={id} hot={hot} />
+      <PostControls id={id} score={score} />
     </div>
   );
 };
@@ -30,7 +30,7 @@ PostListItem.propTypes = {
   id: PropTypes.string.isRequired,
   image: PropTypes.string,
   text: PropTypes.string.isRequired,
-  hot: PropTypes.number,
+  score: PropTypes.number,
 };
 
 export default PostListItem;
