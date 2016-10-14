@@ -9,21 +9,19 @@ import config from 'app/config';
 import NoHeaderFooter from 'app/layouts/NoHeaderFooter';
 import FontAwesome from 'app/components/FontAwesome';
 import Button from 'app/components/Button';
-import { registerAndLogin } from 'app/actions/users';
+import { registerAndLoginUser } from 'app/actions/users';
+import validation from 'app/lib/validation';
 
 import styles from './styles.styl';
 
 
-@connect(state => ({
-  username: state.username,
-  password: state.password,
-  mobile: state.mobile,
-}), { registerAndLogin })
+@connect(null,
+ { registerAndLoginUser })
 @withRouter
 export default class RegistrationView extends Component {
   static propTypes = {
     router: routerShape,
-    registerAndLogin: PropTypes.func,
+    registerAndLoginUser: PropTypes.func,
   };
 
   state = {};
@@ -44,7 +42,7 @@ export default class RegistrationView extends Component {
     const mobile = this._number.value;
     if (this.state.userError || (username === '' || password === '' || mobile === '')) return;
 
-    await this.props.registerAndLogin({
+    await this.props.registerAndLoginUser({
       username,
       password,
       mobile,
@@ -53,11 +51,14 @@ export default class RegistrationView extends Component {
     this.props.router.push('/');
   };
 
-  validateNumber = () => {
-    const pattern = /(\+614|04)[0-9]{8}/;
-    const number = this._number.value.replace(/ /g, '');
-    this.setState({ userError: pattern.exec(number) == null });
+  validateInfo = (REGEX, inputElement) => {
+    const value = inputElement.value.replace(/ /g, '');
+    this.setState({ userError: REGEX.exec(value) == null });
   }
+
+  validateNumber = () => { this.validateInfo(validation.VALID_MOBILE, this._number); }
+  validatePassword = () => { this.validateInfo(validation.VALID_PASSWORD, this._password); }
+  validateUsername = () => { this.validateInfo(validation.VALID_USERNAME, this._username); }
 
   render() {
     return (
@@ -68,21 +69,21 @@ export default class RegistrationView extends Component {
         <form className={styles.form}>
           <div className={styles.container}>
             <FontAwesome className={cx('fa fa-envelope-o', styles.inputIcon)} />
-            <input className={styles.textinput} placeholder="User Name" type="text" id="username" ref={ref => (this._username = ref)} />
+            <input className={styles.textInput} placeholder="User Name" type="text" id="username" ref={ref => (this._username = ref)} onChange={this.validateUsername} />
           </div>
           <div className={styles.container}>
             <FontAwesome className={cx('fa fa-phone', styles.inputIcon)} />
-            <input className={styles.textinput} placeholder="Mobile Number" type="tel" id="number" ref={ref => (this._number = ref)} onChange={this.validateNumber} />
+            <input className={styles.textInput} placeholder="Mobile Number" type="tel" id="number" ref={ref => (this._number = ref)} onChange={this.validateNumber} />
           </div>
           <div className={styles.container}>
             <FontAwesome className={cx('fa fa-lock', styles.inputIcon)} />
-            <input className={styles.textinput} placeholder="Password" type="password" id="password" ref={ref => (this._password = ref)} />
+            <input className={styles.textInput} placeholder="Password" type="password" id="password" ref={ref => (this._password = ref)} onChange={this.validatePassword} />
           </div>
           <div className={styles.container}>
             <FontAwesome className={cx('fa fa-lock', styles.inputIcon)} />
-            <input className={styles.textinput} placeholder="Confirm" type="password" id="confirmpw" ref={ref => (this._confirmpw = ref)} onChange={this.confirmPassword} />
+            <input className={styles.textInput} placeholder="Confirm" type="password" id="confirmpw" ref={ref => (this._confirmpw = ref)} onChange={this.confirmPassword} />
           </div>
-          {this.state.userError && (
+          {this.state.userError &&/* TODO ADD DATA VALIDATION USER OUTPUT */ (
             <div className={styles.error}>
               {(this._password.value !== this._confirmpw.value) ? 'Passwords do not match' : 'Invalid mobile'}
             </div>

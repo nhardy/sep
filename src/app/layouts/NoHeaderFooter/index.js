@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { StickyContainer } from 'react-sticky';
 import cx from 'classnames';
 
 import styles from './styles.styl';
