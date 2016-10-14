@@ -84,6 +84,7 @@
     "isomorphic-fetch": "^2.2.1",
     "lodash-es": "^4.16.1",
     "nodemon": "^1.9.1",
+    "pem": "^1.8.3",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-helmet": "^3.0.1",
