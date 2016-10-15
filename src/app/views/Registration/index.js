@@ -4,6 +4,7 @@ import { routerShape } from 'react-router/lib/PropTypes';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import cx from 'classnames';
+import { get } from 'lodash-es';
 
 import config from 'app/config';
 import NoHeaderFooter from 'app/layouts/NoHeaderFooter';
@@ -11,7 +12,6 @@ import FontAwesome from 'app/components/FontAwesome';
 import Button from 'app/components/Button';
 import { registerAndLoginUser } from 'app/actions/users';
 import { VALID_MOBILE, VALID_PASSWORD, VALID_USERNAME } from 'app/lib/validation';
-import { get } from 'lodash-es';
 
 import styles from './styles.styl';
 
@@ -34,6 +34,14 @@ export default class RegistrationView extends Component {
     this.setState({ willRedirect: true });
   }
 
+  onSubmit = (e) => {
+    e.preventDefault();
+  }
+
+  getRedirect = () => {
+    return get(this.context.location, 'query.redirect', '/');
+  };
+
   confirmPassword = () => {
     const password = this._password.value;
     const confirm = this._confirm.value;
@@ -43,10 +51,8 @@ export default class RegistrationView extends Component {
   back = () => {
     this.props.router.push('/');
   }
-  onSubmit = (e) => {
-    e.preventDefault();
-  }
-  submit = async (ev) => {
+
+  submit = async () => {
     const valid = this._form.checkValidity();
     if (!valid) return;
 
@@ -59,10 +65,6 @@ export default class RegistrationView extends Component {
       password,
       mobile,
     });
-  };
-
-  getRedirect = () => {
-    return get(this.context.location, 'query.redirect', '/');
   };
 
   render() {
