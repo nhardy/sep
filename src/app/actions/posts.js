@@ -24,7 +24,7 @@ export function clearPost() {
   };
 }
 
-export function addPost(post) {
+function _addPost(post, token) {
   return {
     types: [ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE],
     endpoint: {
@@ -32,12 +32,20 @@ export function addPost(post) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(post),
     },
   };
 }
 
+export function addPost(post){
+  return async (dispatch, getState) => {
+    const token = getState().users.token;
+    if (!token) return;
+    await dispatch(_addPost(post, token));
+  };
+}
 
 export function getPosts({ latitude, longitude }) {
   return {
