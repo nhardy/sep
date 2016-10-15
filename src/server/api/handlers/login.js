@@ -9,7 +9,7 @@ import { add } from 'server/lib/sessions';
 export default async function loginHandler(req, res, next) {
   const { username } = req.params;
   const { password: passwordBase64 } = req.body;
-
+  console.log(req.body);
   let password;
   try {
     password = atob(passwordBase64);

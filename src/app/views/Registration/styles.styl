@@ -24,13 +24,15 @@
   color: $whiteColor
 
 .textInput
-  margin-left: 4px
   padding: 4px
   width: 100%
   color: $whiteColor
   background: transparent
   font-size: 16px
   border: none
+
+  &:invalid:not(:focus):not(:placeholder-shown)
+    border: 1px solid $negativeColor
 
   +placeholder()
     color: $whiteColor
@@ -47,6 +49,8 @@
 
 .inputIcon
   padding: 4px
+  width: 48px
+  text-align: center
   margin-left: 4px
   color: $whiteColor
 
@@ -63,3 +67,4 @@
   text-align: center
   margin: 16px 0px 0px 16px
   color: $negativeColor
+

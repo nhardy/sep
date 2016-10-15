@@ -33,9 +33,12 @@ export function loginUser({ username, password }) {
     endpoint: {
       url: `${baseUrl()}/users/${username}`,
       method: 'POST',
-      body: {
-        password: btoa(password),
+      headers: {
+        'Content-Type': 'application/json',
       },
+      body: JSON.stringify({
+        password: btoa(password),
+      }),
     },
   };
 }

@@ -10,13 +10,15 @@ import NoHeaderFooter from 'app/layouts/NoHeaderFooter';
 import FontAwesome from 'app/components/FontAwesome';
 import Button from 'app/components/Button';
 import { registerAndLoginUser } from 'app/actions/users';
-import validation from 'app/lib/validation';
+import { VALID_MOBILE, VALID_PASSWORD, VALID_USERNAME } from 'app/lib/validation';
+import { get } from 'lodash-es';
 
 import styles from './styles.styl';
 
 
-@connect(null,
- { registerAndLoginUser })
+@connect(state => ({
+  token: state.users.token,
+}), { registerAndLoginUser })
 @withRouter
 export default class RegistrationView extends Component {
   static propTypes = {
@@ -26,39 +28,42 @@ export default class RegistrationView extends Component {
 
   state = {};
 
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.token) return;
+    this.props.router.replace(this.getRedirect());
+    this.setState({ willRedirect: true });
+  }
+
   confirmPassword = () => {
     const password = this._password.value;
-    const confirm = this._confirmpw.value;
+    const confirm = this._confirm.value;
     this.setState({ userError: password !== confirm });
   };
 
   back = () => {
     this.props.router.push('/');
   }
+  onSubmit = (e) => {
+    e.preventDefault();
+  }
+  submit = async (ev) => {
+    const valid = this._form.checkValidity();
+    if (!valid) return;
 
-  submit = async () => {
     const username = this._username.value;
     const password = this._password.value;
     const mobile = this._number.value;
-    if (this.state.userError || (username === '' || password === '' || mobile === '')) return;
 
     await this.props.registerAndLoginUser({
       username,
       password,
       mobile,
     });
-
-    this.props.router.push('/');
   };
 
-  validateInfo = (REGEX, inputElement) => {
-    const value = inputElement.value.replace(/ /g, '');
-    this.setState({ userError: REGEX.exec(value) == null });
-  }
-
-  validateNumber = () => { this.validateInfo(validation.VALID_MOBILE, this._number); }
-  validatePassword = () => { this.validateInfo(validation.VALID_PASSWORD, this._password); }
-  validateUsername = () => { this.validateInfo(validation.VALID_USERNAME, this._username); }
+  getRedirect = () => {
+    return get(this.context.location, 'query.redirect', '/');
+  };
 
   render() {
     return (
@@ -66,29 +71,29 @@ export default class RegistrationView extends Component {
         <Helmet title={`Sign Up | ${config.appName}`} />
         <Button className={styles.back} onClick={this.back} />
         <h1 className={styles.heading}>Sign Up</h1>
-        <form className={styles.form}>
+        <form className={styles.form} ref={ref => (this._form = ref)} onSubmit={this.onSubmit} >
           <div className={styles.container}>
             <FontAwesome className={cx('fa fa-envelope-o', styles.inputIcon)} />
-            <input className={styles.textInput} placeholder="User Name" type="text" id="username" ref={ref => (this._username = ref)} onChange={this.validateUsername} />
+            <input className={cx(styles.textInput, styles.username)} placeholder="User Name" type="text" id="username" ref={ref => (this._username = ref)} pattern={VALID_USERNAME} required />
           </div>
           <div className={styles.container}>
             <FontAwesome className={cx('fa fa-phone', styles.inputIcon)} />
-            <input className={styles.textInput} placeholder="Mobile Number" type="tel" id="number" ref={ref => (this._number = ref)} onChange={this.validateNumber} />
+            <input className={styles.textInput} placeholder="Mobile Number" type="tel" id="number" ref={ref => (this._number = ref)} pattern={VALID_MOBILE} required />
           </div>
           <div className={styles.container}>
             <FontAwesome className={cx('fa fa-lock', styles.inputIcon)} />
-            <input className={styles.textInput} placeholder="Password" type="password" id="password" ref={ref => (this._password = ref)} onChange={this.validatePassword} />
+            <input className={styles.textInput} placeholder="Password" type="password" id="password" ref={ref => (this._password = ref)} pattern={VALID_PASSWORD} required />
           </div>
           <div className={styles.container}>
             <FontAwesome className={cx('fa fa-lock', styles.inputIcon)} />
-            <input className={styles.textInput} placeholder="Confirm" type="password" id="confirmpw" ref={ref => (this._confirmpw = ref)} onChange={this.confirmPassword} />
+            <input className={styles.textInput} placeholder="Confirm" type="password" id="confirm" ref={ref => (this._confirm = ref)} onChange={this.confirmPassword} />
           </div>
-          {this.state.userError &&/* TODO ADD DATA VALIDATION USER OUTPUT */ (
+          {this.state.userError && (
             <div className={styles.error}>
-              {(this._password.value !== this._confirmpw.value) ? 'Passwords do not match' : 'Invalid mobile'}
+              {'Passwords do not match'}
             </div>
           )}
-          <input className={styles.button} type="button" onClick={this.submit} value="Join" />
+          <input className={styles.button} type="submit" onClick={this.submit} value="Join" />
         </form>
       </NoHeaderFooter>
     );

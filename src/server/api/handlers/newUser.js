@@ -3,7 +3,7 @@ import atob from 'atob';
 
 import r from 'server/api/rethink';
 import { hash } from 'server/lib/password';
-import validation from 'app/lib/validation';
+import { VALID_USERNAME_REGEX, VALID_PASSWORD_REGEX, VALID_MOBILE_REGEX } from 'app/lib/validation';
 
 
 export default async function newUserHandler(req, res, next) {
@@ -12,7 +12,8 @@ export default async function newUserHandler(req, res, next) {
     password: passwordBase64,
     mobile,
   } = req.body;
-  if (!validation.VALID_USERNAME.test(username) || validation.INVALID_USERNAME.test(username)) {
+
+  if (!VALID_USERNAME_REGEX.test(username)) {
     const error = new Error('Invalid username');
     error.status = 400;
     next(error);
@@ -29,14 +30,14 @@ export default async function newUserHandler(req, res, next) {
     return;
   }
 
-  if (!validation.VALID_PASSWORD.test(password)) {
+  if (!VALID_PASSWORD_REGEX.test(password)) {
     const error = new Error('Invalid password');
     error.status = 400;
     next(error);
     return;
   }
 
-  if (!validation.VALID_MOBILE.test(mobile)) {
+  if (!VALID_MOBILE_REGEX.test(mobile)) {
     const error = new Error('Invalid mobile number');
     error.status = 400;
     next(error);
