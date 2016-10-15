@@ -42,6 +42,7 @@ gulp.task('webpack-client-dev', (done) => {
     contentBase: '/',
     hot: true,
     historyApiFallback: true,
+    https: true,
     proxy: {
       '**': `http://localhost:${config.port + 1}/`,
     },

@@ -88,6 +88,7 @@
     "moment": "^2.15.1",
     "nodemon": "^1.9.1",
     "password-hash-and-salt": "^0.1.4",
+    "pem": "^1.8.3",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-helmet": "^3.0.1",
