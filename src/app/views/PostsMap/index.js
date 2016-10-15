@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { findDOMNode } from 'react-dom';
+import { loadScript } from 'redux-scripts-manager';
 
 import config from 'app/config';
 import { getPosts } from 'app/actions/posts';
@@ -16,11 +17,14 @@ import PostListItem from 'app/components/PostListItem';
     latitude: state.location.latitude,
     longitude: state.location.longitude,
   },
-}), { getPosts })
+  mapsLoaded: state.scripts.loaded.includes(config.scripts.googleMaps),
+}), { getPosts, loadScript })
 export default class PostsMapView extends Component {
   static propTypes = {
     posts: appPropTypes.posts,
     getPosts: PropTypes.func,
+    loadScript: PropTypes.func,
+    mapsLoaded: PropTypes.bool,
     location: PropTypes.shape({
       latitude: PropTypes.number,
       longitude: PropTypes.number,
@@ -46,15 +50,16 @@ export default class PostsMapView extends Component {
   }
 
   componentDidMount() {
+    this.props.loadScript(config.scripts.googleMaps);
     const { latitude, longitude } = this.props.location;
     latitude && longitude && this.props.getPosts({
       latitude,
       longitude,
     });
-    window.initMap = this.initMap;
   }
 
   componentDidUpdate(prevProps) {
+    if (!prevProps.mapsLoaded && this.props.mapsLoaded) this.initMap();
     const prevLocation = prevProps.location;
     const { latitude, longitude } = this.props.location;
     if (!latitude || !longitude || prevLocation.latitude === latitude || prevLocation.longitude === longitude) return;
@@ -69,11 +74,6 @@ export default class PostsMapView extends Component {
 
     return (
       <DefaultLayout>
-        <Helmet
-          script={[
-            {"src": `https://maps.googleapis.com/maps/api/js?key=${config.mapsAPIKey}&callback=initMap`, "type": "text/javascript"},
-          ]}
-        />
         <div id="map" ref={this._map} />
       </DefaultLayout>
     );
