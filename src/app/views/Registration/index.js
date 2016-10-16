@@ -51,7 +51,7 @@ export default class RegistrationView extends Component {
   };
 
   back = () => {
-    this.props.router.push('/');
+    this.props.router.push(this.getRedirect());
   }
 
   submit = async () => {
