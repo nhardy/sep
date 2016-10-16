@@ -1,6 +1,6 @@
 import r from 'server/api/rethink';
 import postTransformer from 'server/api/transformers/post';
-
+import config from 'app/config';
 
 export default function getPostsHandler(req, res, next) {
   const latitude = parseFloat(req.query.lat);
