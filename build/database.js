@@ -1,37 +1,81 @@
 import gulp from 'gulp';
+import runSequence from 'run-sequence';
 import rethink from 'rethinkdbdash';
-import { difference } from 'lodash-es';
 
 
-gulp.task('schema', async () => {
+const DB = 'app';
+
+gulp.task('wipe', async () => {
   const r = rethink();
-  const db = 'app';
-  const tables = ['posts'];
 
-  const dbs = await r.dbList()
-    .run();
-  if (!dbs.includes(db)) {
-    await r.dbCreate(db)
-      .run();
-  }
-
-  const existingTables = await r.db(db)
-    .tableList()
-    .run();
-
-  await Promise.all(
-    difference(tables, existingTables).map(
-      table => r.db(db)
-        .tableCreate(table)
-        .run()
-    )
-  );
-
-  await r.db(db)
-    .table('posts')
-    .indexCreate('location', { geo: true })
-    .run();
+  await r.dbDrop(DB);
 
   r.getPoolMaster()
     .drain();
+});
+
+gulp.task('schema', async () => {
+  const r = rethink();
+
+  const dbs = await r.dbList()
+    .run();
+  if (!dbs.includes(DB)) {
+    await r.dbCreate(DB)
+      .run();
+  }
+
+  const existingTables = await r.db(DB)
+    .tableList()
+    .run();
+
+  if (!existingTables.includes('posts')) {
+    await r.db(DB)
+      .tableCreate('posts');
+  }
+
+  try {
+    await r.db(DB)
+      .table('posts')
+      .indexCreate('location', { geo: true })
+      .run();
+  } catch (e) {
+    // empty
+  }
+
+  if (!existingTables.includes('users')) {
+    await r.db(DB)
+      .tableCreate('users', { primaryKey: 'username' })
+      .run();
+  }
+
+  if (!existingTables.includes('votes')) {
+    await r.db(DB)
+      .tableCreate('votes')
+      .run();
+  }
+
+  try {
+    await r.db(DB)
+      .table('votes')
+      .indexCreate('post')
+      .run();
+  } catch (e) {
+    // empty
+  }
+
+  try {
+    await r.db(DB)
+      .table('votes')
+      .indexCreate('username')
+      .run();
+  } catch (e) {
+    // empty
+  }
+
+  r.getPoolMaster()
+    .drain();
+});
+
+gulp.task('refresh', () => {
+  runSequence('wipe', 'schema');
 });

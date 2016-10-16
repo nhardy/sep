@@ -1,16 +1,15 @@
 import React, { PropTypes } from 'react';
-import { StickyContainer } from 'react-sticky';
 import cx from 'classnames';
 
 import styles from './styles.styl';
 
 
 const NoHeaderFooterLayout = ({ children, className }) => (
-  <StickyContainer className={styles.root}>
+  <div className={styles.root}>
     <main className={cx(styles.main, className)}>
       {children}
     </main>
-  </StickyContainer>
+  </div>
 );
 
 NoHeaderFooterLayout.propTypes = {

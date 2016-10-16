@@ -95,7 +95,6 @@ export default function postsReducer(state = initialState, action = {}) {
       };
 
     case GET_POST_FAILURE:
-      console.log(action);
       return {
         ...state,
         posts: {

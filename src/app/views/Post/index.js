@@ -40,7 +40,7 @@ export default class PostView extends Component { // eslint-disable-line react/p
     return (
       <DefaultLayout>
         <Helmet title={config.appName} />
-        <PostDetail {...this.props.post} />
+        <PostDetail post={this.props.post} />
       </DefaultLayout>
     );
   }

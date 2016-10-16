@@ -18,11 +18,14 @@ Before proceeding, make sure it is running [locally](http://localhost:8080).
 
 In the project directory, make sure you `npm install` (to install dependencies) followed by `npm run schema` (to initialise the database).
 
-### Running
+## Running
 
-To start the server in development mode, use `npm run dev`. The server will start on port 8080. You shouldn't need to restart the server in this mode even if you make changes, as the server will update as you save. Some functionality things will even update without you having to refresh. If you run into any issues though, it might be a good idea to refresh the page or restart the server.
+To start the server in development mode, use `npm run dev`.
+The server will start with HTTPS on port 8080.
+You shouldn't need to restart the server in this mode even if you make changes, as the server will update as you save.
+Some functionality things will even update without you having to refresh. If you run into any issues though, it might be a good idea to refresh the page or restart the server.
 
-## "Production" mode
+### "Production" mode
 
 You may notice that styles appear to _jump_ when you load the page in development mode. This is because styles are injected into the page by the JavaScript bundle to make hot reloading of styles possible. Production mode, on the other hand, does not do this.
 

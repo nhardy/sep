@@ -6,59 +6,23 @@
     display: flex
     flex-direction: row
     justify-content: flex-end
+    align-items: center
     height: 100%
 
 .vertical
   &:not(:last-child)
-    margin-bottom: $minGutter
-
-    +from($sml)
-      margin-bottom: $smlGutter
-
-    +from($med)
-      margin-bottom: $medGutter
-
-    +from($lge)
-      margin-bottom: $lgeGutter
-
-    +from($xlg)
-      margin-bottom: $xlgGutter
+    propertyGutter('margin-bottom')
 
 .item
   .horizontal &
     display: block
-
-    margin: auto 0 auto $minGutter
-
-    +from($sml)
-      margin-left: $smlGutter
-
-    +from($med)
-      margin-left: $medGutter
-
-    +from($lge)
-      margin-left: $lgeGutter
-
-    +from($xlg)
-      margin-left: $xlgGutter
+    propertyGutter('margin-left')
 
   .vertical &
     display: list-item
 
     &:not(:last-child)
-      margin-bottom: $minGutter
-
-      +from($sml)
-        margin-bottom: $smlGutter
-
-      +from($med)
-        margin-bottom: $medGutter
-
-      +from($lge)
-        margin-bottom: $lgeGutter
-
-      +from($xlg)
-        margin-bottom: $xlgGutter
+      propertyGutter('margin-bottom')
 
 .active
   text-decoration: none
