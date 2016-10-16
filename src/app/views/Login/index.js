@@ -65,6 +65,7 @@ export default class LoginView extends Component {
   };
 
   render() {
+    const redirectPage = this.getRedirect();
     return (
       <NoHeaderFooter className={styles.root}>
         <Helmet title={`Login | ${config.appName}`} />
@@ -83,7 +84,7 @@ export default class LoginView extends Component {
         </form>
         <div className={styles.regContainer}>
           <span className={styles.regText}>{'Don\'t have an account? '}</span>
-          <Link to={'/register'} className={styles.link}>{'Sign Up'}</Link>
+          <Link to={`/register?redirect=${redirectPage}`} className={styles.link}>{'Sign Up'}</Link>
         </div>
       </NoHeaderFooter>
     );
