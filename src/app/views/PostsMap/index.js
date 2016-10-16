@@ -34,7 +34,7 @@ export default class PostsMapView extends Component {
     googleMap: PropTypes.object,
   };
 
-  initMap = (posts) => {
+  initMap = () => {
         const myLatLng = {lat: -25.363, lng: 131.044};
 
         // Create a map object and specify the DOM element for display.
@@ -67,7 +67,7 @@ export default class PostsMapView extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!prevProps.mapsLoaded && this.props.mapsLoaded) this.initMap(this.props.posts);
+    if (!prevProps.mapsLoaded && this.props.mapsLoaded) this.initMap();
     if (this.props.posts.length > 0) this.updateMap();
     const prevLocation = prevProps.location;
     const { latitude, longitude } = this.props.location;
