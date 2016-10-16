@@ -34,5 +34,6 @@
   "$underlineColor": "$_reqModellingGrey",
   "$buttonColor":"$_orangeTheme",
   "$headerGradient1": "$_headerBlue",
-  "$headerGradient2": "$_tardisBlue"
+  "$headerGradient2": "$_tardisBlue",
+  "$regText": "$_reqModellingGrey"
 }

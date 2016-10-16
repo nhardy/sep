@@ -4,6 +4,7 @@ import { routerShape } from 'react-router/lib/PropTypes';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import cx from 'classnames';
+import { Link } from 'react-router';
 import { get } from 'lodash-es';
 
 import config from 'app/config';
@@ -31,6 +32,7 @@ export default class LoginView extends Component {
   state = {};
 
   componentWillReceiveProps(nextProps) {
+    console.log('Token',nextProps.token);
     if (!nextProps.token) return;
     this.props.router.replace(this.getRedirect());
     this.setState({ willRedirect: true });
@@ -40,6 +42,9 @@ export default class LoginView extends Component {
     e.preventDefault();
   }
 
+  back = () => {
+    this.props.router.push('/');
+  }
   getRedirect = () => {
     return get(this.context.location, 'query.redirect', '/');
   };
@@ -74,6 +79,10 @@ export default class LoginView extends Component {
           </div>
           <input className={styles.button} type="submit" onClick={this.submit} value="Sign In" />
         </form>
+        <div className={styles.regContainer}>
+          <span className={styles.regText}>{'Don\'t have an account? '}</span>
+          <Link to={'/register'} className={styles.link}>{'Sign Up'}</Link>
+        </div>
       </NoHeaderFooter>
     );
   }
