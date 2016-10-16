@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { withRouter } from 'react-router';
+import { withRouter, Link } from 'react-router';
 import { routerShape } from 'react-router/lib/PropTypes';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import cx from 'classnames';
-import { Link } from 'react-router';
 import { get } from 'lodash-es';
 
 import config from 'app/config';
@@ -27,15 +26,12 @@ export default class LoginView extends Component {
   static propTypes = {
     router: routerShape,
     loginUser: PropTypes.func,
+    token: PropTypes.string,
   };
 
-  state = {};
-
   componentWillReceiveProps(nextProps) {
-    console.log('Token',nextProps.token);
     if (!nextProps.token) return;
     this.props.router.replace(this.getRedirect());
-    this.setState({ willRedirect: true });
   }
 
   onSubmit = (e) => {
@@ -43,7 +39,7 @@ export default class LoginView extends Component {
   }
 
   back = () => {
-    this.props.router.push('/');
+    this.props.router.push(this.getRedirect());
   }
   getRedirect = () => {
     return get(this.context.location, 'query.redirect', '/');
