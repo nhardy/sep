@@ -1,4 +1,4 @@
-export default function postTransformer({ location: { coordinates: [latitude, longitude] }, ...post }) {
+export default function postTransformer({ location: { coordinates: [longitude, latitude] }, ...post }) {
   return {
     ...post,
     location: {
