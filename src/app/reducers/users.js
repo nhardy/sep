@@ -40,13 +40,13 @@ export default function usersReducer(state = initialState, action = {}) {
       return {
         ...state,
         loading: true,
-        username: action.username,
       };
 
     case LOGIN_USER_SUCCESS:
       return {
         ...state,
         token: action.response.token,
+        username: action.username,
         loaded: true,
       };
 
