@@ -33,7 +33,19 @@ export default function getPostsHandler(req, res, next) {
         .default(0),
     }))
     .merge(post => ({
-      hot: post('score').add(post('timestamp').toEpochTime().div(45000)),
+      hot: post('score')
+        .add(post('timestamp').toEpochTime().div(45000))
+        .sub(
+          r.distance(
+            post('location'),
+            r.point(
+              longitude,
+              latitude
+            ),
+            { unit: 'm' }
+          )
+          .div(16)
+        ),
     }))
     .orderBy(r.desc('hot'))
     .limit(20)
