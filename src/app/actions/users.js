@@ -19,33 +19,36 @@ function registerUser({ username, password, mobile }) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-          username,
-          password: btoa(password),
-          mobile,
+        username,
+        password: btoa(password),
+        mobile,
       }),
     },
-  };
-}
-export function registerAndLogin({ username, password, mobile }){
-  return async (dispatch, getState) => {
-    const getUser = () => getState().users.username;
-    if (getUser()) return;
-    await dispatch(registerUser({ username, password, mobile }));
-    if(!getUser()) return;
-    await dispatch(loginUser({ username, password }))
   };
 }
 
 export function loginUser({ username, password }) {
   return {
     types: [LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE],
-    id,
     endpoint: {
       url: `${baseUrl()}/users/${username}`,
       method: 'POST',
-      body: {
-        password: btoa(password),
+      headers: {
+        'Content-Type': 'application/json',
       },
+      body: JSON.stringify({
+        password: btoa(password),
+      }),
     },
+  };
+}
+
+export function registerAndLoginUser({ username, password, mobile }) {
+  return async (dispatch, getState) => {
+    const getUser = () => getState().users.username;
+    if (getUser()) return;
+    await dispatch(registerUser({ username, password, mobile }));
+    if (!getUser()) return;
+    await dispatch(loginUser({ username, password }));
   };
 }

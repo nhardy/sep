@@ -46,6 +46,7 @@ export default function usersReducer(state = initialState, action = {}) {
       return {
         ...state,
         token: action.response.token,
+        loaded: true,
       };
 
     case LOGIN_USER_FAILURE:

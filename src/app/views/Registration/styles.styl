@@ -10,6 +10,7 @@
   flex-direction: row
   padding: 8px 0px 8px
   border-bottom: 1px solid $underlineColor
+
   &:focus
     border-bottom: 2px solid $underlineColor
 
@@ -22,13 +23,16 @@
   padding: 24px 0px 8px 16px
   color: $whiteColor
 
-.textinput
-  margin-left: 5px
+.textInput
+  padding: 4px
   width: 100%
   color: $whiteColor
-  background: rgba(0,0,0,0)
+  background: transparent
   font-size: 16px
   border: none
+
+  &:invalid:not(:focus):not(:placeholder-shown)
+    border: 1px solid $negativeColor
 
   +placeholder()
     color: $whiteColor
@@ -45,6 +49,8 @@
 
 .inputIcon
   padding: 4px
+  width: 48px
+  text-align: center
   margin-left: 4px
   color: $whiteColor
 
@@ -53,6 +59,7 @@
   margin: 16px 0px 0px 8px
   background: url('app/assets/images/back.png')
   background-size: 100% 100%
+
   &:hover
     background: $underlineColor
 
@@ -60,3 +67,4 @@
   text-align: center
   margin: 16px 0px 0px 16px
   color: $negativeColor
+
