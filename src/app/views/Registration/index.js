@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import cx from 'classnames';
 import { get } from 'lodash-es';
+import { loadScript } from 'redux-scripts-manager';
 
 import config from 'app/config';
 import * as appPropTypes from 'app/components/propTypes';
