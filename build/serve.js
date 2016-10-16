@@ -6,6 +6,9 @@ gulp.task('serve', (done) => {
   let alreadyRunning = false;
   const monitor = nodemon({
     script: 'server.js',
+    env: {
+      NODE_TLS_REJECT_UNAUTHORIZED: 0,
+    },
   }).on('start', () => {
     if (!alreadyRunning) {
       done();
