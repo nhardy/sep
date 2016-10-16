@@ -7,6 +7,7 @@ import cx from 'classnames';
 import { get } from 'lodash-es';
 
 import config from 'app/config';
+import * as appPropTypes from 'app/components/propTypes';
 import NoHeaderFooter from 'app/layouts/NoHeaderFooter';
 import FontAwesome from 'app/components/FontAwesome';
 import Button from 'app/components/Button';
@@ -16,9 +17,7 @@ import { VALID_MOBILE, VALID_PASSWORD, VALID_USERNAME } from 'app/lib/validation
 import styles from './styles.styl';
 
 
-@connect(state => ({
-  token: state.users.token,
-}), { registerAndLoginUser })
+@connect(null, { registerAndLoginUser })
 @withRouter
 export default class RegistrationView extends Component {
   static propTypes = {
@@ -26,12 +25,15 @@ export default class RegistrationView extends Component {
     registerAndLoginUser: PropTypes.func,
   };
 
+  static contextTypes = {
+    location: appPropTypes.location,
+  };
+
   state = {};
 
   componentWillReceiveProps(nextProps) {
     if (!nextProps.token) return;
     this.props.router.replace(this.getRedirect());
-    this.setState({ willRedirect: true });
   }
 
   onSubmit = (e) => {
@@ -49,7 +51,7 @@ export default class RegistrationView extends Component {
   };
 
   back = () => {
-    this.props.router.push('/');
+    this.props.router.push(this.getRedirect());
   }
 
   submit = async () => {

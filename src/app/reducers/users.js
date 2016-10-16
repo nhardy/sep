@@ -10,8 +10,8 @@ import {
 } from 'app/actions/users';
 
 const initialState = {
-  username: '',
-  token: '',
+  username: null,
+  token: null,
   loading: false,
   loaded: false,
 };
