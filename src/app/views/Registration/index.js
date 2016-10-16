@@ -16,9 +16,7 @@ import { VALID_MOBILE, VALID_PASSWORD, VALID_USERNAME } from 'app/lib/validation
 import styles from './styles.styl';
 
 
-@connect(state => ({
-  token: state.users.token,
-}), { registerAndLoginUser })
+@connect(null, { registerAndLoginUser })
 @withRouter
 export default class RegistrationView extends Component {
   static propTypes = {
@@ -31,7 +29,6 @@ export default class RegistrationView extends Component {
   componentWillReceiveProps(nextProps) {
     if (!nextProps.token) return;
     this.props.router.replace(this.getRedirect());
-    this.setState({ willRedirect: true });
   }
 
   onSubmit = (e) => {
