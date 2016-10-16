@@ -35,7 +35,6 @@ SiteHeaderNav.defaultProps = {
   items:
   [
     { to: '/add', children: 'Add Post' },
-    { to: '/register', children: 'Register' },
   ],
 };
 
