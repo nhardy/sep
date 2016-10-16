@@ -29,6 +29,7 @@ export default class LoginView extends Component {
     loginUser: PropTypes.func,
     token: PropTypes.string,
   };
+
   static contextTypes = {
     location: appPropTypes.location,
   };
@@ -42,12 +43,13 @@ export default class LoginView extends Component {
     e.preventDefault();
   }
 
-  back = () => {
-    this.props.router.push(this.getRedirect());
-  }
   getRedirect = () => {
     return get(this.context.location, 'query.redirect', '/');
   };
+
+  back = () => {
+    this.props.router.push(this.getRedirect());
+  }
 
   submit = async () => {
     const valid = this._form.checkValidity();
