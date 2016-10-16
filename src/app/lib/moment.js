@@ -13,7 +13,7 @@ export function formatTimestamp(timestamp, now) {
   const time = moment(timestamp);
   const reference = moment(now);
 
-  if (time.diff(reference, 'hours') < 2) {
+  if (reference.diff(time, 'hours') < 2) {
     return time.from(reference);
   }
   return time.calendar(reference);

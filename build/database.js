@@ -63,6 +63,15 @@ gulp.task('schema', async () => {
     // empty
   }
 
+  try {
+    await r.db(DB)
+      .table('votes')
+      .indexCreate('username')
+      .run();
+  } catch (e) {
+    // empty
+  }
+
   r.getPoolMaster()
     .drain();
 });

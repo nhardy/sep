@@ -16,18 +16,24 @@
 
 .button
   color: $themeColor
+
   &:not(:last-child)
     margin-right: 8px
 
-.positive:hover
-  color: $positiveColor
+.positive
+  &:hover
+  &.selected
+    color: $positiveColor
 
-.negative:hover
-  color: $negativeColor
+.negative
+  &:hover
+  &.selected
+    color: $negativeColor
 
 .commentContainer
   margin-left: 8px
   border-radius: 4px
+
   &:hover
     background: $whiteColor
 

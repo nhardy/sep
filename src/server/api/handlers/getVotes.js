@@ -1,4 +1,4 @@
-import { find } from 'lodash-es';
+import { find, get } from 'lodash-es';
 
 import r from 'server/api/rethink';
 
@@ -21,6 +21,19 @@ export default async function getVotesHandler(req, res, next) {
     return;
   }
 
+  let value;
+  if (res.locals.username) {
+    try {
+      value = await r.table('votes')
+        .filter({ post: id, username: res.locals.username })
+        .run()
+        .then(([vote]) => get(vote, 'value', null));
+    } catch (e) {
+      next(e);
+      return;
+    }
+  }
+
   r.table('votes')
     .filter({ post: id })
     .group('value')
@@ -31,6 +44,7 @@ export default async function getVotesHandler(req, res, next) {
       const downvotes = find(groups, { group: -1 }) || { group: -1, reduction: 0 };
       res.send({
         score: upvotes.reduction - downvotes.reduction,
+        value,
       });
     })
     .catch(next);

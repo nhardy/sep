@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import * as appPropTypes from 'app/components/propTypes';
 import { setTime } from 'app/actions/time';
+import { getMyVotes } from 'app/actions/votes';
 import Geolocation from 'app/components/Geolocation';
 import ErrorView from 'app/views/Error';
 
@@ -25,13 +26,14 @@ import styles from './styles.styl';
   return {
     routeError: state.routeError,
   };
-}, { setTime })
+}, { setTime, getMyVotes })
 export default class App extends Component {
   static propTypes = {
     routeError: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     children: PropTypes.node,
     location: appPropTypes.location,
     setTime: PropTypes.func,
+    getMyVotes: PropTypes.func,
   };
 
   static childContextTypes = {
@@ -45,6 +47,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    this.props.getMyVotes();
     this._interval = window.setInterval(() => this.props.setTime(), 5 * 1000);
   }
 

@@ -36,6 +36,7 @@ export default function getPostsHandler(req, res, next) {
       hot: post('score').add(post('timestamp').toEpochTime().div(45000)),
     }))
     .orderBy(r.desc('hot'))
+    .limit(20)
     .run()
     .then((posts) => {
       res.send({

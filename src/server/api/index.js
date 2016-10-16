@@ -5,7 +5,9 @@ import authMiddleware from 'server/api/middleware/auth';
 import getPostsHandler from 'server/api/handlers/getPosts';
 import newPostHandler from 'server/api/handlers/newPost';
 import getVotesHandler from 'server/api/handlers/getVotes';
+import getMyVotesHandler from 'server/api/handlers/getMyVotes';
 import voteHandler from 'server/api/handlers/vote';
+import unvoteHandler from 'server/api/handlers/unvote';
 import postHandler from 'server/api/handlers/post';
 import newUserHandler from 'server/api/handlers/newUser';
 import loginHandler from 'server/api/handlers/login';
@@ -14,14 +16,16 @@ import loginHandler from 'server/api/handlers/login';
 const api = new Express();
 
 api.get('/posts', getPostsHandler);
-api.post('/posts', authMiddleware, bodyParser.json({ limit: '12mb' }), newPostHandler);
+api.post('/posts', authMiddleware(), bodyParser.json({ limit: '12mb' }), newPostHandler);
 api.get('/posts/:id', postHandler);
 
-api.get('/posts/:id/votes', getVotesHandler);
-api.put('/posts/:id/votes', authMiddleware, bodyParser.json(), voteHandler, getVotesHandler);
+api.get('/posts/:id/votes', authMiddleware(false), getVotesHandler);
+api.put('/posts/:id/votes', authMiddleware(), bodyParser.json(), voteHandler, getVotesHandler);
+api.delete('/posts/:id/votes', authMiddleware(), unvoteHandler, getVotesHandler);
 
 api.post('/users', bodyParser.json(), newUserHandler);
 api.post('/users/:username', bodyParser.json(), loginHandler);
+api.get('/users/:username/votes', authMiddleware(), getMyVotesHandler);
 
 api.use((req, res, next) => {
   const error = new Error(`Resource for '${req.url}' not found`);
