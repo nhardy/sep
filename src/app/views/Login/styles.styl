@@ -1,0 +1,79 @@
+@import '~app/assets/stylus'
+
+.root
+  background: url('app/assets/images/bgregister.png')
+  background-size: 100% 100%
+  padding: 0
+
+.container
+  display: flex
+  flex-direction: row
+  padding: 8px 0px 8px
+  border-bottom: 1px solid $underlineColor
+
+  &:focus
+    border-bottom: 2px solid $underlineColor
+
+.form
+  margin-top: 48px
+
+.heading
+  font-size: 32px
+  margin-bottom: 16px
+  padding: 24px 0px 8px 16px
+  color: $whiteColor
+
+.textInput
+  padding: 4px
+  width: 100%
+  color: $whiteColor
+  background: transparent
+  font-size: 16px
+  border: none
+
+  &:invalid:not(:focus):not(:placeholder-shown)
+    border: 1px solid $negativeColor
+
+  +placeholder()
+    color: $whiteColor
+
+.button
+  width: 100%
+  margin-top: 48px
+  background: $buttonColor
+  color: $whiteColor
+  font-size: 16px
+  border: none
+  padding: 24px
+  cursor: pointer
+
+.inputIcon
+  padding: 4px
+  width: 48px
+  text-align: center
+  margin-left: 4px
+  color: $whiteColor
+
+.back
+  padding: 8px
+  margin: 16px 0px 0px 8px
+  background: url('app/assets/images/back.png')
+  background-size: 100% 100%
+
+  &:hover
+    background: $underlineColor
+
+.error
+  text-align: center
+  margin: 16px 0px 0px 16px
+  color: $negativeColor
+
+.regContainer
+  color: $regText
+  text-align: center
+  padding: 16px
+
+.link
+  color: $whiteColor
+  text-decoration: none
+

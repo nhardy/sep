@@ -30,6 +30,7 @@ function registerUser({ username, password, mobile }) {
 export function loginUser({ username, password }) {
   return {
     types: [LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE],
+    username,
     endpoint: {
       url: `${baseUrl()}/users/${username}`,
       method: 'POST',
