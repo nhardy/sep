@@ -39,7 +39,7 @@ function _addPost(post, token) {
   };
 }
 
-export function addPost(post){
+export function addPost(post) {
   return async (dispatch, getState) => {
     const token = getState().users.token;
     if (!token) return;
