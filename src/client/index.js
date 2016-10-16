@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import scriptsManager from 'redux-scripts-manager';
 
 import createStore from 'app/redux/store';
 
@@ -10,6 +11,7 @@ import Root from './Root';
 
 
 const store = createStore(window.__data);
+scriptsManager(store);
 const history = syncHistoryWithStore(browserHistory, store);
 const mountPoint = document.getElementById('root');
 

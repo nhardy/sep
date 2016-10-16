@@ -8,6 +8,7 @@ import PostsView from 'app/views/Posts';
 import AddPostView from 'app/views/AddPost';
 import PostView from 'app/views/Post';
 import RegistrationView from 'app/views/Registration';
+import PostsMapView from 'app/views/PostsMap';
 import LoginView from 'app/views/Login';
 import requireLogin from 'app/lib/requireLogin';
 import requireUnauthenticated from 'app/lib/requireUnauthenticated';
@@ -25,6 +26,7 @@ export default function getRoutes(store) {
       <Route path="/login" component={LoginView} onEnter={requireUnauthenticated(store)} />
       <Route path="/posts/:id" component={PostView} />
       <Route path="/register" component={RegistrationView} />
+      <Route path="/map" component={PostsMapView} />
       <Route path="*" component={ErrorView} status={404} />
     </Route>
   );
