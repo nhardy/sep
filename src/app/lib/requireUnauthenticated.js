@@ -4,7 +4,7 @@ export default function requireUnauthenticated({ getState }) {
   }
 
   return (nextState, replace) => {
-    if (!getState().users.token) {
+    if (getState().users.token) {
       replace({
         pathname: '/',
       });

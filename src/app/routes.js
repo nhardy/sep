@@ -22,7 +22,7 @@ export default function getRoutes(store) {
       <Route path="/__500" component={ErrorView} status={500} />
       <IndexRoute component={PostsView} />
       <Route path="/add" component={AddPostView} onEnter={requireLogin(store)} />
-      <Route Path="/login" component={LoginView} onEnter={requireUnauthenticated(store)} />
+      <Route path="/login" component={LoginView} onEnter={requireUnauthenticated(store)} />
       <Route path="/posts/:id" component={PostView} />
       <Route path="/register" component={RegistrationView} />
       <Route path="*" component={ErrorView} status={404} />
