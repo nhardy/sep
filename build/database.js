@@ -1,7 +1,6 @@
 import gulp from 'gulp';
 import runSequence from 'run-sequence';
 import rethink from 'rethinkdbdash';
-import { difference } from 'lodash-es';
 
 
 const DB = 'app';
@@ -17,7 +16,6 @@ gulp.task('wipe', async () => {
 
 gulp.task('schema', async () => {
   const r = rethink();
-  const tables = ['posts'];
 
   const dbs = await r.dbList()
     .run();
@@ -30,13 +28,19 @@ gulp.task('schema', async () => {
     .tableList()
     .run();
 
-  await Promise.all(
-    difference(tables, existingTables).map(
-      table => r.db(DB)
-        .tableCreate(table)
-        .run()
-    )
-  );
+  if (!existingTables.includes('posts')) {
+    await r.db(DB)
+      .tableCreate('posts');
+  }
+
+  try {
+    await r.db(DB)
+      .table('posts')
+      .indexCreate('location', { geo: true })
+      .run();
+  } catch (e) {
+    // empty
+  }
 
   if (!existingTables.includes('users')) {
     await r.db(DB)
@@ -44,10 +48,16 @@ gulp.task('schema', async () => {
       .run();
   }
 
+  if (!existingTables.includes('votes')) {
+    await r.db(DB)
+      .tableCreate('votes')
+      .run();
+  }
+
   try {
     await r.db(DB)
-      .table('users')
-      .indexCreate('username')
+      .table('votes')
+      .indexCreate('post')
       .run();
   } catch (e) {
     // empty
@@ -55,8 +65,8 @@ gulp.task('schema', async () => {
 
   try {
     await r.db(DB)
-      .table('posts')
-      .indexCreate('location', { geo: true })
+      .table('votes')
+      .indexCreate('username')
       .run();
   } catch (e) {
     // empty

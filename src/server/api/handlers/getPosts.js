@@ -25,6 +25,30 @@ export default function getPostsHandler(req, res, next) {
       )
       .lt(10000)
     )
+    .merge(post => ({
+      score: r.table('votes')
+        .getAll(post('id'), { index: 'post' })
+        .map(vote => vote('value'))
+        .reduce((acc, current) => acc.add(current))
+        .default(0),
+    }))
+    .merge(post => ({
+      hot: post('score')
+        .add(post('timestamp').toEpochTime().div(45000))
+        .sub(
+          r.distance(
+            post('location'),
+            r.point(
+              longitude,
+              latitude
+            ),
+            { unit: 'm' }
+          )
+          .div(16)
+        ),
+    }))
+    .orderBy(r.desc('hot'))
+    .limit(20)
     .run()
     .then((posts) => {
       res.send({
