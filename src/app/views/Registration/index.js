@@ -17,7 +17,9 @@ import { VALID_MOBILE, VALID_PASSWORD, VALID_USERNAME } from 'app/lib/validation
 import styles from './styles.styl';
 
 
-@connect(null, { registerAndLoginUser })
+@connect(state => ({
+  token: state.users.token,
+}), { registerAndLoginUser })
 @withRouter
 export default class RegistrationView extends Component {
   static propTypes = {
@@ -52,7 +54,7 @@ export default class RegistrationView extends Component {
 
   back = () => {
     this.props.router.push(this.getRedirect());
-  }
+  };
 
   submit = async () => {
     const valid = this._form.checkValidity();
