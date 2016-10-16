@@ -7,6 +7,7 @@ import cx from 'classnames';
 import { get } from 'lodash-es';
 
 import config from 'app/config';
+import * as appPropTypes from 'app/components/propTypes';
 import NoHeaderFooter from 'app/layouts/NoHeaderFooter';
 import FontAwesome from 'app/components/FontAwesome';
 import Button from 'app/components/Button';
@@ -22,6 +23,10 @@ export default class RegistrationView extends Component {
   static propTypes = {
     router: routerShape,
     registerAndLoginUser: PropTypes.func,
+  };
+
+  static contextTypes = {
+    location: appPropTypes.location,
   };
 
   state = {};
