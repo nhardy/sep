@@ -13,8 +13,8 @@
   "$_darkRed": "#990c00",
   "$_anotherGrey": "#eaeaea",
   "$_headerBlue": "#005078",
-  "$_dataModellingGrey": "#dfdce3",
-  "$_orangeTheme":"#fc4a1a",
+  "$_reqModellingGrey": "#dfdce3",
+  "$_orangeTheme": "#fc4a1a",
   "$_headerBlue": "#005078",
 
   "$whiteColor": "$_white",
@@ -31,8 +31,9 @@
   "$negativeColor": "$_darkRed",
   "$subtleTextColor": "$_lightGrey",
   "$imageContainerColor": "$_anotherGrey",
-  "$underlineColor": "$_dataModellingGrey",
-  "$buttonColor":"$_orangeTheme",
+  "$underlineColor": "$_reqModellingGrey",
+  "$buttonColor": "$_orangeTheme",
   "$headerGradient1": "$_headerBlue",
-  "$headerGradient2": "$_tardisBlue"
+  "$headerGradient2": "$_tardisBlue",
+  "$regText": "$_reqModellingGrey"
 }
