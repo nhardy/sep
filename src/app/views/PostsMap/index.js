@@ -9,7 +9,7 @@ import { loadScript } from 'redux-scripts-manager';
 import config from 'app/config';
 import { getPosts } from 'app/actions/posts';
 import * as appPropTypes from 'app/components/propTypes';
-import DefaultLayout from 'app/layouts/Default';
+import UpdatedStyleDefaultLayout from 'app/layouts/UpdatedStyleDefault';
 import PostListItem from 'app/components/PostListItem';
 
 import styles from './styles.styl';
@@ -99,7 +99,7 @@ export default class PostsMapView extends Component {
         zIndex: 0,
       });
 
-      google.maps.event.addListener(marker, 'click', function() {
+      google.maps.event.addListener(marker, 'click', () => {
         this.props.router.push(`/posts/${marker.title}`);
       });
       this._markers.push(marker);
@@ -131,10 +131,10 @@ export default class PostsMapView extends Component {
   render() {
     const { posts } = this.props;
     return (
-      <DefaultLayout className={styles.root}>
+      <UpdatedStyleDefaultLayout className={styles.root}>
         <Helmet title={`Map | ${config.appName}` } />
         <div ref="map" className={styles.map} />
-      </DefaultLayout>
+      </UpdatedStyleDefaultLayout>
     );
   }
 }

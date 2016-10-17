@@ -13,13 +13,12 @@
 
 .image
   width: 100%
-  margin-left: -50px
+  margin-left: -10px
   z-index: 1
   position: relative
 
 .container
   display: flex
-  margin-top: -150px
   width: 100%
   background: $whiteColor
   flex: 1 1 auto
@@ -29,15 +28,28 @@
   -webkit-box-shadow: 10px 20px 54px -6px rgba(0,0,0,0.5);
   -moz-box-shadow: 10px 20px 54px -6px rgba(0,0,0,0.5);
   box-shadow: 10px 20px 54px -6px rgba(0,0,0,0.5);
-  height: 200px
+
 
 .text
   display: flex
+  flex: 1 1 auto
   padding: 24px
 
 .imageExist
-  height: 200px
+  height: 275px
+  margin-top: -205px
 
 .controls
-  position: absolute
-  right: 5%
+  padding: 16px
+  color: #fff
+
+
+.bottom
+  display: flex
+  flex-direction: row
+
+.positiveNum
+  background: $positiveColor
+
+.negativeNum
+  background: $negativeColor
