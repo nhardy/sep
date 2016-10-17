@@ -38,6 +38,7 @@ export default class AddPostView extends Component {
   };
 
   state = {};
+  _submitting = false;
 
   pick = (e) => {
     e.preventDefault();
@@ -70,12 +71,13 @@ export default class AddPostView extends Component {
   };
 
   submit = async () => {
+    if (this._submitting) return;
     const { latitude, longitude } = this.props.location;
     const text = this._text.value;
     const { image } = this.state;
 
     if (this.updateErrorState()) return;
-
+    this._submitting = true;
     await this.props.addPost({
       location: { latitude, longitude },
       text,
