@@ -14,14 +14,15 @@ const PostListItem = ({ id, text, score, image }) => {
       <Link className={styles.link} to={`/posts/${id}`}>
         <div className={styles.post}>
           <div className={styles.image}>
-            <Image {...img} aspectRatio={1} />
+            <Image {...img} score={score} aspectRatio={16/9} />
           </div>
-          <div className={styles.text}>
-            <p>{text}</p>
+          <div className={styles.container}>
+            <p className={styles.text}>{text}</p>
+            <PostControls className={styles.controls} id={id} score={score} />
           </div>
         </div>
       </Link>
-      <PostControls id={id} score={score} />
+
     </div>
   );
 };

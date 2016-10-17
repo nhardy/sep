@@ -4,7 +4,7 @@ import cx from 'classnames';
 import styles from './styles.styl';
 
 
-const Image = ({ className, src, alt, aspectRatio = 16 / 9 }) => (
+const Image = ({ className, src, alt, aspectRatio = 16 / 9}) => (
   <div
     className={cx(className, styles.wrapper)}
     style={{ paddingBottom: `${100 / aspectRatio}%` }}>

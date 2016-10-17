@@ -1,27 +1,43 @@
 @import '~app/assets/stylus'
 
 .root
-  padding: 8px
+  padding: 16px
 
 .link
   display: block
   text-decoration: none
 
 .post
-  display: flex
+  display: block
   flex-direction: row
 
 .image
-  height: 100%
-  width: 200px
+  width: 100%
+  margin-left: -50px
   z-index: 1
-  flex: 0 0 auto
+  position: relative
 
-.text
-  position: absolute
-  display: block
-  padding-top: 250px
+.container
+  display: flex
+  margin-top: -150px
+  width: 100%
   background: $whiteColor
   flex: 1 1 auto
+  flex-direction: column-reverse
   z-index: 0
   margin-left: $minGutter
+  -webkit-box-shadow: 10px 20px 54px -6px rgba(0,0,0,0.5);
+  -moz-box-shadow: 10px 20px 54px -6px rgba(0,0,0,0.5);
+  box-shadow: 10px 20px 54px -6px rgba(0,0,0,0.5);
+  height: 200px
+
+.text
+  display: flex
+  padding: 24px
+
+.imageExist
+  height: 200px
+
+.controls
+  position: absolute
+  right: 5%
