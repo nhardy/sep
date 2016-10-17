@@ -21,13 +21,17 @@ import styles from './styles.styl';
 
 @connect(state => ({
   token: state.users.token,
+  error: state.users.error,
 }), { loginUser })
 @withRouter
 export default class LoginView extends Component {
   static propTypes = {
     router: routerShape,
-    loginUser: PropTypes.func,
     token: PropTypes.string,
+    error: PropTypes.shape({
+      status: PropTypes.number,
+    }),
+    loginUser: PropTypes.func,
   };
 
   static contextTypes = {
@@ -48,7 +52,7 @@ export default class LoginView extends Component {
   };
 
   back = () => {
-    this.props.router.push(this.getRedirect());
+    this.props.router.push('/');
   }
 
   submit = async () => {
@@ -65,6 +69,7 @@ export default class LoginView extends Component {
   };
 
   render() {
+    const { error } = this.props;
     return (
       <NoHeaderFooter className={styles.root}>
         <Helmet title={`Login | ${config.appName}`} />
@@ -78,6 +83,10 @@ export default class LoginView extends Component {
           <div className={styles.container}>
             <FontAwesome className={cx('fa fa-lock', styles.inputIcon)} />
             <input className={styles.textInput} placeholder="Password" type="password" id="password" ref={ref => (this._password = ref)} pattern={VALID_PASSWORD} required />
+          </div>
+          <div className={styles.errorContainer}>
+            {error && error.status === 404 && <span>No such user</span>}
+            {error && error.status === 401 && <span>Incorrect password</span>}
           </div>
           <input className={styles.button} type="submit" onClick={this.submit} value="Sign In" />
         </form>

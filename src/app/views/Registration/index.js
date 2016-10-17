@@ -15,16 +15,21 @@ import Button from 'app/components/Button';
 import { registerAndLoginUser } from 'app/actions/users';
 import { VALID_MOBILE, VALID_PASSWORD, VALID_USERNAME } from 'app/lib/validation';
 
-import styles from './styles.styl';
+import styles from '../Login/styles.styl';
 
 
 @connect(state => ({
   token: state.users.token,
+  error: state.users.error,
 }), { registerAndLoginUser })
 @withRouter
 export default class RegistrationView extends Component {
   static propTypes = {
     router: routerShape,
+    token: PropTypes.string,
+    error: PropTypes.shape({
+      status: PropTypes.number,
+    }),
     registerAndLoginUser: PropTypes.func,
   };
 
@@ -73,6 +78,7 @@ export default class RegistrationView extends Component {
   };
 
   render() {
+    const { error } = this.props;
     return (
       <NoHeaderFooter className={styles.root}>
         <Helmet title={`Sign Up | ${config.appName}`} />
@@ -95,11 +101,11 @@ export default class RegistrationView extends Component {
             <FontAwesome className={cx('fa fa-lock', styles.inputIcon)} />
             <input className={styles.textInput} placeholder="Confirm" type="password" id="confirm" ref={ref => (this._confirm = ref)} onChange={this.confirmPassword} />
           </div>
-          {this.state.userError && (
-            <div className={styles.error}>
-              {'Passwords do not match'}
-            </div>
-          )}
+          <div className={styles.errorContainer}>
+            {this.state.userError && <span>Passwords do not match</span>}
+            {error && error.status === 409 && <span>That username already exists</span>}
+          </div>
+
           <input className={styles.button} type="submit" onClick={this.submit} value="Join" />
         </form>
       </NoHeaderFooter>
