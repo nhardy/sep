@@ -24,12 +24,13 @@ export default class PostDetail extends Component {
   state = {
     expanded: false,
   };
-
+  _getLink = /https?:\/\/www\.[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
   toggle = () => this.setState({ expanded: !this.state.expanded });
 
   render() {
     const { now, post: { id, username, timestamp, text, score, image } } = this.props;
     const { expanded } = this.state;
+    const matches = text.match(this._getLink);
     return (
       <div className={styles.root}>
         <div className={styles.info}>
@@ -43,7 +44,9 @@ export default class PostDetail extends Component {
             </Button>
           </div>
         )}
+
         <div className={styles.body}>{text}</div>
+        {(matches) && (<a className={styles.link} href={matches[0]}>Extracted Link</a>)}
         <div className={styles.controls}>
           <PostControls id={id} score={score} showCommentsBtn />
         </div>
