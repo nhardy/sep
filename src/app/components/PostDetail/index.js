@@ -46,7 +46,7 @@ export default class PostDetail extends Component {
         )}
 
         <div className={styles.body}>{text}</div>
-        {(matches) && (<a className={styles.link} href={matches[0]}>Extracted Link</a>)}
+        {(matches) && (<div className={styles.link}><a href={matches[0]}>Extracted Link</a></div>)}
         <div className={styles.controls}>
           <PostControls id={id} score={score} showCommentsBtn />
         </div>
