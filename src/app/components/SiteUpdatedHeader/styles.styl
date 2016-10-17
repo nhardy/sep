@@ -1,0 +1,71 @@
+@import '~app/assets/stylus'
+
+.root
+  background: $backgroundColor
+  padding: 0
+
+.column
+  composes: column from 'app/assets/stylus/common.styl'
+
+.navBar
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  align-items: center
+  font-size: 20px
+  propertyPadding('padding-top')
+  propertyPadding('padding-bottom')
+
+.aside
+  position: fixed
+  z-index: $zIndexSidebar
+  top: 0
+  left: 0
+  width: 250px
+  height: 100%
+  padding: 8px
+  background: $themeColor
+  color: $backgroundColor
+  display: flex
+  flex-direction: column
+  transform: translateX(0%)
+  transition: transform 250ms ease-in-out
+
+.close
+  display: block
+  text-align: right
+
+.checkbox
+  display: none
+
+.checkbox:not(:checked) + .aside
+  transform: translateX(-100%)
+
+.hamburger
+  propertyGutter('margin-right')
+
++from($med)
+  .aside
+  .hamburger
+  .addPost
+    display: none
+
+.heading
+.tagline
+  display: block
+
+.sticky
+  z-index: $zIndexSiteHeader
+  margin-top: 0
+  background: $backgroundColor
+  color: #000
+  transition: background 250ms ease-in-out, color 250ms ease-in-out
+
+.siteName
+  display: inline-block
+  font-size: 28px
+
+  +upTo($med)
+    position: absolute
+    left: 50%
+    transform: translateX(-50%)
