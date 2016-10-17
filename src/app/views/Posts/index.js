@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import config from 'app/config';
 import { getPosts } from 'app/actions/posts';
 import * as appPropTypes from 'app/components/propTypes';
-import DefaultLayout from 'app/layouts/Default';
+import UpdatedStyleDefaultLayout from 'app/layouts/UpdatedStyleDefault';
 import PostListItem from 'app/components/PostListItem';
 
 @connect(state => ({
@@ -46,12 +46,12 @@ export default class PostsView extends Component {
   render() {
     const { posts } = this.props;
     return (
-      <DefaultLayout>
+      <UpdatedStyleDefaultLayout>
         <Helmet title={config.appName} />
         {posts.map(post => (
           <PostListItem key={post.id} {...post} />
         ))}
-      </DefaultLayout>
+      </UpdatedStyleDefaultLayout>
     );
   }
 }

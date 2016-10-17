@@ -83,7 +83,6 @@ export default class AddPostView extends Component {
       text,
       image,
     });
-
     const { post } = this.props;
 
     post && this.props.router.push(`/posts/${post}`);

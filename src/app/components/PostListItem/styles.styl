@@ -1,11 +1,7 @@
 @import '~app/assets/stylus'
 
 .root
-  background: $whiteColor
   padding: 8px
-  border-radius: 16px
-  box-shadow: 1px 1px 4px $shadowColor
-  margin-bottom: 8px
 
 .link
   display: block
@@ -16,11 +12,16 @@
   flex-direction: row
 
 .image
-  height: 100px
-  width: 100px
+  height: 100%
+  width: 200px
+  z-index: 1
   flex: 0 0 auto
 
 .text
+  position: absolute
   display: block
+  padding-top: 250px
+  background: $whiteColor
   flex: 1 1 auto
+  z-index: 0
   margin-left: $minGutter
