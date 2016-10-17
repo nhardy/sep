@@ -1,6 +1,14 @@
 import { fromPairs } from 'lodash-es';
 
 
+export function parseResponse(raw) {
+  const contentType = raw.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
+    return raw.json();
+  }
+  return raw.text();
+}
+
 /**
  * Takes a `fetch()` response and either returns resolved `Response`
  *   if 200 <= response.status < 300. Otherwise or a rejected
@@ -13,11 +21,13 @@ export function checkStatus(response) {
     return response;
   }
 
-  const error = new Error(response.statusText);
-  error.code = response.statusCode;
-  error.response = response;
-
-  return Promise.reject(error);
+  return parseResponse(response).then((parsedResponse) => {
+    return Promise.reject({
+      status: response.status,
+      message: response.statusText,
+      response: parsedResponse,
+    });
+  });
 }
 
 /**

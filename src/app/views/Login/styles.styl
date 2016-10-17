@@ -11,8 +11,13 @@
   padding: 8px 0px 8px
   border-bottom: 1px solid $underlineColor
 
-  &:focus
-    border-bottom: 2px solid $underlineColor
+.errorContainer
+  height: 48px
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  color: $negativeColor
 
 .form
   margin-top: 48px
@@ -38,6 +43,7 @@
     color: $whiteColor
 
 .button
+  -webkit-appearance: none
   width: 100%
   margin-top: 48px
   background: $buttonColor
@@ -62,11 +68,6 @@
 
   &:hover
     background: $underlineColor
-
-.error
-  text-align: center
-  margin: 16px 0px 0px 16px
-  color: $negativeColor
 
 .regContainer
   color: $regText

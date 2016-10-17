@@ -1,4 +1,4 @@
-import { checkStatus, parseHeaders } from 'app/lib/fetch';
+import { checkStatus, parseResponse, parseHeaders } from 'app/lib/fetch';
 
 
 export default function fetchMiddleware() {
@@ -19,13 +19,7 @@ export default function fetchMiddleware() {
         return raw;
       })
       .then(checkStatus)
-      .then((raw) => {
-        const contentType = raw.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-          return raw.json();
-        }
-        return raw.text();
-      })
+      .then(parseResponse)
       .then(
         response => next({
           ...rest,
