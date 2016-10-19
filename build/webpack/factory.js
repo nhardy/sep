@@ -1,3 +1,4 @@
+import fs from 'fs';
 import path from 'path';
 
 import { identity, noop } from 'lodash-es';
@@ -18,6 +19,17 @@ import {
 
 import WriteManifestPlugin from './plugins/WriteManifestPlugin';
 
+
+const babelrc = (() => {
+  const raw = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', '.babelrc')));
+  return {
+    ...raw,
+    presets: [
+      ['es2015', { modules: false }],
+      ...raw.presets.filter(name => !name.includes('es2015')),
+    ],
+  };
+})();
 
 const stylusLoader = ({ production, client }) => {
   const query = {
@@ -121,29 +133,7 @@ export default function webpackFactory({ production = false, client = false, wri
             },
             {
               loader: 'babel-loader',
-              query: {
-                presets: [
-                  // UglifyJS cannot currently work with the level of ES6 webpack2 can
-                  production && ['es2015', { modules: false }],
-                  !production && 'modern/webpack2',
-                  !production && 'modern/safari9',
-                  'es2016',
-                  'es2017',
-                  'stage-0',
-                  'react',
-                ].filter(identity),
-                plugins: [
-                  [
-                    'transform-async-to-module-method',
-                    {
-                      module: 'bluebird',
-                      method: 'coroutine',
-                    },
-                  ],
-                  !production && 'transform-regenerator',
-                  'transform-decorators-legacy',
-                ].filter(identity),
-              },
+              query: babelrc,
             },
           ].filter(identity),
         },
